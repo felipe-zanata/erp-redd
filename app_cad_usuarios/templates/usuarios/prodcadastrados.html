@@ -1,0 +1,229 @@
+{% extends 'usuarios/base.html' %}
+{%  block conteudo %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<title>Lista de Produtos Cadastrados</title>
+<style>
+  body {
+
+    
+    background-color: #faf8f8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar h1 {
+    font-size: 24px; /* Tamanho de fonte menor */
+  }
+
+  .container-fluid.content h1 {
+    font-size: 20px; /* Tamanho de fonte menor */
+  }
+  
+  .content {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 0px 8px rgba(4, 2, 2, 0.994);
+    padding: 10px;
+    max-width: 800px;
+    margin: 10px auto;
+  }
+
+  .content h1 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .container-fluid.content h1 {
+  font-size: 25px; /* Defina o tamanho de fonte desejado */
+  text-align: center; /* Centraliza o texto horizontalmente */
+  }
+  
+  .filter-form button {
+  background-color: #f28d35;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.5s; /* Transiçao ao passar mouse no botao */
+}
+
+.filter-form button:hover {
+  background-color: #f66f00; /* Nova cor ao passar o mouse */
+  color: white;
+}
+
+  .filter-form {
+    margin-bottom: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centralizar verticalmente */
+  }
+
+  .filter-form form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter-form input {
+    padding: 5px;
+    margin: 0 10px;
+    width: 150px;
+  }
+
+  .delete-button {
+  background-color: transparent;
+  border: none;
+  color: #faa65c;
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+  }
+
+  .delete-button::before {
+    content: "X";
+    color: rgb(255, 255, 255);
+    /* position: absolute; */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .delete-button:hover {
+    color: #f8a662;
+  }
+  .edit-button {
+  background-color: transparent;
+  border: none;
+  color: #faa65c;
+  cursor: pointer;
+  font-size: 14px;
+  }
+
+  .edit-button::before {
+    content: "\270E"; /* Código Unicode para o ícone de lápis */
+    position: 5px;
+  }
+
+  .edit-button:hover {
+    color: #ffffff;
+  }
+
+  .icon-container {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+  }
+
+
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+
+  /* Borda da lista de produtos */
+  th, td {
+    padding: 10px;
+    border: 1px solid #0f0101;
+    text-align: center;
+  }
+
+  /* Cor do fundo da lista de produtos */
+  th {
+    background-color: #dedede;
+  }
+
+  ul {
+    margin-top: 20px;
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+</style>
+
+</head>
+<body>
+  <body>
+
+    <!-- Filtrar produtos -->
+    
+   <br><div class="container-fluid content">
+      <h1>Filtrar Produtos</h1>
+      <div class="filter-form">
+        <form action="{% url 'listagem_produtos' %}" method="get">
+          <div style="display: flex; align-items: center;">
+            <input type="text" name="codigo_filtro" placeholder="Código do Produto">
+            <input type="text" name="nome_filtro" placeholder="Nome do Produto">
+            <input type="text" name="quantidade_filtro" placeholder="Quantidade">
+          </div>
+          <button type="submit">Buscar</button>
+        </form>
+      </div>
+    
+      <!-- <table>
+        {% for produto in produtos %}
+        {% endfor %}
+      </table>
+      <ul>
+        {% for produto in produtos %}
+        <li>
+        </li>
+        {% endfor %}
+      </ul> -->
+    </div>
+  
+  <!-- Produtos Cadastrados -->
+  <div class="container-fluid content">
+    <table>
+      <tr>
+        <h1>Lista de Produtos Cadastrados</h1>
+        <th>ID</th>
+        <th>Código do Produto</th>
+        <th>Nome do Produto</th>
+        <th>Quantidade</th>
+        <th>Observação</th>
+        <th>Editar</th>
+        <th>Excluir</th>
+      </tr>
+      <!-- Loop para exibir os registros do banco de dados -->
+      {% for produto in produtos %}
+      <tr>
+        <td>{{ produto.id_usuario }}</td>
+        <td>{{ produto.codigo_produto }}</td>
+        <td>{{ produto.nome_produto }}</td>
+        <td>{{ produto.qtidade_produto }}</td>
+        <td>{{ produto.obs_produto }}</td>
+        <td>
+          <button class="edit-button"></button>
+        </td>
+        <td>
+          <button class="delete-button" onclick="confirmDelete()"></button>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    </div>
+  </div>
+</body>
+</html>
+
+{% endblock %}

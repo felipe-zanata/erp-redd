@@ -1,0 +1,20 @@
+{% extends 'usuarios/base.html' %}
+{%  block conteudo %}
+
+<!-- <form action="{% url 'listagem_produtos' %}" method="POST"> -->
+<form action="{% url 'listagem_produtos' %}" method="POST">
+  {% csrf_token %}
+  
+  <br><div class="container-fluid content">
+    <h1>Cadastro de Produtos</h1>
+    <input name='codprod' type="text" placeholder="Código Produto" style="width: 350px; height: 40px; margin-bottom: 15px;"><br>
+    <input name='nomeprod' type="text" placeholder="Nome Produto" style="width: 350px; height: 40px; margin-bottom: 15px;"><br>
+    <input name='qtdprod' type="number" placeholder="Quantidade" style="width: 350px; height: 40px; margin-bottom: 15px;"><br>
+    <input name='obsprod'  type="text" placeholder="Observações" style="width: 350px; height: 40px; margin-bottom: 15px;"><br>
+    <div class="text-center"> <!-- Adicione a classe text-center para centralizar o botão -->
+      <button class="form-control-sm cadastrar-button">Cadastrar</button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}
