@@ -71,8 +71,6 @@ def produtos_teste(request):
     projeto = ProjetoEstoqueDemo()
     produtos_data = projeto.listar_dados()
 
-    print(produtos_data.val())
-
     # codigo = produtos_data.key()
     # descricao = produtos_data.child('descricao').val()
     # quantidade = produtos_data.child('quantidade').val()

@@ -86,12 +86,12 @@ if __name__ == '__main__':
 
 
     # INSERT
-    sku_fake = random.randint(10000, 99999) 
-    descricao = 'FRITADEIRA ELETRICA'
-    quantidade =  random.randint(1,10)
-    preco=random.uniform(10.,100.)
-    obs ='teste de cadastro'
-    estoque.inserir_produto(sku_fake, descricao, quantidade, preco, obs)
+    # sku_fake = random.randint(10000, 99999) 
+    # descricao = 'FRITADEIRA ELETRICA'
+    # quantidade =  random.randint(1,10)
+    # preco=random.uniform(10.,100.)
+    # obs ='teste de cadastro'
+    # estoque.inserir_produto(sku_fake, descricao, quantidade, preco, obs)
 
     # UPDATE
     # estoque.alterar_qtde_produto(sku=21412,new_qtde=10)

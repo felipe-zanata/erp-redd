@@ -53,6 +53,7 @@
   padding: 5px 10px;
   cursor: pointer;
   margin-top: 10px;
+  margin-right: 10px; /* Adicione margem direita */
   transition: background-color 0.5s; /* Transiçao ao passar mouse no botao */
 }
 
@@ -123,50 +124,87 @@
   .icon-container {
     background-color: #fff;
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: center;
   }
 
-
-
+  
+  .custom-file-button {
+    margin-bottom: 0px;
+    text-align: center;
+    display: inline-block;
+    flex-direction: column;
+    align-items: end; /* Centralizar verticalmente */
+  }
+  
+  
   table {
     border-collapse: collapse;
     width: 100%;
     border: 1px solid #ccc;
   }
-
+  
   /* Borda da lista de produtos */
   th, td {
     padding: 10px;
     border: 1px solid #0f0101;
     text-align: center;
   }
-
+  
   /* Cor do fundo da lista de produtos */
   th {
     background-color: #dedede;
   }
-
+  
   ul {
     margin-top: 20px;
     list-style-type: none;
     padding: 0;
   }
-
+  
   li {
     margin-bottom: 10px;
   }
+
+  tbody{
+    height: 50px; 
+    overflow-y: scroll; 
+  }
+  
+  .export-button {
+    text-align: center;
+    align-content: center;
+    background-color: #f28d35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-inline: 5px;
+    height: auto;
+    width: 150px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+
+  .export-button:hover {
+    background-color: #f66f00;
+    color: white;
+  }
+  
+  .import-input {
+    display: none;
+  }
+  
 </style>
 
 </head>
 <body>
-  <body>
-
     <!-- Filtrar produtos -->
-    
-   <br><div class="container-fluid content">
+   <br>
+    <div class="container-fluid content">
       <h1>Filtrar Produtos</h1>
       <div class="filter-form">
         <form action="{% url 'listagem_produtos' %}" method="get">
@@ -178,53 +216,46 @@
           <button type="submit">Buscar</button>
         </form>
       </div>
-    
-      <!-- <table>
-        {% for produto in produtos %}
-        {% endfor %}
-      </table>
-      <ul>
-        {% for produto in produtos %}
-        <li>
-        </li>
-        {% endfor %}
-      </ul> -->
     </div>
   
   <!-- Produtos Cadastrados -->
   <div class="container-fluid content">
-    <table>
-      <tr>
-        <h1>Lista de Produtos Cadastrados</h1>
-        <th>Código do Produto</th>
-        <th>Nome do Produto</th>
-        <th>Quantidade</th>
-        <th>Observação</th>
-        <th>Editar</th>
-        <th>Excluir</th>
-      </tr>
-      <!-- Loop para exibir os registros do banco de dados -->
-      {% for codigo, produto_info in produtos.items %}
-        <tr>
-            <td>{{ codigo }}</td>
-            <td>{{ produto_info.Descricao }}</td>
-            <td>{{ produto_info.Obs }}</td>
-            <td>{{ produto_info.Quantidade }}</td>
-        <td>
-          <button class="edit-button"></button>
-        </td>
-        <td>
-          <button class="delete-button" onclick="confirmDelete()"></button>
-        </td>
-      </tr>
-      {% endfor %}
-      <tr>
-        <td colspan="4">
-            <button class="export-button">Exportar</button>
-        </td>
-    </tr>
-    </table>
+    <div style="display: flex; align-items: end; justify-content: center;">
+      <h1 style="flex: 1;">Lista de Produtos Cadastrados</h1>
+      <label for="file-input" class="export-button">Importar Excel
+        <input type="file" id="file-input" class="import-input" accept=".xlsx, .xls, .csv">
+      </label>
+      <button class="export-button">Exportar Excel</button>
     </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Código do Produto</th>
+          <th>Nome do Produto</th>
+          <th>Quantidade</th>
+          <th>Observação</th>
+          <th>Editar</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <!-- Loop para exibir os registros do banco de dados -->
+      <tbody>
+        {% for codigo, produto_info in produtos.items %}
+        <tr>
+          <td>{{ codigo }}</td>
+          <td>{{ produto_info.Descricao }}</td>
+          <td>{{ produto_info.Obs }}</td>
+          <td>{{ produto_info.Quantidade }}</td>
+          <td>
+            <button class="edit-button"></button>
+          </td>
+          <td>
+            <button class="delete-button" onclick="confirmDelete()"></button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </body>
 </html>
