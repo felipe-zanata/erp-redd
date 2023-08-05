@@ -1,3 +1,4 @@
+{% extends 'usuarios/base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,19 +92,6 @@
 {% block conteudo %}
 {% load widget_tweaks %}
 <body>
-
-  <form class="form-box">
-    <div class="navbar">
-      <div class="container-fluid d-flex justify-content-center">
-        <!-- <a class="navbar-brand nav-link" href="/inicio/">Inicio</a> -->
-        <a class="navbar-brand nav-link" href="/produtos/">Estoque</a>
-        <a class="navbar-brand nav-link" href="/cadastrar/">Cadastrar Produtos</a>
-        <a class="navbar-brand nav-link" href="/alterar/">Alterar Produtos</a>
-        <a class="navbar-brand nav-link" href="/login/">Sair</a>
-      </div>
-    </div>
-  </form>
-
   <form action="" method="POST">
     <div class="container-fluid">
         {% csrf_token %}

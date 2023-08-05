@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Usuario
 from .forms import UsuarioForm
+from .firebase_crud import ProjetoEstoqueDemo
 
 # def home(request):
 #     return render(request, 'usuarios/home.html')
@@ -67,5 +68,18 @@ def usuarios(request):
         return render(request, 'usuarios/prodcadastrados.html', context=usuarios)
     
 def produtos_teste(request):
-    produtos = {'produtos': Usuario.objects.all()}
+    projeto = ProjetoEstoqueDemo()
+    produtos_data = projeto.listar_dados()
+
+    print(produtos_data.val())
+
+    # codigo = produtos_data.key()
+    # descricao = produtos_data.child('descricao').val()
+    # quantidade = produtos_data.child('quantidade').val()
+    # obs = produtos_data.child('obs').val()
+
+    produtos = {
+        'produtos': produtos_data.val()
+    }
+    # produtos = {'produtos': Usuario.objects.all()}
     return render(request, 'usuarios/prodcadastrados.html', context=produtos)

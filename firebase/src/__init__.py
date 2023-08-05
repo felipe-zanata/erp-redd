@@ -1,1 +1,0 @@
-from .firebase_crud import ProjetoEstoqueDemo

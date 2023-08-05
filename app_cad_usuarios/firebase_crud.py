@@ -74,11 +74,12 @@ class ProjetoEstoqueDemo:
         try:
             db = self.__firebase_cofig.database()
             produtos = db.child("/produtos").get()
-            for item in produtos.each():
-                print(item.key(), item.val(), sep=': ')
+            # for item in produtos.each():
+                # print(item.key(), item.val(), sep=': ')
+            return produtos
         except Exception as e:
             print("Erro ao buscar os dados!",str(e))
-
+        
 
 if __name__ == '__main__':
     estoque = ProjetoEstoqueDemo()
@@ -93,10 +94,10 @@ if __name__ == '__main__':
     estoque.inserir_produto(sku_fake, descricao, quantidade, preco, obs)
 
     # UPDATE
-    estoque.alterar_qtde_produto(sku=21412,new_qtde=10)
+    # estoque.alterar_qtde_produto(sku=21412,new_qtde=10)
 
-    # DELETE
-    estoque.deletar_produto(sku=35678)
+    # # DELETE
+    # estoque.deletar_produto(sku=35678)
 
     # SELECT
-    estoque.listar_dados()
+    # estoque.listar_dados()

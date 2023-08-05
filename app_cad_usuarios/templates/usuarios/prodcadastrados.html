@@ -196,7 +196,6 @@
     <table>
       <tr>
         <h1>Lista de Produtos Cadastrados</h1>
-        <th>ID</th>
         <th>Código do Produto</th>
         <th>Nome do Produto</th>
         <th>Quantidade</th>
@@ -205,13 +204,12 @@
         <th>Excluir</th>
       </tr>
       <!-- Loop para exibir os registros do banco de dados -->
-      {% for produto in produtos %}
-      <tr>
-        <td>{{ produto.id_usuario }}</td>
-        <td>{{ produto.codigo_produto }}</td>
-        <td>{{ produto.nome_produto }}</td>
-        <td>{{ produto.qtidade_produto }}</td>
-        <td>{{ produto.obs_produto }}</td>
+      {% for codigo, produto_info in produtos.items %}
+        <tr>
+            <td>{{ codigo }}</td>
+            <td>{{ produto_info.Descricao }}</td>
+            <td>{{ produto_info.Obs }}</td>
+            <td>{{ produto_info.Quantidade }}</td>
         <td>
           <button class="edit-button"></button>
         </td>
@@ -220,6 +218,11 @@
         </td>
       </tr>
       {% endfor %}
+      <tr>
+        <td colspan="4">
+            <button class="export-button">Exportar</button>
+        </td>
+    </tr>
     </table>
     </div>
   </div>

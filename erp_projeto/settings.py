@@ -1,4 +1,6 @@
 from pathlib import Path
+import pyrebase
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -117,3 +119,29 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# def initialize_firebase():
+#     firebase_config = {
+#         'apiKey': config('API_KEY'),
+#         'authDomain':  config('AUTH_DOMAIN'),
+#         'databaseURL':  config('DATABASE_URL'),
+#         'projectId':  config('PROJECT_ID'),
+#         'storageBucket':  config('STORAGE_BUCKET'),
+#         'messagingSenderId': config('MESSAGING_SENDER_ID'),
+#         'appId':  config('APP_ID')
+#     }
+
+#     firebase = pyrebase.initialize_app(firebase_config)
+#     return firebase
+
+# pyrebase.initialize_app(
+#     {
+#         'apiKey': config('API_KEY'),
+#         'authDomain':  config('AUTH_DOMAIN'),
+#         'databaseURL':  config('DATABASE_URL'),
+#         'projectId':  config('PROJECT_ID'),
+#         'storageBucket':  config('STORAGE_BUCKET'),
+#         'messagingSenderId': config('MESSAGING_SENDER_ID'),
+#         'appId':  config('APP_ID')
+#     })
