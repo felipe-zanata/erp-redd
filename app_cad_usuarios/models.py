@@ -1,5 +1,6 @@
 from django.db import models
 # Produto
+
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key=True)
     codigo_produto = models.TextField()
