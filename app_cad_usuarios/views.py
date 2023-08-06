@@ -50,15 +50,16 @@ def login(request):
     if request.method == "POST":
         nome = request.POST.get('nome')
         if nome:
-            nome_do_usuario(nome)   
+            request.session['nome_usuario'] = nome
+            nome_session = request.session.get('nome_usuario', 'Usuário Anônimo')
+            projeto = ProjetoEstoqueDemo()
+            dados_filtrados = projeto.listar_dados()
         return redirect('listagem_produtos')
     else:
         return render(request, 'login/login.html')
 
 def produtos_filtro(request):
-
     nome = nome_do_usuario(request)['nome']
-    print(nome)
     projeto = ProjetoEstoqueDemo()
     # Recuperar os parâmetros de filtro do request.GET
     codigo_filtro = request.GET.get('codigo_filtro')
@@ -69,7 +70,7 @@ def produtos_filtro(request):
     dados_filtrados = projeto.listar_dados(codigo_filtro, nome_filtro, quantidade_filtro)
 
     # Passar os dados filtrados para o template
-    return render(request, 'produto/prodcadastrados.html', {'produtos': dados_filtrados})
+    return render(request, 'produto/prodcadastrados.html', {'produtos': dados_filtrados, 'nome': nome})
 
 def criar_user(request):
     return render(request, 'adm/criar_user.html')

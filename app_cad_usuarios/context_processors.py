@@ -1,6 +1,6 @@
-def nome_do_usuario(nome):
-    # nome = None
-    # if request.method == "POST":
-    #     nome = request.POST.get('nome')
-    #     print(1,nome)
+def nome_do_usuario(request):
+    nome = None
+    if request.method == "POST":
+        nome = request.POST.get('nome')
+        print(2,nome)
     return {'nome': nome}
