@@ -67,16 +67,29 @@ class ProjetoEstoqueDemo:
         except Exception as e:
             print("Erro ao remover o produto", str(e))
 
-    def listar_dados(self):
-        """lista todos os dados da base"""
+    def listar_dados(self, codigo_filtro=None, nome_filtro=None, quantidade_filtro=None):
+        """lista os dados da base com filtros opcionais"""
         try:
             db = self.__firebase_cofig.database()
-            produtos = db.child("/produtos").get()
-            # for item in produtos.each():
-            #     print(item.key(), item.val(), sep=': ')
-            return produtos
+            produtos = db.child("/produtos").get().val()  # Convertendo para um dicionário de produtos
+
+            # Verificar se há algum filtro
+            if not (codigo_filtro or nome_filtro or quantidade_filtro):
+                return produtos  # Retorna todos os produtos se nenhum filtro foi especificado
+
+            # Aplicar filtros se foram fornecidos
+            produtos_filtrados = []
+            for key, value in produtos.items():
+                if (not codigo_filtro or key == codigo_filtro) and \
+                (not nome_filtro or value.get('nome') == nome_filtro) and \
+                (not quantidade_filtro or value.get('quantidade') == quantidade_filtro):
+                    produtos_filtrados.append(value)
+
+            return produtos_filtrados
         except Exception as e:
-            print("Erro ao buscar os dados!",str(e))
+            print("Erro ao buscar os dados!", str(e))
+
+
         
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Usuario
 from .forms import UsuarioForm
-from .firebase_crud import ProjetoEstoqueDemo
+from .crud.firebase_crud import ProjetoEstoqueDemo
 
 # def home(request):
 #     return render(request, 'usuarios/home.html')
@@ -18,10 +18,9 @@ def cadastrar(request):
             quantidade = data.get('quantidade')
             preco = data.get('preco')
             obs = data.get('obs')
-
             projeto = ProjetoEstoqueDemo()
             projeto.inserir_produto(sku, descricao, quantidade, preco, obs)
-            JsonResponse({"message": "Produto cadastrado com sucesso!"})
+
             return redirect('listagem_produtos')
 
         except json.JSONDecodeError as e:
@@ -43,6 +42,9 @@ def alterar(request):
         produtos = {'formulario': usuario_form}
         return render(request, 'usuarios/alterar.html', context=produtos)
 
+def deletar(request, sku):
+    pass
+
 def login(request):
     return render(request, 'usuarios/login.html')
 
@@ -63,36 +65,16 @@ def login(request):
             
 #     return render(request, 'usuarios/login.html')
 
-def usuarios(request):
-    # Salvar dados da tela para o DB
-    if request.method == 'POST':
-        novo_usuario = UsuarioForm()
-        novo_usuario.produto = request.POST.get('codprod')
-        novo_usuario.nome = request.POST.get('nomeprod')
-        novo_usuario.qtidade = request.POST.get('qtdprod')
-        novo_usuario.obs = request.POST.get('obsprod')
-        novo_usuario.save()
-        return redirect('listagem_produtos')
-    else:
-        usu_form = UsuarioForm()
-        # Exibir produtos cadastrados em uma nova página
-        usuarios = {
-            'usuario': usu_form
-        }
-        # Retornar dados para página de produtos cadastrados
-        return render(request, 'usuarios/prodcadastrados.html', context=usuarios)
-    
-def produtos_teste(request):
+
+def produtos_filtro(request):
     projeto = ProjetoEstoqueDemo()
-    produtos_data = projeto.listar_dados()
+    # Recuperar os parâmetros de filtro do request.GET
+    codigo_filtro = request.GET.get('codigo_filtro')
+    nome_filtro = request.GET.get('nome_filtro')
+    quantidade_filtro = request.GET.get('quantidade_filtro')
 
-    # codigo = produtos_data.key()
-    # descricao = produtos_data.child('descricao').val()
-    # quantidade = produtos_data.child('quantidade').val()
-    # obs = produtos_data.child('obs').val()
+    # Chamar a função listar_dados com os parâmetros de filtro
+    dados_filtrados = projeto.listar_dados(codigo_filtro, nome_filtro, quantidade_filtro)
 
-    produtos = {
-        'produtos': produtos_data.val()
-    }
-    # produtos = {'produtos': Usuario.objects.all()}
-    return render(request, 'usuarios/prodcadastrados.html', context=produtos)
+    # Passar os dados filtrados para o template
+    return render(request, 'usuarios/prodcadastrados.html', {'produtos': dados_filtrados})

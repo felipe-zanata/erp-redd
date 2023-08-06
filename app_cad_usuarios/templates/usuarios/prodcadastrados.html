@@ -10,8 +10,6 @@
 <title>Lista de Produtos Cadastrados</title>
 <style>
   body {
-
-    
     background-color: #faf8f8;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -204,19 +202,20 @@
 <body>
     <!-- Filtrar produtos -->
    <br>
-    <div class="container-fluid content">
-      <h1>Filtrar Produtos</h1>
-      <div class="filter-form">
-        <form action="{% url 'listagem_produtos' %}" method="get">
-          <div style="display: flex; align-items: center;">
-            <input type="text" name="codigo_filtro" placeholder="Código do Produto">
-            <input type="text" name="nome_filtro" placeholder="Nome do Produto">
-            <input type="text" name="quantidade_filtro" placeholder="Quantidade">
-          </div>
-          <button type="submit">Buscar</button>
-        </form>
-      </div>
+   <div class="container-fluid content">
+        <h1>Filtrar Produtos</h1>
+        <div class="filter-form">
+            <form action="{% url 'listagem_produtos' %}" method="get">
+                <div style="display: flex; align-items: center;">
+                    <input type="text" name="codigo_filtro" placeholder="Código do Produto">
+                    <input type="text" name="nome_filtro" placeholder="Nome do Produto">
+                    <input type="text" name="quantidade_filtro" placeholder="Quantidade">
+                </div>
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
     </div>
+
   
   <!-- Produtos Cadastrados -->
   <div class="container-fluid content">
@@ -227,35 +226,37 @@
       </label>
       <button class="export-button">Exportar Excel</button>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Código do Produto</th>
-          <th>Nome do Produto</th>
-          <th>Quantidade</th>
-          <th>Observação</th>
-          <th>Editar</th>
-          <th>Excluir</th>
-        </tr>
-      </thead>
-      <!-- Loop para exibir os registros do banco de dados -->
-      <tbody>
-        {% for codigo, produto_info in produtos.items %}
-        <tr>
-          <td>{{ codigo }}</td>
-          <td>{{ produto_info.Descricao }}</td>
-          <td>{{ produto_info.Quantidade }}</td>
-          <td>{{ produto_info.Obs }}</td>
-          <td>
-            <button class="edit-button"></button>
-          </td>
-          <td>
-            <button class="delete-button" onclick="confirmDelete()"></button>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="table-container" style="height: 500px; overflow-y: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Código do Produto</th>
+            <th>Nome do Produto</th>
+            <th>Quantidade</th>
+            <th>Observação</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        <!-- Loop para exibir os registros do banco de dados -->
+        <tbody>
+          {% for codigo, produto_info in produtos.items %}
+          <tr>
+            <td>{{ codigo }}</td>
+            <td>{{ produto_info.Descricao }}</td>
+            <td>{{ produto_info.Quantidade }}</td>
+            <td>{{ produto_info.Obs }}</td>
+            <td>
+              <button class="edit-button"></button>
+            </td>
+            <td>
+              <button class="delete-button" onclick="confirmDelete()"></button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </body>
 </html>
