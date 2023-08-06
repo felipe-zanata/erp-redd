@@ -31,17 +31,6 @@ def cadastrar(request):
         produtos = {'formulario': usuario_form}
         return render(request, 'produto/cadastro.html', context=produtos)
 
-def alterar(request):
-    if request.method == 'POST':
-        usuario_form = UsuarioForm(request.POST)
-        if usuario_form.is_valid():
-            usuario_form.save()
-        return redirect('listagem_produtos')
-    else:
-        usuario_form = UsuarioForm()
-        produtos = {'formulario': usuario_form}
-        return render(request, 'produto/alterar.html', context=produtos)
-
 def deletar(request, sku):
     pass
 
