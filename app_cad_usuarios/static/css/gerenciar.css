@@ -1,32 +1,43 @@
-/* Box de gerenciamento do ADM */
-.container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgb(0, 0, 0);
-}
-
-/* Espaço entre botoes */
-.menu {
+body {
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
+    justify-content: start;
+    min-height: 100vh;
+    background-color: #f0f0f0;
 }
 
-/* Cor botão e config */
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0px 10px rgb(0, 0, 0);
+    max-width: 400px;
+}
+
+.menu {
+    margin-top: 20px;
+}
+
 .menu a {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
     text-decoration: none;
-    padding: 5px 5px;
     background-color: #f28d35;
-    color: #fff;
-    border: none;
     border-radius: 5px;
 }
 
-/* Degrade ao passar mouse nas opções */
 .menu a:hover {
     background-color: #f66f00;
+}
+
+a {
+    color: #ffffff; /* Altere a cor conforme necessário */
+}
+
+a:hover {
+    color: #ffffff; /* Altere a cor conforme necessário */
 }
