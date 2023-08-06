@@ -11,6 +11,7 @@
 
 </head>
 
+
 <form class="form-box">
   <div class="navbar">
     <div class="container-fluid d-flex justify-content-center">
@@ -18,13 +19,25 @@
       <img src="../static/redd.svg" alt="Logo">
       <a class="navbar-brand nav-link" href="/produtos/">Estoque</a>
       <a class="navbar-brand nav-link" href="/cadastrar/">Cadastrar Produtos</a>
-      <a class="navbar-brand nav-link" href="/login/">Sair</a>
+      <!-- <span class="navbar-brand nav-link">Olá, {{ user.username }}</span>
+      <a class="navbar-brand nav-link" href="/login/">Sair</a> -->
+      <div class="dropdown">
+        <span class="navbar-brand nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user.username }}
+        </span>
+        <div class="dropdown-menu" aria-labelledby="userMenu">
+            <a class="dropdown-item" href="/admin/">Admin</a> <!-- Abre admin do django -->
+            <a class="dropdown-item" href="/adm/">Gerenciamento</a>
+            <a class="dropdown-item" href="/login/">Sair</a>
+            <!-- Adicione outras opções do menu aqui -->
+        </div>
+    </div>
     </div>
   </div>
 </form>
 
     {% block conteudo %}
-  
+
     {% endblock %}
 
 </body>
