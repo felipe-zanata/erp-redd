@@ -11,10 +11,12 @@ class CadastroProduto:
         self.preco = preco
         self.obs = obs
 
+
 class ProjetoEstoqueDemo:
 
     def __init__(self) -> None:
         self.__firebase_cofig = self.configuracao_firebase()
+        # self.nivel_acesso = self.verifica_nivel()
 
     def configuracao_firebase(self):
         """insere os parametros de ligação"""
@@ -43,6 +45,21 @@ class ProjetoEstoqueDemo:
                 "Quantidade": cadastro_produto.quantidade,
                 "Preço": cadastro_produto.preco,
                 "Obs": cadastro_produto.obs})
+            print ("Novo registro adicionado com sucesso")
+
+        except Exception as e:
+            print("Erro ao cadastrar um produto no estoque", str(e))
+    
+    def inserir_historico_mov(self, sku, descricao, quantidade, preco, obs):
+        """grava no banco de dados o historico de entrada e saida do produto"""
+        try:
+            cadastro_produto = CadastroProduto(sku, descricao, quantidade, preco, obs)
+            db = self.__firebase_cofig.database()
+            db.child('/movimentacao').child().set({
+                "usuario" : cadastro_produto.descricao,
+                "data": cadastro_produto.quantidade,
+                "codigo": cadastro_produto.preco,
+                "tipo": cadastro_produto.obs})
             print ("Novo registro adicionado com sucesso")
 
         except Exception as e:
@@ -90,8 +107,6 @@ class ProjetoEstoqueDemo:
             print("Erro ao buscar os dados!", str(e))
 
 
-        
-
 if __name__ == '__main__':
     estoque = ProjetoEstoqueDemo()
 
@@ -103,6 +118,7 @@ if __name__ == '__main__':
     # preco=random.uniform(10.,100.)
     # obs ='teste de cadastro'
     # estoque.inserir_produto(sku_fake, descricao, quantidade, preco, obs)
+    # estoque.inserir_historico_mov(sku_fake, descricao, quantidade, preco, obs)
 
     # UPDATE
     # estoque.alterar_qtde_produto(sku=21412,new_qtde=10)
@@ -111,4 +127,11 @@ if __name__ == '__main__':
     # estoque.deletar_produto(sku=35678)
 
     # SELECT
-    estoque.listar_dados()
+# <<<<<<< stage_firebase
+#     # estoque.listar_dados()
+
+#     # SELECT
+#     estoque.criar_novo_usuario()
+# =======
+#     estoque.listar_dados()
+# >>>>>>> main
