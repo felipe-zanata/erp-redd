@@ -1,4 +1,10 @@
 /* Formatação de input filtros */
+body{
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
 .content input[type="text"] {
     width: 100%;
     padding: 10px;
@@ -49,11 +55,11 @@
 /* Caixa de movimentações */
 .container {
     max-width: 800px;
-    margin: auto;
+    margin-top: 10px;
     padding: 20px;
     background-color: #ffffff;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 15px;
     box-shadow: 0 0 10px rgb(0, 0, 0);
 }
 

@@ -18,15 +18,14 @@
       <img src="../static/redd.svg" alt="Logo">
       <a class="navbar-brand nav-link" href="/produtos/">Estoque</a>
       <a class="navbar-brand nav-link" href="/movimentacao/">Movimentação</a>
-      <a class="navbar-brand nav-link" href="/cadastrar/">Cadastrar Produtos</a>
       <!-- <span class="navbar-brand nav-link">Olá, {{ user.username }}</span>
       <a class="navbar-brand nav-link" href="/login/">Sair</a> -->
       <div class="dropdown">
         <span class="navbar-brand nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {% if nome %}
-              {{ nome }}
+          {% if request.session.nome_usuario %}
+              {{ request.session.nome_usuario }}
           {% else %}
-              Usuário Anônimo
+              Login
           {% endif %}
         </span>
         <div class="dropdown-menu" aria-labelledby="userMenu">
