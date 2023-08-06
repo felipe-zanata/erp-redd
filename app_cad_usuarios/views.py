@@ -4,7 +4,7 @@ from .forms import UsuarioForm
 from .crud.firebase_crud import ProjetoEstoqueDemo
 
 # def home(request):
-#     return render(request, 'usuarios/home.html')
+#     return render(request, 'base/home.html')
 
 import json
 from django.http import JsonResponse
@@ -29,7 +29,7 @@ def cadastrar(request):
     else:
         usuario_form = UsuarioForm()
         produtos = {'formulario': usuario_form}
-        return render(request, 'usuarios/cadastro.html', context=produtos)
+        return render(request, 'produto/cadastro.html', context=produtos)
 
 def alterar(request):
     if request.method == 'POST':
@@ -40,13 +40,26 @@ def alterar(request):
     else:
         usuario_form = UsuarioForm()
         produtos = {'formulario': usuario_form}
-        return render(request, 'usuarios/alterar.html', context=produtos)
+        return render(request, 'produto/alterar.html', context=produtos)
 
 def deletar(request, sku):
     pass
 
 def login(request):
-    return render(request, 'usuarios/login.html')
+    return render(request, 'login/login.html')
+
+def produtos_filtro(request):
+    projeto = ProjetoEstoqueDemo()
+    # Recuperar os parâmetros de filtro do request.GET
+    codigo_filtro = request.GET.get('codigo_filtro')
+    nome_filtro = request.GET.get('nome_filtro')
+    quantidade_filtro = request.GET.get('quantidade_filtro')
+
+    # Chamar a função listar_dados com os parâmetros de filtro
+    dados_filtrados = projeto.listar_dados(codigo_filtro, nome_filtro, quantidade_filtro)
+
+    # Passar os dados filtrados para o template
+    return render(request, 'produto/prodcadastrados.html', {'produtos': dados_filtrados})
 
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos
@@ -64,17 +77,3 @@ def login(request):
 #             pass
             
 #     return render(request, 'usuarios/login.html')
-
-
-def produtos_filtro(request):
-    projeto = ProjetoEstoqueDemo()
-    # Recuperar os parâmetros de filtro do request.GET
-    codigo_filtro = request.GET.get('codigo_filtro')
-    nome_filtro = request.GET.get('nome_filtro')
-    quantidade_filtro = request.GET.get('quantidade_filtro')
-
-    # Chamar a função listar_dados com os parâmetros de filtro
-    dados_filtrados = projeto.listar_dados(codigo_filtro, nome_filtro, quantidade_filtro)
-
-    # Passar os dados filtrados para o template
-    return render(request, 'usuarios/prodcadastrados.html', {'produtos': dados_filtrados})
