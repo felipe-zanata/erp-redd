@@ -41,3 +41,21 @@ body {
   height: auto;
   margin-right: 20px;
 }
+
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}

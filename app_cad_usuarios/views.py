@@ -61,9 +61,18 @@ def produtos_filtro(request):
     # Passar os dados filtrados para o template
     return render(request, 'produto/prodcadastrados.html', {'produtos': dados_filtrados})
 
+def criar_user(request):
+    return render(request, 'adm/criar_user.html')
+
+def gerenciar(request):
+    return render(request, 'adm/gerenciar.html')
+
+def editar_user(request):
+    return render(request, 'adm/editar_remover_user.html')
+
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos
-#     usuario_predefinido = 'teste'
+#     usuario_predefinido = 'geoteste'
 #     senha_predefinida = 'geo'
     
 #     if request.method == 'POST':
