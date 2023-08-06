@@ -36,8 +36,6 @@ class ProjetoEstoqueDemo:
     def inserir_produto(self, sku, descricao, quantidade, preco, obs):
         """cadastramento do novo produto na base"""
         try:
-            # cria uma numeração de sku fake
-
             cadastro_produto = CadastroProduto(sku, descricao, quantidade, preco, obs)
             db = self.__firebase_cofig.database()
             db.child('/produtos').child(cadastro_produto.sku).set({
@@ -75,7 +73,7 @@ class ProjetoEstoqueDemo:
             db = self.__firebase_cofig.database()
             produtos = db.child("/produtos").get()
             # for item in produtos.each():
-                # print(item.key(), item.val(), sep=': ')
+            #     print(item.key(), item.val(), sep=': ')
             return produtos
         except Exception as e:
             print("Erro ao buscar os dados!",str(e))

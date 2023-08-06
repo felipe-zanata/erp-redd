@@ -6,12 +6,27 @@ from .firebase_crud import ProjetoEstoqueDemo
 # def home(request):
 #     return render(request, 'usuarios/home.html')
 
+import json
+from django.http import JsonResponse
+
 def cadastrar(request):
     if request.method == 'POST':
-        usuario_form = UsuarioForm(request.POST)
-        if usuario_form.is_valid():
-            usuario_form.save()
-        return redirect('listagem_produtos')
+        try:
+            data = json.loads(request.body)
+            sku = data.get('sku')
+            descricao = data.get('descricao')
+            quantidade = data.get('quantidade')
+            preco = data.get('preco')
+            obs = data.get('obs')
+
+            projeto = ProjetoEstoqueDemo()
+            projeto.inserir_produto(sku, descricao, quantidade, preco, obs)
+            JsonResponse({"message": "Produto cadastrado com sucesso!"})
+            return redirect('listagem_produtos')
+
+        except json.JSONDecodeError as e:
+            return JsonResponse({"error": "Invalid JSON data"}, status=400)
+
     else:
         usuario_form = UsuarioForm()
         produtos = {'formulario': usuario_form}

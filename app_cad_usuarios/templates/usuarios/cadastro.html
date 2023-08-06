@@ -92,30 +92,87 @@
 {% block conteudo %}
 {% load widget_tweaks %}
 <body>
-
-
-  <form action="" method="POST">
+  <form action="/cadastrar/" method="POST" id="formProduto">
+    {% csrf_token %}
     <div class="container-fluid">
-        {% csrf_token %}
         <br>
-          <h1>Cadastrar Produtos</h1>
-          <div class='form-row align-items-center'>
-          <!-- <label>Código Produto</label> -->
-          {% render_field formulario.codigo_produto class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Código Produto" %}
-          <!-- <label>Nome Produto</label> -->
-          {% render_field formulario.nome_produto class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;"  placeholder="Tipo Produto" %}
-          <!-- <label>Quantidade</label> -->
-          {% render_field formulario.qtidade_produto class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;"  placeholder="Quantidade Produto" %}
-          <!-- <label>Observações</label> -->
-          {% render_field formulario.obs_produto class='form-control centered-placeholder' style="width: 350px; height: 70px; margin-bottom: 15px;"  placeholder="Observação" %}
-          <!-- <label>Hiperlink</label> -->
-          {% render_field formulario.link_produto class='form-control centered-placeholder' style="width: 350px; height: 70px; margin-bottom: 15px;"  placeholder="Hiperlink" %}
-          </div>
-          <div class="text-center my-4">
-          <button class="form-control-sm cadastrar-button custom-button">Cadastrar</button>
-          </div>
+        <h1>Cadastrar Produtos</h1>
+        <div class='form-row align-items-center'>
+            <label>Código Produto</label>
+            <input type="text" id="sku" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Código Produto">
+
+            <label>Nome Produto</label>
+            <input type="text" id="descricao" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Tipo Produto">
+
+            <label>Quantidade</label>
+            <input type="number" id="quantidade" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Quantidade Produto">
+
+            <label>Preço</label>
+            <input type="number" id="preco" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Preço Produto">
+
+            <label>Observações</label>
+            <textarea id="obs" class='form-control centered-placeholder' style="width: 350px; height: 70px; margin-bottom: 15px;" placeholder="Observação"></textarea>
+
+            <!-- Se houver um campo para o hiperlink, adicione-o aqui... -->
+
+            <div class="text-center my-4">
+                <button type="button" class="form-control-sm cadastrar-button custom-button" onclick="enviarFormulario()">Cadastrar</button>
+            </div>
+        </div>
     </div>
   </form>
+
 </body>
+
+<script>
+  function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
+  function enviarFormulario() {
+    // Captura os valores dos campos do formulário
+    var sku = document.getElementById("sku").value;
+    var descricao = document.getElementById("descricao").value;
+    var quantidade = document.getElementById("quantidade").value;
+    var preco = document.getElementById("preco").value;
+    var obs = document.getElementById("obs").value;
+
+    // Cria um objeto com os dados do produto
+    var produto = {
+      "sku": sku,
+      "descricao": descricao,
+      "quantidade": quantidade,
+      "preco": preco,
+      "obs": obs
+    };
+
+    console.log(produto)
+
+    // Converte o objeto para JSON
+    var data = JSON.stringify(produto);
+
+    // Cria uma requisição HTTP (POST) para enviar os dados para o servidor
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/cadastrar/", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    // Obtém o token CSRF do cookie e adiciona-o no cabeçalho da requisição
+    var csrftoken = getCookie('csrftoken');
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        // O produto foi cadastrado com sucesso no servidor
+        console.log("Produto cadastrado com sucesso!");
+      }
+    };
+    // Envia os dados para o servidor
+    console.log(data)
+    xhr.send(data);
+  }
+</script>
+
 
 {% endblock %}
