@@ -1,0 +1,82 @@
+/* Centraliza tudo */
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Fundo cinza do menu principal de todas telas dps de logado */
+.navbar {
+  background-color: #dedede;
+  width: 600;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
+
+/* Formata fontes do menu */
+.nav-link {
+  color: #333;
+  font-weight: bold;
+}
+
+/* Deixa cor laranja ao passar mouse em cima da fonte menu */
+.nav-link:hover {
+  color: #f66f00;
+}
+
+/* Espaçamento de cima do menu para nao cortar a borda do navbar */
+.navbar {
+  margin: 10px;
+}
+
+/* Formatação logo menu */
+.navbar img{
+  width: 110px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.custom-button {
+    background-color: #f28d35; /* Cor de fundo */
+    color: #fff; /* Cor do texto */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+  
+  .custom-button:hover {
+    background-color: #f66f00; /* Cor de fundo ao passar o mouse */
+  }
+
+  .export-button {
+    text-align: center;
+    align-content: center;
+    background-color: #f28d35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-inline: 5px;
+    height: auto;
+    width: 150px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+
+  .export-button:hover {
+    background-color: #f66f00;
+    color: white;
+  }
+  
+  .import-input {
+    display: none;
+  }
