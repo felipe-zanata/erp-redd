@@ -1,0 +1,62 @@
+  /* Centralizar tela de login */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Enfileirar logo, user e senha */
+  .login-container {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
+    width: 300px;
+    text-align: center;
+  }
+
+  /* Input do usuário e senha */
+  .dados-input {
+    width: 250px;
+    padding: 10px;
+    margin: 5px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  /* Alinhamento dos inputs */
+  .login-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  /* Estilização do botao de login */
+  .login-button {
+    background-color: #f28d35;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+
+  /* Degrade quando passa mouse em cima do botao login */
+  .login-button:hover {
+    background-color: #f66f00;
+  }
+
+  /* Centralizar logo na tela login */
+
+  img{
+    width: auto;
+    height: auto;
+    margin-left: 10px;
+  }

@@ -1,0 +1,55 @@
+/* Forma da tela dar baixa */
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.995);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Inputs */
+input[type="text"], select, input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Botao registrar mov */
+button {
+    padding: 5px 7px;
+    background-color: #f28d35;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Botao registrar mov */
+button:hover {
+    background-color: #f66f00;
+}
+
+/* Botao voltar */
+.button {
+    margin-left: 10px;
+    padding: 5px 7px;
+    background-color: #f28d35;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Botao voltar */
+.button:hover {
+    background-color: #f66f00;
+}
