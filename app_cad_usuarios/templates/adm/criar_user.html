@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    {% block conteudo %}
+    {% load widget_tweaks %}
+    <link href="{% static '../static/css/criar_user.css' %}" rel="stylesheet">
+    <title>Criar Novo Usuário</title>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Criar Novo Usuário</h2>
+        <form action="/cadastrar-usuario/" method="POST">
+            <div class="input-group">
+                <label for="login">Login:</label>
+                <input type="text" id="login" name="login" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="confirm-password">Confirmar Senha:</label>
+                <input type="password" id="confirm-password" name="confirm_password" required>
+            </div>
+            <button type="submit">Registrar novo usuário</button>
+            <a class="back-button" href="/adm/">Voltar</a>
+        </form>
+    </div>
+</body>
+</html>
+
+{% endblock %}
