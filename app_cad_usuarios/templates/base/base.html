@@ -23,7 +23,11 @@
       <a class="navbar-brand nav-link" href="/login/">Sair</a> -->
       <div class="dropdown">
         <span class="navbar-brand nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ user.username }}
+          {% if nome %}
+              {{ nome }}
+          {% else %}
+              Usuário Anônimo
+          {% endif %}
         </span>
         <div class="dropdown-menu" aria-labelledby="userMenu">
             <a class="dropdown-item" href="/admin/">Admin</a> <!-- Abre admin do django -->

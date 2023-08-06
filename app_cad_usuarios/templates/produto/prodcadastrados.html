@@ -14,6 +14,7 @@
 </head>
 <body>
     <!-- Filtrar produtos -->
+    <h1>Bem-vindo(a), {{ nome }}!</h1>
    <br>
    <div class="container-fluid content">
         <h1>Filtrar Produtos</h1>
@@ -47,8 +48,8 @@
             <th>Nome do Produto</th>
             <th>Quantidade</th>
             <th>Observação</th>
-            <th>Editar</th>
-            <th>Excluir</th>
+            <!-- <th>Editar</th>
+            <th>Excluir</th> -->
             <th>Dar Baixa</th>
           </tr>
         </thead>
@@ -60,14 +61,17 @@
             <td>{{ produto_info.Descricao }}</td>
             <td>{{ produto_info.Quantidade }}</td>
             <td>{{ produto_info.Obs }}</td>
-            <td>
+            <!-- <td>
               <button class="edit-button"></button>
             </td>
             <td>
               <button class="delete-button" onclick="confirmDelete()"></button>
-            </td>
+            </td> -->
             <td>
-              <a class="baixa-button" href="/dar_baixa/">Dar Baixa</a>
+              <a class="baixa-button" href="/dar_baixa/">
+                <i class="arrow-icon fas fa-arrow-up"></i>
+                <i class="arrow-icon fas fa-arrow-down"></i>
+              </a>
           </td>
           </tr>
           {% endfor %}

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "projeto-estoque-b230c",
+  "private_key_id": "e005de0d8ad98b058215c58720a874e00637eb8e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC1EoADADTFK+Ki\nB7BrEIUN0LoMjVAo2ArNaZos8T9oQjNO3+cnJVJzsdbkvWtcSXkiGj6W/WpJQQ0y\n8Nti1N542nim9pa91xNj0276frEyFO0qbSb/fDL56Mtu9vKDRzRQVpBW47YfvRzV\nFwFitZ27EDrhkWhXMepUsvb+7pu1IPGroDKELNCvPIJOuYpP1XUd5b0yWFy8lAna\n8LxTUR6STl95YpHAtUGaUcHaB91yH6WV6kTNEzaWnTr8NYu7wuErBAM8LY6dqs2d\n5PWnz0GZhUXApqCgXkO0A+LKJWO+PKJ6p4hupqSd5vGllyaiFpWRd4pEuN3tMoTp\n6xGBpC1TAgMBAAECggEAMrzoWe7o2ocdjkGRUa7jWaevOm0ulQNUo5J/vTAskE5c\nijF7WCDBJeIjUR0yxD1iUAgCmdSQv84WoLuU/fCgFkVBoadfPfrSWBqa8l4l0N7E\nRisnzldDAXwV5RYVhmuhYRGgiHhuRB59wcgcf0hc1loJ5cMU9bnq66jqRS0fPHVx\nQvqtkUa13caN1VGy1jEc+qtuqZv6Xp07AMvYhdkyjojgXsjOB+5w6xATpX7niUtP\n5KQ5uxIbCC+JZfcaNpN+kKjnzcT4RKwBIhu+YwMVhe/WwRPmmJXr3YoexUahr34M\nM4lO5Oww3AeYVK5MEJw+ncAhzLZ2m9eUoOKOrUihQQKBgQDyOeRFN1ccFdVCLnJK\nHJqP3GVXBPSeYP8hQyZsFFrvg4rjlwXKb06rVNU5W1yUftZovGtv462GH6ppacdL\ni94ccyieFhaoiWtuWjx8XGnNq5z0jTY3oto1sOmhCfiYN7LU3xbYRWwamHLQ7pul\nFK7jUS750IDrveCHyxzHPdM/qwKBgQC/XmLBzpZfY6TCuINb+IOeqkVw3nNbZq8J\nvh1EkXbgDDTcon/XT6phgBPjJAV+CES0WL2yhE3n3AIE9oPiNLiW76ArkNyLRt/+\nxJDhQDk6CO7GnxO9S2g5PBAanVxDKNzyjilUH7TMfFSP19hPcC6NQOoOIMvHU/sM\n5O/dT0HA+QKBgBXW/Gr1O2hv24OVFn7yJ0lzULvQ2ZFyI27HVC6Ig053KM2ubzo6\nYPh3tKXwQ9+rs/9LhdBX0ex27HGGtQ5ttQARrgba7P4TLdmMT0nTN0LxBzzRgqLv\njwcqRVZcxMpMs1YYK0IiuEWJm0iVSvlObRpX1ol1sDoRK65ytMyOGX7zAoGAA/En\ny6I7yr88t54hZpWZ8HzFbWvHqIxW8rZt1+m/LyJRPHJEe+TyN4vx3O3zBwOYlrZ1\nQeYjzLDlgcCqOtCnNMS+4ebcBCpzlsXpzhoKk713XbQNLgsNnJA2LLYtHl0LIBv5\nkfgNO2EcRNJHbGt9Kf+6UowuZm6+byeQIVjum9ECgYBMfX2DQu4GmRWyxvypVWFJ\nwTtEScy7J5wF5XrPe85DBVY5vFrebUXrIudxubcestk0MMJAR2KtosGWhqipeQfe\no8ZmsSz4bStPMOKW4TIcdZuB9bvhyF79wVUffAe+SFdo1yW0aZ8DXdqDBV143LmX\ntDJElCyRFy7QSkzLiGfS2Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-tvcap@projeto-estoque-b230c.iam.gserviceaccount.com",
+  "client_id": "102203982657626617514",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-tvcap%40projeto-estoque-b230c.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

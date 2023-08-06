@@ -4,12 +4,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tela de Movimentações</title>
-    {% load static %}
-    <link href="{% static '../static/css/movs.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<title>Tela de Movimentações</title>
+
+{% load static %}
+<link href="{% static '../static/css/movs.css' %}" rel="stylesheet">
 
 </head>
 <body>
+     <!-- Filtrar produtos -->
+   <br>
+   <div class="container-fluid content">
+        <h1>Filtrar Histórico</h1>
+        <div class="filter-form">
+            <form action="{% url 'listagem_produtos' %}" method="get">
+                <div style="display: flex; align-items: center;">
+                    <input type="text" name="codigo_filtro" placeholder="Código do Produto">
+                    <input type="text" name="nome_filtro" placeholder="Nome do Produto">
+                    <input type="text" name="quantidade_filtro" placeholder="Quantidade">
+                </div>
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+
     <div class="container">
         <h2>Movimentações</h2>
         <table>
@@ -33,9 +51,8 @@
                     <td>123456</td>
                     <td>Produto A</td>
                     <td>10</td>
-                    <td><button>Editar</button>
-                    </td>
-                    <td><button>Deletar</button></td>
+                    <td><button><i class="fas fa-edit"></i></button></td>
+                    <td><button><i class="fas fa-trash-alt"></i></button></td>
                 </tr>
                 <!-- Adicione mais linhas conforme necessário -->
             </tbody>

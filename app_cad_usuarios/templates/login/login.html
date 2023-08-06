@@ -11,12 +11,16 @@
 </head>
 <body>
 <div class="login-container">
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %}
   <img src="../static/redd.svg" alt="Logo">
-  <input type="text" class="dados-input" placeholder="Usuário">
+  <input type="text" class="dados-input" name="nome" placeholder="Usuário">
   <input type="password" class="dados-input" placeholder="Senha">
   <div class="login-button-container">
-    <button class="login-button" onclick="window.location.href='/produtos/'">Entrar</button>
+    <!-- <button class="login-button" onclick="window.location.href='/produtos/'">Entrar</button> -->
+    <button class="login-button" >Entrar</button>
   </div>
+</form>
 </div>
 </body>
 </html>

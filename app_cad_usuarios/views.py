@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Usuario
 from .forms import UsuarioForm
 from .crud.firebase_crud import ProjetoEstoqueDemo
+from .context_processors import nome_do_usuario 
 
 # def home(request):
 #     return render(request, 'base/home.html')
@@ -46,9 +47,18 @@ def deletar(request, sku):
     pass
 
 def login(request):
-    return render(request, 'login/login.html')
+    if request.method == "POST":
+        nome = request.POST.get('nome')
+        if nome:
+            nome_do_usuario(nome)   
+        return redirect('listagem_produtos')
+    else:
+        return render(request, 'login/login.html')
 
 def produtos_filtro(request):
+
+    nome = nome_do_usuario(request)['nome']
+    print(nome)
     projeto = ProjetoEstoqueDemo()
     # Recuperar os parâmetros de filtro do request.GET
     codigo_filtro = request.GET.get('codigo_filtro')
