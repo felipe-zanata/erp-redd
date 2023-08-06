@@ -16,5 +16,7 @@ urlpatterns = [
     path('criar_user/', views.criar_user, name='criar_usuario'),
     path('adm/', views.gerenciar, name='gerenciar'),
     path('editar_user/', views.editar_user, name='editar_user'),
+    path('movimentacao/', views.movimentacao, name='movimentacao'),
+    path('dar_baixa/', views.dar_baixa, name='baixa'),
     path('admin/', admin.site.urls),
 ]   

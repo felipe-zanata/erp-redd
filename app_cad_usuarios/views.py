@@ -70,6 +70,12 @@ def gerenciar(request):
 def editar_user(request):
     return render(request, 'adm/editar_remover_user.html')
 
+def movimentacao(request):
+    return render(request, 'produto/movimentacao.html')
+
+def dar_baixa(request):
+    return render(request, 'produto/dar_baixa.html')
+
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos
 #     usuario_predefinido = 'geoteste'

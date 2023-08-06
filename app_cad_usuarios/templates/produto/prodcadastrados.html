@@ -49,6 +49,7 @@
             <th>Observação</th>
             <th>Editar</th>
             <th>Excluir</th>
+            <th>Dar Baixa</th>
           </tr>
         </thead>
         <!-- Loop para exibir os registros do banco de dados -->
@@ -65,6 +66,9 @@
             <td>
               <button class="delete-button" onclick="confirmDelete()"></button>
             </td>
+            <td>
+              <a class="baixa-button" href="/dar_baixa/">Dar Baixa</a>
+          </td>
           </tr>
           {% endfor %}
         </tbody>
