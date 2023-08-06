@@ -84,20 +84,20 @@ class AuthUsuarios:
         except Exception as erro:
             raise ValueError(erro)
 
-if __name__ == '__main__':
-    auth = AuthUsuarios()
+# if __name__ == '__main__':
+#     auth = AuthUsuarios()
     # auth.select_dados()
 
-#     # # inserir novo usuario
-    novo_usuario = {
-        'nome': 'Geovanne',
-        'senha': '123',
-        'avatar_url': 'http//teste',
-        'email': 'Geovanne@gmail.com'
-    }
-#     # auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
+    # inserir novo usuario
+    # novo_usuario = {
+    #     'nome': 'Geovanne',
+    #     'senha': '123',
+    #     'avatar_url': 'http//teste',
+    #     'email': 'Geovanne@gmail.com'
+    # }
+    # auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
 
-#     # #Testar auth
+    # #Testar auth
     # usr = auth.select_dados(nome_usuario='luiz.eduardo', tipo_acesso='geral')
     # usr = auth.select_dados(nome_usuario="luiz.eduardo",tipo_acesso='admin')
     # print(usr)
