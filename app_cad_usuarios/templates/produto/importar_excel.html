@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        {% load static %}
+        {% block conteudo %}
+        {% load widget_tweaks %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Importar Excel</title>
+    </head>
+    <body>
+        <h2>Importar Arquivo Excel</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="excelFile">Escolha um arquivo Excel para importar:</label>
+            <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls">
+            <button type="submit">Importar</button>
+        </form>
+    </body>
+    </html>
+
+{% endblock %}
