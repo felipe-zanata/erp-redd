@@ -127,7 +127,11 @@ if __name__ == '__main__':
     # estoque.deletar_produto(sku=35678)
 
     # SELECT
-    # estoque.listar_dados()
+# <<<<<<< stage_firebase
+#     # estoque.listar_dados()
 
-    # SELECT
-    estoque.criar_novo_usuario()
+#     # SELECT
+#     estoque.criar_novo_usuario()
+# =======
+#     estoque.listar_dados()
+# >>>>>>> main

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Usuario
 from .forms import UsuarioForm
 from .crud.firebase_crud import ProjetoEstoqueDemo
+from .context_processors import nome_do_usuario 
 
 # def home(request):
 #     return render(request, 'base/home.html')
@@ -46,9 +47,18 @@ def deletar(request, sku):
     pass
 
 def login(request):
-    return render(request, 'login/login.html')
+    if request.method == "POST":
+        nome = request.POST.get('nome')
+        if nome:
+            nome_do_usuario(nome)   
+        return redirect('listagem_produtos')
+    else:
+        return render(request, 'login/login.html')
 
 def produtos_filtro(request):
+
+    nome = nome_do_usuario(request)['nome']
+    print(nome)
     projeto = ProjetoEstoqueDemo()
     # Recuperar os parâmetros de filtro do request.GET
     codigo_filtro = request.GET.get('codigo_filtro')
@@ -61,9 +71,24 @@ def produtos_filtro(request):
     # Passar os dados filtrados para o template
     return render(request, 'produto/prodcadastrados.html', {'produtos': dados_filtrados})
 
+def criar_user(request):
+    return render(request, 'adm/criar_user.html')
+
+def gerenciar(request):
+    return render(request, 'adm/gerenciar.html')
+
+def editar_user(request):
+    return render(request, 'adm/editar_remover_user.html')
+
+def movimentacao(request):
+    return render(request, 'produto/movimentacao.html')
+
+def dar_baixa(request):
+    return render(request, 'produto/dar_baixa.html')
+
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos
-#     usuario_predefinido = 'teste'
+#     usuario_predefinido = 'geoteste'
 #     senha_predefinida = 'geo'
     
 #     if request.method == 'POST':

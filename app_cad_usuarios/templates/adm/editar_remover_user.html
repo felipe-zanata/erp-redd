@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    {% block conteudo %}
+    {% load widget_tweaks %}
+    <link href="{% static '../static/css/editar_remover_user.css' %}" rel="stylesheet">
+    <title>Gerenciamento de Contas</title>
+    <style>
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gerenciamento de Contas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuário</th>
+                    <th>Senha</th>
+                    <th class="button-cell">Editar</th>
+                    <th class="button-cell">Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>usuario1</td>
+                    <td>senha123</td>
+                    <td class="button-cell">
+                        <button class="button">Editar</button>
+                    </td>
+                    <td class="button-cell">
+                        <button class="button">Deletar</button>
+                    </td>
+                </tr>
+                <!-- Adicione mais linhas conforme necessário -->
+            </tbody>
+        </table>
+        <a class="button" href="/adm/">Voltar</a>
+    </div>
+</body>
+</html>
+
+{% endblock %}
