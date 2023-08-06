@@ -4,70 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tela de Login</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .login-container {
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgb(0, 0, 0);
-    width: 300px;
-    text-align: center;
-  }
+{% load static %}
 
-  .login-input {
-    width: 250px;
-    padding: 10px;
-    margin: 5px; 
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+<link href="{% static '../static/css/login.css' %}" rel="stylesheet">
 
-  .login-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-  }
-
-  .login-button {
-    background-color: #f28d35;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.5s;
-  }
-
-  .login-button:hover {
-    background-color: #f66f00;
-  }
-
-  img{
-    width: auto;
-    height: auto;
-    margin-left: 10px;
-  }
-  
-
-</style>
 </head>
 <body>
 <div class="login-container">
   <img src="../static/redd.svg" alt="Logo">
-  <input type="text" class="login-input" placeholder="Usuário">
-  <input type="password" class="login-input" placeholder="Senha">
+  <input type="text" class="dados-input" placeholder="Usuário">
+  <input type="password" class="dados-input" placeholder="Senha">
   <div class="login-button-container">
     <button class="login-button" onclick="window.location.href='/produtos/'">Entrar</button>
   </div>
