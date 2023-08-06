@@ -25,29 +25,62 @@ class AuthUsuarios:
         documento_admin.set({})
         documento_admin.collection('id')
 
-    def select_dados(self, nome_usuario: str, tipo_acesso: str):
+    def select_dados(self, nome_usuario: str = None, tipo_acesso: str = "geral"):
         """retorna os dados dentro da coleção"""
         try:
             colecao = self.__firebase.collection('usuarios').document(tipo_acesso)
             colecao_id = colecao.collection('id')
             docs = colecao_id.get()
 
-            for doc in docs:
-                if doc['nome'] == nome_usuario:
-                    return doc.to_dict()
-            return {}
+            if nome_usuario is not None:
+                for doc in docs:
+                    data = doc.to_dict()
+                    if data['nome'] == nome_usuario:
+                        return {'id': doc.id, **data}
+                return {}
+            else:
+                # If nome_usuario is not provided, fetch all users and their data.
+                all_users_data = {}
+                for doc in docs:
+                    data = doc.to_dict()
+                    all_users_data[doc.id] = data
+                return all_users_data
 
         except Exception as error:
             raise ValueError(error)
 
-    def inserir_novo_usuario(self, dados: dict, tipo_usuario: str):
+    def inserir_novo_usuario(self, dados: dict, tipo_usuario: str = 'geral'):
         """inseri um novo usuário na base de dados do Firebase"""
         try:
             colecao = self.__firebase.collection('usuarios')\
                                      .document(tipo_usuario)\
                                      .collection('id')
             
-            id_do_usuario = colecao.add({**dados})    
+            id_do_usuario = colecao.add({**dados})
+        except Exception as erro:
+            raise ValueError(erro)
+    
+    def editar_usuario(self, tipo_usuario: str, id_do_usuario: str, novos_dados: dict):
+        """Edita os dados de um usuário na base de dados do Firebase"""
+        try:
+            colecao = self.__firebase.collection('usuarios')\
+                                    .document(tipo_usuario)\
+                                    .collection('id')\
+                                    .document(id_do_usuario)
+            
+            colecao.update(novos_dados)
+        except Exception as erro:
+            raise ValueError(erro)
+    
+    def deletar_usuario(self, tipo_usuario: str, id_do_usuario: str):
+        """Deleta um usuário na base de dados do Firebase"""
+        try:
+            colecao = self.__firebase.collection('usuarios')\
+                                    .document(tipo_usuario)\
+                                    .collection('id')\
+                                    .document(id_do_usuario)
+            
+            colecao.delete()
         except Exception as erro:
             raise ValueError(erro)
 
@@ -55,14 +88,16 @@ if __name__ == '__main__':
     auth = AuthUsuarios()
     # auth.select_dados()
 
-
-    # inserir novo usuario
-
+#     # # inserir novo usuario
     novo_usuario = {
-        'nome': 'kz',
+        'nome': 'Geovanne',
         'senha': '123',
         'avatar_url': 'http//teste',
-        'email': 'luiz.cassimiro@gmail.com'
+        'email': 'Geovanne@gmail.com'
     }
-    auth.inserir_novo_usuario(novo_usuario, 'geral')
+#     # auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
 
+#     # #Testar auth
+    # usr = auth.select_dados(nome_usuario='luiz.eduardo', tipo_acesso='geral')
+    # usr = auth.select_dados(nome_usuario="luiz.eduardo",tipo_acesso='admin')
+    # print(usr)
