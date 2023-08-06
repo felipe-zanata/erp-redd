@@ -111,4 +111,4 @@ if __name__ == '__main__':
     # estoque.deletar_produto(sku=35678)
 
     # SELECT
-    # estoque.listar_dados()
+    estoque.listar_dados()

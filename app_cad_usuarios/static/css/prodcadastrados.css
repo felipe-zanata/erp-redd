@@ -116,22 +116,52 @@
 table {
   border-collapse: collapse;
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid #BDBDBD;
 }
 
 /* Borda da lista de produtos */
 th, td {
   padding: 10px;
-  border: 1px solid #0f0101;
   text-align: center;
 }
 
-/* Cor do fundo da lista de produtos */
 th {
   background-color: #dedede;
+  border: 1px solid #BDBDBD;
+}
+
+td {
+  border-top: 1px solid #BDBDBD;
 }
 
 tbody{
   height: 50px; 
   overflow-y: scroll; 
+}
+
+.baixa-button {
+  text-align: center;
+  align-content: center;
+  background-color: #f28d35;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-inline: 5px;
+  height: auto;
+  width: 150px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.5s;
+}
+
+/* Cor do exportar e importar */
+.baixa-button:hover {
+  background-color: #f66f00;
+  color: white;
+}
+
+.arrow-icon {
+  margin: 3px;
 }

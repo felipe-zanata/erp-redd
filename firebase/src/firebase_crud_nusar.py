@@ -83,23 +83,23 @@ class ProjetoEstoqueDemo:
         
 
 
-# if __name__ == '__main__':
-#     estoque = ProjetoEstoqueDemo()
+if __name__ == '__main__':
+    estoque = ProjetoEstoqueDemo()
 
 
-#     # INSERT
-#     sku_fake = random.randint(10000, 99999) 
-#     descricao = 'FRITADEIRA ELETRICA'
-#     quantidade =  random.randint(1,10)
-#     preco=random.uniform(10.,100.)
-#     obs ='teste de cadastro'
-#     estoque.inserir_produto(sku_fake, descricao, quantidade, preco, obs)
+    # INSERT
+    sku_fake = random.randint(10000, 99999) 
+    descricao = 'FRITADEIRA ELETRICA'
+    quantidade =  random.randint(1,10)
+    preco=random.uniform(10.,100.)
+    obs ='teste de cadastro'
+    estoque.inserir_produto(sku_fake, descricao, quantidade, preco, obs)
 
-#     # UPDATE
-#     estoque.alterar_qtde_produto(sku=21412,new_qtde=10)
+    # UPDATE
+    estoque.alterar_qtde_produto(sku=21412,new_qtde=10)
 
-#     # DELETE
-#     estoque.deletar_produto(sku=35678)
+    # DELETE
+    estoque.deletar_produto(sku=35678)
 
-#     # SELECT
-#     estoque.listar_dados()
+    # SELECT
+    estoque.listar_dados()
