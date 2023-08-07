@@ -7,7 +7,7 @@ class Estoque:
     def __init__(self) -> None:
         self.__dir_credencial = 'app_cad_usuarios\crud\credencial.json'
         self.__firebase = self.configura_credenciais()
-        self.criar_colecao()
+        # self.criar_colecao()
 
     def configura_credenciais(self):
         """cria a conexao de autenticação"""
@@ -63,11 +63,11 @@ if __name__ == '__main__':
     #     'obs': 'teste cadastro'
     # }
     # estoque.insert_novo_produto(dados)
-    # update_dados = {
-    #     'sku': '123abc',
-    #     'url': 'http//url.arquivo.com',
-    #     'obs': 'teste2',
-    #     'quantidade': 15
-    # }
-    # estoque.update_dados_produto(update_dados)
+    update_dados = {
+        'sku': '123abc',
+        'url': 'http//url.arquivo.com',
+        'obs': 'teste2',
+        'quantidade': 16
+    }
+    estoque.update_dados_produto(update_dados)
     # estoque.delete_dados_produto('123abc')
