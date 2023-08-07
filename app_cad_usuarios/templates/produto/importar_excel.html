@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {%  block conteudo %}
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,45 +8,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-{% load static %}
-<link href="{% static '../static/css/importar_excel.css' %}" rel="stylesheet">
 
+<!DOCTYPE html>
+<html>
+<head>
+<link href="{% static '../static/css/importar_excel.css' %}" rel="stylesheet">
 </head>
 <body>
-  <!-- Produtos Cadastrados -->
   <div class="container-fluid content">
-    <div style="display: flex; align-items: end; justify-content: center;">
-      <h1 style="flex: 1;">Lista de Produtos Importados</h1>
-      <label for="file-input" class="export-button">Importar Excel
-        <input type="file" id="file-input" class="import-input" accept=".xlsx, .xls, .csv">
-      </label>
-      <a class="back-button" href="/adm/" style="margin-bottom: 12px;">Voltar</a>
-    </div>
-    <div class="table-container" style="height: 500px; overflow-y: auto;">
-      <table>
-        <thead>
-          <tr>
+  <h1 class="page-title">Importar Excel</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+    </form>
+
+    {% if excel_data %}
+    <h1 class="dados-imp">Dados Importados</h1>
+    <table>
+        <tr>
             <th>Código do Produto</th>
             <th>Nome do Produto</th>
             <th>Quantidade</th>
             <th>Hiperlink</th>
             <th>Observação</th>
-          </tr>
-        </thead>
-        <!-- Loop para exibir os registros do banco de dados -->
-        <tbody>
-          {% for codigo, produto_info in produtos.items %}
-          <tr>
-            <td>{{ codigo }}</td>
-            <td>{{ produto_info.Descricao }}</td>
-            <td>{{ produto_info.Quantidade }}</td>
-            <td>{{ produto_info.Hiperlink }}</td>
-            <td>{{ produto_info.Obs }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+        </tr>
+        {% for row in excel_data %}
+        <tr>
+            <td>{{ row.Codigo }}</td>
+            <td>{{ row.Nome }}</td>
+            <td>{{ row.Quantidade }}</td>
+            <td>{{ row.Hiperlink }}</td>
+            <td>{{ row.Observacao }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
   </div>
 </body>
 </html>
