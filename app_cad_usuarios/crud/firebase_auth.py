@@ -3,17 +3,25 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 class AuthUsuarios:
+    _instance = None
+
     def __init__(self) -> None:
         self.__dir_credencial = 'app_cad_usuarios\crud\credencial.json'
         self.__firebase = self.configura_credenciais()
         self.criar_colecao('admin')
         self.criar_colecao('geral')
 
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(AuthUsuarios, cls).__new__(cls)
+        return cls._instance
+    
     def configura_credenciais(self):
         """cria a conexao de autenticação"""
         try:
-            cred = credentials.Certificate(self.__dir_credencial)
-            firebase_admin.initialize_app(credential=cred)
+            if not firebase_admin._apps:
+                cred = credentials.Certificate(self.__dir_credencial)
+                firebase_admin.initialize_app(credential=cred)
             return firestore.client()
         
         except Exception as e:
@@ -101,9 +109,10 @@ class AuthUsuarios:
         except Exception as erro:
             raise ValueError(erro)
 
-# if __name__ == '__main__':
-    # auth = AuthUsuarios()
-#     # auth.select_dados()
+if __name__ == '__main__':
+    auth = AuthUsuarios()
+    luiz = auth.select_dados('luiz')
+    print(luiz)
 
 #     # inserir novo usuario
 #     # novo_usuario = {

@@ -5,17 +5,23 @@ import pytz
 from firebase_admin import credentials, firestore
 
 class Movimentacao:
-
+    _instance = None
     def __init__(self) -> None:
         self.__dir_credencial = 'app_cad_usuarios\crud\credencial.json'
         self.__firebase = self.configura_credenciais()
         # self.criar_colecao()
 
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Movimentacao, cls).__new__(cls)
+        return cls._instance 
+
     def configura_credenciais(self):
         """cria a conexao de autenticação"""
         try:
-            cred = credentials.Certificate(self.__dir_credencial)
-            firebase_admin.initialize_app(credential=cred)
+            if not firebase_admin._apps:
+                cred = credentials.Certificate(self.__dir_credencial)
+                firebase_admin.initialize_app(credential=cred)
             return firestore.client()
         
         except Exception as e:
