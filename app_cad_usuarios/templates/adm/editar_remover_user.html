@@ -25,14 +25,20 @@
                 </tr>
             </thead>
             <tbody>
+                {% for chave, valor in dados.items %}
                 <tr>
-                    <td>admin</td>
-                    <td>Fe</td>
-                    <td>djiia@hotmail.com</td>
-                    <td>senha123</td>
-                    <td><button><i class="fas fa-edit"></i></button></td>
-                    <td><button><i class="fas fa-trash-alt"></i></button></td>
+                    <td>{{ valor.tipo_acesso }}</td>
+                    <td>{{ valor.nome }}</td>
+                    <td>{{ valor.email }}</td>
+                    <td>{{ valor.senha }}</td>
+                    <td>
+                        <button type="submit"><i class="fas fa-edit"></i></button>
+                    </td>
+                    <td>
+                        <button><i class="fas fa-trash-alt"></i></button>
+                    </td>
                 </tr>
+                {% endfor %}
                 <!-- Adicione mais linhas conforme necessário -->
             </tbody>
         </table>

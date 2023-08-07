@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Usuario
 from .forms import UsuarioForm
 from .crud.firebase_crud import ProjetoEstoqueDemo
+from .crud.firebase_auth import AuthUsuarios
 from .context_processors import nome_do_usuario 
 
 # def home(request):
@@ -48,18 +49,28 @@ def deletar(request, sku):
 
 def login(request):
     if request.method == "POST":
-        nome = request.POST.get('nome')
-        if nome:
-            request.session['nome_usuario'] = nome
-            nome_session = request.session.get('nome_usuario', 'Usuário Anônimo')
-            projeto = ProjetoEstoqueDemo()
-            dados_filtrados = projeto.listar_dados()
-        return redirect('listagem_produtos')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        auth = AuthUsuarios()
+        data = auth.select_dados(email_usuario=email)
+        if data['senha'] == senha:
+            print("Logado!")
+            request.session['id'] = data['id']
+            request.session['tipo_acesso'] = data['tipo_acesso']
+            request.session['senha'] = data['senha']
+            request.session['nome'] = data['nome']
+            request.session['avatar_url'] = data['avatar_url']
+            request.session['email'] = data['email']
+            return redirect('listagem_produtos')
+        else:
+            print("Senha incorreta")
+        
     else:
         return render(request, 'login/login.html')
 
+    return render(request, 'login/login.html')
+
 def produtos_filtro(request):
-    nome = nome_do_usuario(request)['nome']
     projeto = ProjetoEstoqueDemo()
     # Recuperar os parâmetros de filtro do request.GET
     codigo_filtro = request.GET.get('codigo_filtro')
@@ -70,7 +81,7 @@ def produtos_filtro(request):
     dados_filtrados = projeto.listar_dados(codigo_filtro, nome_filtro, quantidade_filtro)
 
     # Passar os dados filtrados para o template
-    return render(request, 'produto/prodcadastrados.html', {'produtos': dados_filtrados, 'nome': nome})
+    return render(request, 'produto/prodcadastrados.html', {'produtos': dados_filtrados})
 
 def criar_user(request):
     return render(request, 'adm/criar_user.html')
@@ -79,7 +90,30 @@ def gerenciar(request):
     return render(request, 'adm/gerenciar.html')
 
 def editar_user(request):
-    return render(request, 'adm/editar_remover_user.html')
+    if request.method == 'GET':
+        try:
+            auth = AuthUsuarios()
+            dados = auth.select_dados()
+            # print(dados)
+            return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
+        except Exception as error:
+            return render(request, 'adm/editar_remover_user.html')
+    else:
+        print("post")
+        return render(request, 'adm/editar_remover_user.html')
+
+def deletar_user(request):
+    if request.method == 'GET':
+        try:
+            auth = AuthUsuarios()
+            dados = auth.select_dados()
+            # print(dados)
+            return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
+        except Exception as error:
+            return render(request, 'adm/editar_remover_user.html')
+    else:
+        print("post")
+        return render(request, 'adm/editar_remover_user.html')
 
 def movimentacao(request):
     return render(request, 'produto/movimentacao.html')

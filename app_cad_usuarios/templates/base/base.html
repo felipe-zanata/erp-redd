@@ -22,8 +22,8 @@
       <a class="navbar-brand nav-link" href="/login/">Sair</a> -->
       <div class="dropdown">
         <span class="navbar-brand nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {% if request.session.nome_usuario %}
-              {{ request.session.nome_usuario }}
+          {% if request.session.nome %}
+              {{ request.session.nome }}
           {% else %}
               Login
           {% endif %}

@@ -25,29 +25,46 @@ class AuthUsuarios:
         documento_admin.set({})
         documento_admin.collection('id')
 
-    def select_dados(self, nome_usuario: str = None, tipo_acesso: str = "geral"):
-        """retorna os dados dentro da coleção"""
+    def select_dados(self, email_usuario: str = None, tipo_acesso: str = None):
+        """Retorna os dados dentro da coleção"""
         try:
-            colecao = self.__firebase.collection('usuarios').document(tipo_acesso)
-            colecao_id = colecao.collection('id')
-            docs = colecao_id.get()
+            colecao = self.__firebase.collection('usuarios')
 
-            if nome_usuario is not None:
+            if tipo_acesso:
+                colecao = colecao.document(tipo_acesso).collection('id')
+
+            docs = colecao.get()
+
+            if email_usuario is not None and tipo_acesso is None:
                 for doc in docs:
-                    data = doc.to_dict()
-                    if data['nome'] == nome_usuario:
-                        return {'id': doc.id, **data}
+                    for user_doc in doc.reference.collection('id').get():
+                        data = user_doc.to_dict()
+                        if data.get('email') == email_usuario:
+                            return {'id': user_doc.id, 'tipo_acesso': doc.reference.path.split('/')[1], **data}
                 return {}
-            else:
-                # If nome_usuario is not provided, fetch all users and their data.
+            elif email_usuario is None and tipo_acesso is not None:
                 all_users_data = {}
                 for doc in docs:
                     data = doc.to_dict()
-                    all_users_data[doc.id] = data
+                    all_users_data[doc.id] = {'tipo_acesso': tipo_acesso, **data}
+                return all_users_data
+            elif (email_usuario is not None) and (tipo_acesso is not None):
+                for doc in docs:
+                    data = doc.to_dict()
+                    if data.get('email') == email_usuario:
+                        return {'id': user_doc.id, 'tipo_acesso': tipo_acesso, **data}
+                return all_users_data
+            else:
+                all_users_data = {}
+                for doc in docs:
+                    for user_doc in doc.reference.collection('id').get():
+                        data = user_doc.to_dict()
+                        all_users_data[user_doc.id] = {'tipo_acesso': doc.reference.path.split('/')[1], **data}
                 return all_users_data
 
         except Exception as error:
             raise ValueError(error)
+
 
     def inserir_novo_usuario(self, dados: dict, tipo_usuario: str = 'geral'):
         """inseri um novo usuário na base de dados do Firebase"""
@@ -85,19 +102,19 @@ class AuthUsuarios:
             raise ValueError(erro)
 
 # if __name__ == '__main__':
-#     auth = AuthUsuarios()
-    # auth.select_dados()
+    # auth = AuthUsuarios()
+#     # auth.select_dados()
 
-    # inserir novo usuario
-    # novo_usuario = {
-    #     'nome': 'Geovanne',
-    #     'senha': '123',
-    #     'avatar_url': 'http//teste',
-    #     'email': 'Geovanne@gmail.com'
-    # }
-    # auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
+#     # inserir novo usuario
+#     # novo_usuario = {
+#     #     'nome': 'Geovanne',
+#     #     'senha': '123',
+#     #     'avatar_url': 'http//teste',
+#     #     'email': 'Geovanne@gmail.com'
+#     # }
+#     # auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
 
-    # #Testar auth
-    # usr = auth.select_dados(nome_usuario='luiz.eduardo', tipo_acesso='geral')
-    # usr = auth.select_dados(nome_usuario="luiz.eduardo",tipo_acesso='admin')
+#     # #Testar auth
+#     # # usr = auth.select_dados(nome_usuario='luiz.eduardo', tipo_acesso='geral')
+    # usr = auth.select_dados()#nome_usuario="luiz.eduardo", 
     # print(usr)
