@@ -1,5 +1,6 @@
-from datetime import date, datetime
+import datetime
 import firebase_admin
+import pytz
 
 from firebase_admin import credentials, firestore
 
@@ -31,7 +32,7 @@ class Movimentacao:
         if ret:
             self.__firebase.collection('movimentacao').document(ret['id']).update(dados)
 
-    def select_movimentacao(self, sku: str = None):
+    def select_movimentacao(self):
         
         dados = self.__firebase.collection('movimentacao').get()
         if sku:
@@ -51,37 +52,52 @@ class Movimentacao:
         if dados:
             self.__firebase.collection('movimentacao').document(dados['id']).delete()
 
-
+        
 if __name__ == '__main__':
+
+    def data_fuso_horario():
+        # Defina o fuso horário do Brasil (America/Sao_Paulo ou America/Rio_Branco, por exemplo)
+        fuso_horario_brasil = pytz.timezone('America/Sao_Paulo')
+
+        # Obtenha a data e hora atual no fuso horário UTC
+        data_hora_utc = datetime.datetime.utcnow()
+
+        # Adicione o fuso horário do Brasil à data e hora atual
+        data_hora_brasil = data_hora_utc.replace(tzinfo=pytz.utc).astimezone(fuso_horario_brasil)
+
+        return data_hora_brasil
+    
     estoque = Movimentacao()
     # estoque.consultar_dados_produto()
 
+    # INSERT
     dados = {
         'nome': 'luiz',
-        'data': datetime.now(),
+        'data': data_fuso_horario(),
         'referencia': '8806',
         'tipo': 'SAIDA',
-        'sku': 'fritadeira',
+        'sku': 'CM07',
+        'descricao': 'fritadeira',
         'quantidade': 10
     }
     estoque.insert_movimentacao(dados)
+
+    # UPDATE
     update_dados = {
-
+        'nome': 'luiz',
+        'data': data_fuso_horario(),
+        'referencia': '8806',
+        'tipo': 'SAIDA',
+        'sku': 'CM07',
+        'descricao': 'fritadeira',
+        'quantidade': 2000
     }
-    # estoque.update_dados_produto(update_dados)
-    # estoque.delete_dados_produto('123abc')
+    
+    # DELETE
+    estoque.delete_movimentacao(update_dados)
 
-# import datetime
-# import pytz
+    # SELECT
+    estoque.select_movimentacao('123abc')
 
-# # Defina o fuso horário do Brasil (America/Sao_Paulo ou America/Rio_Branco, por exemplo)
-# fuso_horario_brasil = pytz.timezone('America/Sao_Paulo')
 
-# # Obtenha a data e hora atual no fuso horário UTC
-# data_hora_utc = datetime.datetime.utcnow()
 
-# # Adicione o fuso horário do Brasil à data e hora atual
-# data_hora_brasil = data_hora_utc.replace(tzinfo=pytz.utc).astimezone(fuso_horario_brasil)
-
-# # Imprima a data e hora no fuso horário do Brasil
-# print("Data e hora no Brasil:", data_hora_brasil.strftime('%Y-%m-%d %H:%M:%S %Z'))

@@ -1,6 +1,9 @@
+import datetime
 import firebase_admin
 
 from firebase_admin import credentials, firestore
+import pytz
+from .firebase_mov import Movimentacao
 
 class Estoque:
 
@@ -49,6 +52,47 @@ class Estoque:
         dados = self.select_dados_produto(sku)
         if dados:
             self.__firebase.collection('estoque').document(dados['id']).delete()
+
+    def data_fuso_horario(self):
+        # Defina o fuso horário do Brasil (America/Sao_Paulo ou America/Rio_Branco, por exemplo)
+        fuso_horario_brasil = pytz.timezone('America/Sao_Paulo')
+
+        # Obtenha a data e hora atual no fuso horário UTC
+        data_hora_utc = datetime.datetime.utcnow()
+
+        # Adicione o fuso horário do Brasil à data e hora atual
+        data_hora_brasil = data_hora_utc.replace(tzinfo=pytz.utc).astimezone(fuso_horario_brasil)
+
+        return data_hora_brasil
+    
+    def baixa_produto(self, sku: str, tipo: str, qtde: int, referen: str, nome_usuario: str):
+
+        produto = self.select_dados_produto(sku=sku)
+        if produto:
+            # verifica tipo movimentação
+            if tipo =='entrada':
+                nova_qtde = produto["quantidade"] + qtde
+            else:
+                nova_qtde = produto["quantidade"] - qtde
+
+            self.__firebase.collection('estoque').document(produto['id'])\
+                                                 .update({'quantidade': nova_qtde})
+            
+            est = Movimentacao()
+            dados = {
+                'nome': nome_usuario,
+                'data': self.data_fuso_horario(),
+                'referencia': referen,
+                'tipo': tipo,
+                'sku':  produto['sku'],
+                'descricao': produto['descricao'],
+                'quantidade': qtde
+            }
+            est.insert_movimentacao(dados)
+
+            
+
+
 
 
 if __name__ == '__main__':
