@@ -21,18 +21,18 @@
         <h1 style="font-size: 30px; text-align: center; font-weight: bold;">Cadastrar Produtos</h1>
 
         <div class='form-row align-items-center'>
-            <input type="text" id="sku" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Código Produto">
+            <input type="text" id="sku" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Código Produto" required>
 
-            <input type="text" id="descricao" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Tipo Produto">
+            <input type="text" id="descricao" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Tipo Produto" required>
 
-            <input type="number" id="quantidade" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Quantidade Produto">
+            <input type="number" id="quantidade" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Quantidade Produto" required>
 
             <input type="text" id="hiperlink" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Hiperlink">
 
             <textarea id="obs" class='form-control centered-placeholder' style="width: 350px; height: 70px; margin-bottom: 15px;" placeholder="Observação"></textarea>
 
             <div class="text-center my-4">
-                <button type="button" class="no-style" onclick="enviarFormulario()">Cadastrar</button>
+                <button type="submit" class="no-style" onclick="enviarFormulario()">Cadastrar</button>
                 <a class="no-style" href="/adm/">Voltar</a>
             </div>
         </div>
