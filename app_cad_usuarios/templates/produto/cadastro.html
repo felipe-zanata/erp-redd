@@ -10,33 +10,30 @@
 
 {% block conteudo %}
 {% load widget_tweaks %}
+{% load static %}
+<link href="{% static '../static/css/cadastro.css' %}" rel="stylesheet">
+
 <body>
   <form action="/cadastrar/" method="POST" id="formProduto">
     {% csrf_token %}
-    <div class="container-fluid">
+    <div class="container">
         <br>
         <h1 style="font-size: 30px; text-align: center; font-weight: bold;">Cadastrar Produtos</h1>
 
         <div class='form-row align-items-center'>
-            <label>Código Produto</label>
             <input type="text" id="sku" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Código Produto">
 
-            <label>Nome Produto</label>
             <input type="text" id="descricao" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Tipo Produto">
 
-            <label>Quantidade</label>
             <input type="number" id="quantidade" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Quantidade Produto">
 
-            <label>Preço</label>
-            <input type="number" id="preco" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Preço Produto">
+            <input type="text" id="hiperlink" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Hiperlink">
 
-            <label>Observações</label>
             <textarea id="obs" class='form-control centered-placeholder' style="width: 350px; height: 70px; margin-bottom: 15px;" placeholder="Observação"></textarea>
 
-            <!-- Se houver um campo para o hiperlink, adicione-o aqui... -->
-
             <div class="text-center my-4">
-                <button type="button" class="form-control-sm cadastrar-button custom-button" onclick="enviarFormulario()">Cadastrar</button>
+                <button type="button" class="no-style" onclick="enviarFormulario()">Cadastrar</button>
+                <a class="no-style" href="/adm/">Voltar</a>
             </div>
         </div>
     </div>

@@ -18,5 +18,7 @@ urlpatterns = [
     path('editar_user/', views.editar_user, name='editar_user'),
     path('movimentacao/', views.movimentacao, name='movimentacao'),
     path('dar_baixa/', views.dar_baixa, name='baixa'),
-    path('admin/', admin.site.urls),
+    path('importar_excel/', views.importar_excel, name='importar_excel'),
+    
+    # path('admin/', admin.site.urls),
 ]   

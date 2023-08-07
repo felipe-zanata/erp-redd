@@ -5,6 +5,7 @@
     {% load static %}
     {% block conteudo %}
     {% load widget_tweaks %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="{% static '../static/css/editar_remover_user.css' %}" rel="stylesheet">
     <title>Gerenciamento de Contas</title>
 
@@ -15,7 +16,9 @@
         <table>
             <thead>
                 <tr>
-                    <th>Usuário</th>
+                    <th>Tipo de acesso</th>
+                    <th>Nome</th>
+                    <th>Email</th>
                     <th>Senha</th>
                     <th class="button-cell">Editar</th>
                     <th class="button-cell">Deletar</th>
@@ -23,14 +26,12 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>usuario1</td>
+                    <td>admin</td>
+                    <td>Fe</td>
+                    <td>djiia@hotmail.com</td>
                     <td>senha123</td>
-                    <td class="button-cell">
-                        <button class="button">Editar</button>
-                    </td>
-                    <td class="button-cell">
-                        <button class="button">Deletar</button>
-                    </td>
+                    <td><button><i class="fas fa-edit"></i></button></td>
+                    <td><button><i class="fas fa-trash-alt"></i></button></td>
                 </tr>
                 <!-- Adicione mais linhas conforme necessário -->
             </tbody>

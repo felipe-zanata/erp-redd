@@ -87,6 +87,9 @@ def movimentacao(request):
 def dar_baixa(request):
     return render(request, 'produto/dar_baixa.html')
 
+def importar_excel(request):
+    return render(request, 'produto/importar_excel.html')
+
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos
 #     usuario_predefinido = 'geoteste'
