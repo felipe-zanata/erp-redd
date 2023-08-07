@@ -4,6 +4,8 @@ from .forms import UsuarioForm
 from .crud.firebase_crud import ProjetoEstoqueDemo
 from .crud.firebase_auth import AuthUsuarios
 from .context_processors import nome_do_usuario 
+from .forms import ExcelImportForm
+import pandas as pd
 
 # def home(request):
 #     return render(request, 'base/home.html')
@@ -122,7 +124,25 @@ def dar_baixa(request):
     return render(request, 'produto/dar_baixa.html')
 
 def importar_excel(request):
-    return render(request, 'produto/importar_excel.html')
+    if request.method == 'POST':
+        form = ExcelImportForm(request.POST, request.FILES)
+        if form.is_valid():
+            excel_file = request.FILES['excel_file']
+            if excel_file.name.endswith('.xlsx'):
+                excel_data = pd.read_excel(excel_file)
+
+                excel_data.fillna("--", inplace=True)
+
+                context = {
+                    'excel_data': excel_data.to_dict(orient='records'),
+                }
+
+                return render(request, 'produto/importar_excel.html', context)
+    else:
+        form = ExcelImportForm()
+
+    context = {'form': form}
+    return render(request, 'produto/importar_excel.html', context)
 
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos

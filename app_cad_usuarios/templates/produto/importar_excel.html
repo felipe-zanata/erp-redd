@@ -1,23 +1,67 @@
 {% extends 'base/base.html' %}
+{%  block conteudo %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        {% load static %}
-        {% block conteudo %}
-        {% load widget_tweaks %}
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Importar Excel</title>
-    </head>
-    <body>
-        <h2>Importar Arquivo Excel</h2>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <label for="excelFile">Escolha um arquivo Excel para importar:</label>
-            <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls">
-            <button type="submit">Importar</button>
-        </form>
-    </body>
-    </html>
+
+<!DOCTYPE html>
+<html>
+<head>
+<link href="{% static '../static/css/importar_excel.css' %}" rel="stylesheet">
+</head>
+<body>
+  <div class="container-fluid content">
+  <h1 class="page-title">Importar Excel</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="custom-file-upload" for="fileInput">
+      <span id="fileName">Importar Excel</span>
+      <input type="file" name="excel_file" id="fileInput" style="display: none;">
+    </label>
+    <button type="submit">Carregar</button>
+  </form>
+
+    {% if excel_data %}
+    <h1 class="dados-imp">Dados Importados</h1>
+    <table>
+        <tr>
+            <th>Código do Produto</th>
+            <th>Nome do Produto</th>
+            <th>Quantidade</th>
+            <th>Hiperlink</th>
+            <th>Observação</th>
+        </tr>
+        {% for row in excel_data %}
+        <tr>
+            <td>{{ row.Codigo }}</td>
+            <td>{{ row.Nome }}</td>
+            <td>{{ row.Quantidade }}</td>
+            <td>{{ row.Hiperlink }}</td>
+            <td>{{ row.Observacao }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+  </div>
+</body>
+</html>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const fileName = document.getElementById('fileName');
+
+  fileInput.addEventListener('change', function() {
+    if (fileInput.files.length > 0) {
+      fileName.textContent = fileInput.files[0].name;
+    } else {
+      fileName.textContent = 'Escolher Arquivo';
+    }
+  });
+</script>
 
 {% endblock %}
