@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Usuario
 from .forms import UsuarioForm
 from .crud.firebase_crud import ProjetoEstoqueDemo
+from .crud.firebase_auth import AuthUsuarios
+from .context_processors import nome_do_usuario 
+from .forms import ExcelImportForm
+import pandas as pd
 
 # def home(request):
 #     return render(request, 'base/home.html')
@@ -46,6 +50,26 @@ def deletar(request, sku):
     pass
 
 def login(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        auth = AuthUsuarios()
+        data = auth.select_dados(email_usuario=email)
+        if data['senha'] == senha:
+            print("Logado!")
+            request.session['id'] = data['id']
+            request.session['tipo_acesso'] = data['tipo_acesso']
+            request.session['senha'] = data['senha']
+            request.session['nome'] = data['nome']
+            request.session['avatar_url'] = data['avatar_url']
+            request.session['email'] = data['email']
+            return redirect('listagem_produtos')
+        else:
+            print("Senha incorreta")
+        
+    else:
+        return render(request, 'login/login.html')
+
     return render(request, 'login/login.html')
 
 def produtos_filtro(request):
@@ -61,9 +85,68 @@ def produtos_filtro(request):
     # Passar os dados filtrados para o template
     return render(request, 'produto/prodcadastrados.html', {'produtos': dados_filtrados})
 
+def criar_user(request):
+    return render(request, 'adm/criar_user.html')
+
+def gerenciar(request):
+    return render(request, 'adm/gerenciar.html')
+
+def editar_user(request):
+    if request.method == 'GET':
+        try:
+            auth = AuthUsuarios()
+            dados = auth.select_dados()
+            # print(dados)
+            return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
+        except Exception as error:
+            return render(request, 'adm/editar_remover_user.html')
+    else:
+        print("post")
+        return render(request, 'adm/editar_remover_user.html')
+
+def deletar_user(request):
+    if request.method == 'GET':
+        try:
+            auth = AuthUsuarios()
+            dados = auth.select_dados()
+            # print(dados)
+            return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
+        except Exception as error:
+            return render(request, 'adm/editar_remover_user.html')
+    else:
+        print("post")
+        return render(request, 'adm/editar_remover_user.html')
+
+def movimentacao(request):
+    return render(request, 'produto/movimentacao.html')
+
+def dar_baixa(request):
+    return render(request, 'produto/dar_baixa.html')
+
+def importar_excel(request):
+    if request.method == 'POST':
+        form = ExcelImportForm(request.POST, request.FILES)
+        if form.is_valid():
+            excel_file = request.FILES['excel_file']
+            if excel_file.name.endswith('.xlsx'):
+                excel_data = pd.read_excel(excel_file)
+
+                excel_data.fillna("--", inplace=True)
+
+                context = {
+                    'excel_data': excel_data.to_dict(orient='records'),
+                }
+
+                return render(request, 'produto/importar_excel.html', context)
+    else:
+        form = ExcelImportForm()
+
+    context = {'form': form}
+    return render(request, 'produto/importar_excel.html', context)
+
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos
-#     usuario_predefinido = 'teste'
+#     usuario_predefinido = 'geoteste'
 #     senha_predefinida = 'geo'
     
 #     if request.method == 'POST':

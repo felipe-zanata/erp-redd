@@ -1,0 +1,78 @@
+/* Centralizar gerenciamento de contas */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: start;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+/* Tamanho da tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+/* Altera titulo usuario e senha */
+th, td {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+}
+
+/* cor de Background do titulo */
+th {
+    background-color: #f0f0f0;
+}
+
+
+button {
+    height: auto;
+    width: 80px;
+    padding: 5px 10px;
+    background-color: #f28d35;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f66f00;
+}
+
+.button {
+    background-color: #f28d35;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 8px 12px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+/* Degrade botão novo user */
+.button:hover {
+    background-color: #f66f00;
+}
+
+a {
+    color: #ffffff; /* Altere a cor conforme necessário */
+}
+
+a:hover {
+    color: #ffffff; /* Altere a cor conforme necessário */
+}

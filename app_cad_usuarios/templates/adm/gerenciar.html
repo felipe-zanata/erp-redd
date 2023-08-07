@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    {% block conteudo %}
+    {% load widget_tweaks %}
+    <link href="{% static '../static/css/gerenciar.css' %}" rel="stylesheet">
+    <title>Gerenciamento do ADM</title>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Painel do Administrador</h2>
+        <div class="menu">
+            <a href="/criar_user/">Criar Novo Usuário</a>
+            <a href="/editar_user/">Gerenciar Usuários</a>
+            <a href="/cadastrar/">Cadastrar Produtos</a>
+            <a href="/importar_excel/">Importar Excel</a>
+        </div>
+        <!-- Conteúdo da página... -->
+    </div>
+</body>
+</html>
+
+{% endblock %}

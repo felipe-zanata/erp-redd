@@ -1,0 +1,83 @@
+/* Box para criar novos usuarios */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: start;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 350px;
+    max-height: 900px;
+    padding: 20px;
+    margin-top: 10px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.994);
+}
+
+/* Distanciamento entre inputs de criar user */
+.input-group {
+    margin-bottom: 15px;
+}
+
+/* Não sei mas preferi deixar */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Bordas e input */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #00000086;
+    border-radius: 5px;
+}
+
+/* Botão criar novo user */
+button {
+    background-color: #f28d35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: background-color 0.5s;
+  }
+
+/* Degrade botão novo user */
+button:hover {
+    background-color: #f66f00;
+}
+
+.back-button {
+    background-color: #f28d35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: background-color 0.5s;
+  }
+
+/* Degrade botão novo user */
+.back-button:hover {
+    background-color: #f66f00;
+}
+
+a {
+    color: #ffffff; /* Altere a cor conforme necessário */
+}
+
+a:hover {
+    color: #ffffff; /* Altere a cor conforme necessário */
+}

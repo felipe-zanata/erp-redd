@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: start;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0px 10px rgb(0, 0, 0);
+    max-width: 400px;
+}
+
+.menu {
+    margin-top: 20px;
+}
+
+.menu a {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    text-decoration: none;
+    background-color: #f28d35;
+    border-radius: 5px;
+}
+
+.menu a:hover {
+    background-color: #f66f00;
+}
+
+a {
+    color: #ffffff; /* Altere a cor conforme necessário */
+}
+
+a:hover {
+    color: #ffffff; /* Altere a cor conforme necessário */
+}
