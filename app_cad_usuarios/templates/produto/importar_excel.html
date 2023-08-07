@@ -17,11 +17,14 @@
 <body>
   <div class="container-fluid content">
   <h1 class="page-title">Importar Excel</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Enviar</button>
-    </form>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="custom-file-upload" for="fileInput">
+      <span id="fileName">Importar Excel</span>
+      <input type="file" name="excel_file" id="fileInput" style="display: none;">
+    </label>
+    <button type="submit">Carregar</button>
+  </form>
 
     {% if excel_data %}
     <h1 class="dados-imp">Dados Importados</h1>
@@ -47,5 +50,18 @@
   </div>
 </body>
 </html>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const fileName = document.getElementById('fileName');
+
+  fileInput.addEventListener('change', function() {
+    if (fileInput.files.length > 0) {
+      fileName.textContent = fileInput.files[0].name;
+    } else {
+      fileName.textContent = 'Escolher Arquivo';
+    }
+  });
+</script>
 
 {% endblock %}

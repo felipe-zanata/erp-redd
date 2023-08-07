@@ -165,3 +165,37 @@ color: white;
 .arrow-icon {
 margin: 3px;
 }
+
+.custom-file-input {
+text-decoration: none;
+align-content: center;
+/* display: none; */
+}
+
+.custom-file-upload input[type="file"] {
+  position: center;
+  align-content: center;
+}
+
+label {
+    text-align: center;
+    align-content: center;
+    background-color: #f28d35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-inline: 5px;
+    height: auto;
+    width: 150px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.5s;
+    
+}
+
+label:hover {
+  background-color: #f66f00;
+  color: white;
+  }
