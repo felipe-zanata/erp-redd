@@ -38,6 +38,22 @@ th {
     background-color: #f0f0f0;
 }
 
+
+button {
+    height: auto;
+    width: 80px;
+    padding: 5px 10px;
+    background-color: #f28d35;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f66f00;
+}
+
 .button {
     background-color: #f28d35;
     color: white;
