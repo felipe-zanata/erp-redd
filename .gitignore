@@ -312,3 +312,7 @@ pyrightconfig.json
 .ionide
 
 # Fim de https://www.toptal.com/developers/gitignore/api/django,python,firebase,visualstudiocode
+
+app_cad_usuarios\__pycache__*
+
+app_cad_usuarios\migrations*
