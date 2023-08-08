@@ -43,10 +43,12 @@
       <table>
         <thead>
           <tr>
-            <th>Código do Produto</th>
-            <th>Nome do Produto</th>
+            <th style="display: none;">_Código</th>
+            <th>Código</th>
+            <th>Descrição</th>
             <th>Quantidade</th>
             <th>Observação</th>
+            <th>link</th>
             <!-- <th>Editar</th>
             <th>Excluir</th> -->
             <th>Dar Baixa</th>
@@ -56,10 +58,13 @@
         <tbody>
           {% for codigo, produto_info in produtos.items %}
           <tr>
-            <td>{{ codigo }}</td>
-            <td>{{ produto_info.Descricao }}</td>
-            <td>{{ produto_info.Quantidade }}</td>
-            <td>{{ produto_info.Obs }}</td>
+            <td style="display: none;">{{ codigo }}</td>
+            <td>{{ produto_info.sku }}</td>
+            <td>{{ produto_info.descricao }}</td>
+            <td>{{ produto_info.quantidade }}</td>
+            <td>{{ produto_info.obs }}</td>
+            <!-- <td>{{ produto_info.url }}</td> -->
+            <td><a href="{{ produto_info.url }}" target="_blank">{{ produto_info.url }}</a></td>
             <!-- <td>
               <button class="edit-button"></button>
             </td>
