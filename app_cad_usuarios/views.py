@@ -3,6 +3,7 @@ from .models import Usuario
 from .forms import UsuarioForm
 from .crud.firebase_crud import ProjetoEstoqueDemo
 from .crud.firebase_auth import AuthUsuarios
+from .crud.firebase_mov import Movimentacao
 from .context_processors import nome_do_usuario 
 from .forms import ExcelImportForm
 import pandas as pd
@@ -118,8 +119,48 @@ def deletar_user(request):
         return render(request, 'adm/editar_remover_user.html')
 
 def movimentacao(request):
-    return render(request, 'produto/movimentacao.html')
+    if request.method == 'GET':
+        try:
+            mov = Movimentacao()
+            dados = mov.select_movimentacao()
+            print(dados)
+            return render(request, 'produto/movimentacao.html', context={'dados': dados})
+            # return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
+        except Exception as error:
+            return render(request, 'adm/editar_remover_user.html')
+    else:
+        print("post")
+        return render(request, 'produto/movimentacao.html')
+    
+# def filter_movimentacao(request):
+#     item = FiltroMovientacao.objects.all()
+#     item_filtrado = None
 
+#     if request.method == 'GET':
+#         filtro = ItemFilterMovimentacao(request.GET)
+#         if filtro.is_valid():
+#             dados_filtro = filtro.cleaned_data
+#             item_filtrado = item
+
+#             if dados_filtro['txt_cod_produto']:
+#                 item_filtrado = item_filtrado.filter(txt_cod_produto__icontains=dados_filtro['txt_cod_produto'])
+
+#             if dados_filtro['txt_nome_produto']:
+#                 item_filtrado = item_filtrado.filter(txt_nome_produto__icontains=dados_filtro['txt_nome_produto'])
+
+#             if dados_filtro['txt_qtde_produto']:
+#                 item_filtrado = item_filtrado.filter(txt_qtde_produto__icontains=dados_filtro['txt_qtde_produto'])
+#         else:
+#             filtro = ItemFilterMovimentacao()
+
+#         context = {
+#             'filtro': filtro,
+#             'item_filtrado': item_filtrado
+
+#         }
+
+#         return render(request, 'produto/movimentacao.html', context=context)
+    
 def dar_baixa(request):
     return render(request, 'produto/dar_baixa.html')
 
