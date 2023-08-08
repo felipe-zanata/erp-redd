@@ -3,7 +3,7 @@ import firebase_admin
 
 from firebase_admin import credentials, firestore
 import pytz
-from firebase_mov import Movimentacao
+from .firebase_mov import Movimentacao
 
 class Estoque:
     _instance = None
@@ -95,23 +95,25 @@ class Estoque:
             }
             est.insert_movimentacao(dados)
 
-            
 
+# if __name__ == '__main__':
+    # import pandas as pd
+    # import random
+    # estoque = Estoque()
+    # val = estoque.select_dados_produto()
+    # print(val)
 
+    # df = pd.DataFrame(pd.read_excel(r"C:\Users\2103896595\Desktop\Pasta1.xlsx"))
 
-
-if __name__ == '__main__':
-    estoque = Estoque()
-    # estoque.consultar_dados_produto()
-
-    dados = {
-        'sku': '123abc',
-        'descricao': 'FRITADEIRA ELETRICA',
-        'quantidade': 1,
-        'url': 'http//url.arquivo.com',
-        'obs': 'teste cadastro'
-    }
-    estoque.insert_novo_produto(dados)
+    # for idx, row in df.iterrows():
+    #     dados = {
+    #         'sku': '123abc',
+    #         'descricao': str(row['Descricao']),
+    #         'quantidade': random.randint(1, 100),
+    #         'url': 'https://www.google.com.br/',
+    #         'obs': 'teste cadastro'
+    #     }
+    # estoque.insert_novo_produto(dados)
     # update_dados = {
     #     'sku': '123abc',
     #     'url': 'http//url.arquivo.com',
