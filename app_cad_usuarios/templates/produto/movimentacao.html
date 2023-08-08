@@ -16,22 +16,27 @@
      <!-- Filtrar produtos -->
    <br>
    <div class="container-fluid content">
-        <h1>Filtrar Histórico</h1>
+        <h1>Filtrar</h1>
         <div class="filter-form">
-            <form action="{% url 'listagem_produtos' %}" method="get">
+            <!-- <form action="{% url 'listagem_produtos' %}" method="get"> -->
+            <form id="filtro-form">
                 <div style="display: flex; align-items: center;">
-                    <input type="text" name="codigo_filtro" placeholder="Código do Produto">
-                    <input type="text" name="nome_filtro" placeholder="Nome do Produto">
-                    <input type="text" name="quantidade_filtro" placeholder="Quantidade">
+                    <input type="text" id="Operador_filtro" name="Operador_filtro" placeholder="Operador">
+                    <input type="text" id="data_filtro" name="data_filtro" placeholder="Data">
+                    <input type="text" id="transacao_filtro" name="transacao_filtro" placeholder="Transação">
+                    <input type="text" id="tipo_produto" name="tipo_produto" placeholder="Tipo">
+                    <input type="text" id="codigo_filtro" name="codigo_filtro" placeholder="Código">
+                    <input type="text" id="nome_filtro" name="nome_filtro" placeholder="Descrição">
+                    <input type="text" id="quantidade_filtro" name="quantidade_filtro" placeholder="Quantidade">
                 </div>
-                <button type="submit">Buscar</button>
+                <!-- <button type="submit">Buscar</button> -->
             </form>
         </div>
     </div>
 
     <div class="container">
         <h2>Movimentações de Produtos</h2>
-        <table>
+        <table id="tabela-produtos">
             <thead>
                 <tr>
                     <th style="display: none;">id</th>
@@ -68,5 +73,47 @@
     </div>
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#filtro-form').on('input', function() {
+        event.preventDefault();  // Impede o envio do formulário
+
+        var filtroOperador = $('#Operador_filtro').val().toUpperCase();
+        var filtroData = $('#data_filtro').val().toUpperCase();
+        var filtroTransacao = $('#transacao_filtro').val().toUpperCase();
+        var filtroTipo = $('#tipo_produto').val().toUpperCase();
+        var filtroCodigo = $('#codigo_filtro').val().toUpperCase();
+        var filtroNome = $('#nome_filtro').val().toUpperCase();
+        var filtroQuantidade = $('#quantidade_filtro').val().toUpperCase();
+
+        // Percorre as linhas da tabela e mostra/esconde conforme os filtros
+        $('tbody tr').each(function() {
+            var linha = $(this);
+            var operador = linha.find('td:nth-child(2)').text().toUpperCase();
+            var data = linha.find('td:nth-child(3)').text().toUpperCase();
+            var transacao = linha.find('td:nth-child(4)').text().toUpperCase();
+            var tipo = linha.find('td:nth-child(5)').text().toUpperCase();
+            var codigo = linha.find('td:nth-child(6)').text().toUpperCase();
+            var nome = linha.find('td:nth-child(7)').text().toUpperCase();
+            var quantidade = linha.find('td:nth-child(8)').text().toUpperCase();
+            
+            if (operador.includes(filtroOperador) &&
+                data.includes(filtroData) &&
+                transacao.includes(filtroTransacao) &&
+                tipo.includes(filtroTipo) &&
+                codigo.includes(filtroCodigo) &&
+                nome.includes(filtroNome) &&
+                quantidade.includes(filtroQuantidade)) {
+                linha.show();
+            } else {
+                linha.hide();
+            }
+        });
+    });
+});
+</script>
+
 
 {% endblock %}
