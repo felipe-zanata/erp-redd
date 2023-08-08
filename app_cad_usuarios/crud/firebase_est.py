@@ -3,7 +3,7 @@ import firebase_admin
 
 from firebase_admin import credentials, firestore
 import pytz
-from .firebase_mov import Movimentacao
+from firebase_mov import Movimentacao
 
 class Estoque:
     _instance = None
@@ -50,9 +50,7 @@ class Estoque:
                     return {'id':doc.id, **dct_dados}
             return {}
         else:
-            lista_produtos = {}
-            for doc in dados:
-                lista_produtos[doc.id] = dados.to_dict()
+            lista_produtos: dict = {doc.id: doc.to_dict() for doc in dados}
             return lista_produtos
 
     def delete_dados_produto(self, sku: str):
