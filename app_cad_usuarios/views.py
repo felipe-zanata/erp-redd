@@ -4,6 +4,7 @@ from .forms import UsuarioForm
 from .crud.firebase_crud import ProjetoEstoqueDemo
 from .crud.firebase_auth import AuthUsuarios
 from .crud.firebase_mov import Movimentacao
+from .crud.firebase_est import Estoque
 from .context_processors import nome_do_usuario 
 from .forms import ExcelImportForm
 import pandas as pd
@@ -74,17 +75,16 @@ def login(request):
     return render(request, 'login/login.html')
 
 def produtos_filtro(request):
-    projeto = ProjetoEstoqueDemo()
-    # Recuperar os parâmetros de filtro do request.GET
-    codigo_filtro = request.GET.get('codigo_filtro')
-    nome_filtro = request.GET.get('nome_filtro')
-    quantidade_filtro = request.GET.get('quantidade_filtro')
-
-    # Chamar a função listar_dados com os parâmetros de filtro
-    dados_filtrados = projeto.listar_dados(codigo_filtro, nome_filtro, quantidade_filtro)
-
-    # Passar os dados filtrados para o template
-    return render(request, 'produto/prodcadastrados.html', {'produtos': dados_filtrados})
+    if request.method == 'GET':
+        try:
+            est = Estoque()
+            dados = est.select_dados_produto()
+            return render(request, 'produto/prodcadastrados.html', {'produtos': dados})
+        
+        except Exception as error:
+            return render(request, 'produto/prodcadastrados.html')
+    else:
+        return render(request, 'produto/prodcadastrados.html')
 
 def criar_user(request):
     return render(request, 'adm/criar_user.html')
@@ -123,7 +123,6 @@ def movimentacao(request):
         try:
             mov = Movimentacao()
             dados = mov.select_movimentacao()
-            print(dados)
             return render(request, 'produto/movimentacao.html', context={'dados': dados})
             # return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
         except Exception as error:
@@ -131,6 +130,7 @@ def movimentacao(request):
     else:
         print("post")
         return render(request, 'produto/movimentacao.html')
+
     
 # def filter_movimentacao(request):
 #     item = FiltroMovientacao.objects.all()

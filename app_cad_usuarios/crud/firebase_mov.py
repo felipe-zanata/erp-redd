@@ -68,16 +68,16 @@ if __name__ == '__main__':
     # estoque.consultar_dados_produto()
 
     # # INSERT
-    dados = {
-        'nome': 'luiz',
-        'data': data_fuso_horario(),
-        'referencia': '8807',
-        'tipo': 'ENTRADA',
-        'sku': 'DP08',
-        'descricao': 'GELADEIRA',
-        'quantidade': 200
-    }
-    estoque.insert_movimentacao(dados)
+    # dados = {
+    #     'nome': 'luiz',
+    #     'data': data_fuso_horario(),
+    #     'referencia': '8807',
+    #     'tipo': 'ENTRADA',
+    #     'sku': 'DP08',
+    #     'descricao': 'GELADEIRA',
+    #     'quantidade': 200
+    # }
+    # estoque.insert_movimentacao(dados)
 
     # # UPDATE
     # update_dados = {
@@ -94,8 +94,8 @@ if __name__ == '__main__':
     # estoque.delete_movimentacao(update_dados)
 
     # SELECT
-    # val = estoque.select_movimentacao()
-    # print(val)
+    val = estoque.select_movimentacao()
+    print(val)
 
 
 
