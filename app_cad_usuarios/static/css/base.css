@@ -59,3 +59,14 @@ body {
 .dropdown:hover .dropdown-menu {
   display: block;
 }
+
+/* .navbar-brand.nav-link.dropdown-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-brand.nav-link.dropdown-toggle i {
+  font-size: 20px;
+  margin-bottom: 5px;
+} */
