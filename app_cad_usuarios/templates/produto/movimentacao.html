@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 {%  block conteudo %}
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,31 +30,38 @@
     </div>
 
     <div class="container">
-        <h2>Movimentações</h2>
+        <h2>Movimentações de Produtos</h2>
         <table>
             <thead>
                 <tr>
+                    <th style="display: none;">id</th>
                     <th>Operador</th>
                     <th>Data</th>
+                    <th>Transação</th>
                     <th>Tipo</th>
-                    <th>Código do Produto</th>
-                    <th>Nome do Produto</th>
-                    <th>Quantidade do Produto</th>
-                    <th>Editar</th>
-                    <th>Deletar</th>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Quantidade</th>
+                    <!-- <th>Editar</th>
+                    <th>Deletar</th> -->
                 </tr>
             </thead>
             <tbody>
+                {% for chave, valor in dados.items %}
                 <tr>
-                    <td>{{ user.username }}</td>
-                    <td>2023-08-06</td>
-                    <td>Entrada</td>
-                    <td>123456</td>
-                    <td>Produto A</td>
-                    <td>10</td>
-                    <td><button><i class="fas fa-edit"></i></button></td>
-                    <td><button><i class="fas fa-trash-alt"></i></button></td>
+                    
+                    <td style="display: none;">{{ chave }}</td>
+                    <td>{{ valor.nome }}</td>
+                    <td>{{ valor.data }}</td>
+                    <td>{{ valor.referencia }}</td>
+                    <td>{{ valor.tipo }}</td>
+                    <td>{{ valor.sku }}</td>
+                    <td>{{ valor.descricao }}</td>
+                    <td>{{ valor.quantidade }}</td>
+                    <!-- <td><button><i class="fas fa-edit"></i></button></td>
+                    <td><button><i class="fas fa-trash-alt"></i></button></td> -->
                 </tr>
+                {% endfor %}
                 <!-- Adicione mais linhas conforme necessário -->
             </tbody>
         </table>

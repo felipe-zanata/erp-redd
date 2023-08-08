@@ -3,20 +3,27 @@ import firebase_admin
 
 from firebase_admin import credentials, firestore
 import pytz
-from .firebase_mov import Movimentacao
+from firebase_mov import Movimentacao
 
 class Estoque:
+    _instance = None
 
     def __init__(self) -> None:
         self.__dir_credencial = 'app_cad_usuarios\crud\credencial.json'
         self.__firebase = self.configura_credenciais()
         # self.criar_colecao()
 
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Estoque, cls).__new__(cls)
+        return cls._instance
+
     def configura_credenciais(self):
         """cria a conexao de autenticação"""
         try:
-            cred = credentials.Certificate(self.__dir_credencial)
-            firebase_admin.initialize_app(credential=cred)
+            if not firebase_admin._apps:
+                cred = credentials.Certificate(self.__dir_credencial)
+                firebase_admin.initialize_app(credential=cred)
             return firestore.client()
         
         except Exception as e:
@@ -43,9 +50,7 @@ class Estoque:
                     return {'id':doc.id, **dct_dados}
             return {}
         else:
-            lista_produtos = {}
-            for doc in dados:
-                lista_produtos[doc.id] = dados.to_dict()
+            lista_produtos: dict = {doc.id: doc.to_dict() for doc in dados}
             return lista_produtos
 
     def delete_dados_produto(self, sku: str):
@@ -99,19 +104,19 @@ if __name__ == '__main__':
     estoque = Estoque()
     # estoque.consultar_dados_produto()
 
-    # dados = {
-    #     'sku': '123abc',
-    #     'descricao': 'FRITADEIRA ELETRICA',
-    #     'quantidade': 1,
-    #     'url': 'http//url.arquivo.com',
-    #     'obs': 'teste cadastro'
-    # }
-    # estoque.insert_novo_produto(dados)
-    update_dados = {
+    dados = {
         'sku': '123abc',
+        'descricao': 'FRITADEIRA ELETRICA',
+        'quantidade': 1,
         'url': 'http//url.arquivo.com',
-        'obs': 'teste2',
-        'quantidade': 16
+        'obs': 'teste cadastro'
     }
-    estoque.update_dados_produto(update_dados)
+    estoque.insert_novo_produto(dados)
+    # update_dados = {
+    #     'sku': '123abc',
+    #     'url': 'http//url.arquivo.com',
+    #     'obs': 'teste2',
+    #     'quantidade': 16
+    # }
+    # estoque.update_dados_produto(update_dados)
     # estoque.delete_dados_produto('123abc')

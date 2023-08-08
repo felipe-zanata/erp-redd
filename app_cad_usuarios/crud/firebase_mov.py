@@ -5,17 +5,23 @@ import pytz
 from firebase_admin import credentials, firestore
 
 class Movimentacao:
-
+    _instance = None
     def __init__(self) -> None:
         self.__dir_credencial = 'app_cad_usuarios\crud\credencial.json'
         self.__firebase = self.configura_credenciais()
         # self.criar_colecao()
 
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Movimentacao, cls).__new__(cls)
+        return cls._instance 
+
     def configura_credenciais(self):
         """cria a conexao de autenticação"""
         try:
-            cred = credentials.Certificate(self.__dir_credencial)
-            firebase_admin.initialize_app(credential=cred)
+            if not firebase_admin._apps:
+                cred = credentials.Certificate(self.__dir_credencial)
+                firebase_admin.initialize_app(credential=cred)
             return firestore.client()
         
         except Exception as e:
@@ -35,17 +41,8 @@ class Movimentacao:
     def select_movimentacao(self):
         
         dados = self.__firebase.collection('movimentacao').get()
-        if sku:
-            for doc in dados:
-                dct_dados = doc.to_dict()
-                if dct_dados['sku'] == sku:
-                    return {'id':doc.id, **dct_dados}
-            return {}
-        else:
-            lista_produtos = {}
-            for doc in dados:
-                lista_produtos[doc.id] = dados.to_dict()
-            return lista_produtos
+        dct_mov: dict = {doc.id: doc.to_dict() for doc in dados}
+        return dct_mov
 
     def delete_movimentacao(self, sku: str):
         dados = self.select_movimentacao(sku)
@@ -65,39 +62,40 @@ if __name__ == '__main__':
         # Adicione o fuso horário do Brasil à data e hora atual
         data_hora_brasil = data_hora_utc.replace(tzinfo=pytz.utc).astimezone(fuso_horario_brasil)
 
-        return data_hora_brasil
+        return data_hora_brasil.strftime('%d/%m/%y %H:%M')
     
     estoque = Movimentacao()
     # estoque.consultar_dados_produto()
 
-    # INSERT
+    # # INSERT
     dados = {
         'nome': 'luiz',
         'data': data_fuso_horario(),
-        'referencia': '8806',
-        'tipo': 'SAIDA',
-        'sku': 'CM07',
-        'descricao': 'fritadeira',
-        'quantidade': 10
+        'referencia': '8807',
+        'tipo': 'ENTRADA',
+        'sku': 'DP08',
+        'descricao': 'GELADEIRA',
+        'quantidade': 200
     }
     estoque.insert_movimentacao(dados)
 
-    # UPDATE
-    update_dados = {
-        'nome': 'luiz',
-        'data': data_fuso_horario(),
-        'referencia': '8806',
-        'tipo': 'SAIDA',
-        'sku': 'CM07',
-        'descricao': 'fritadeira',
-        'quantidade': 2000
-    }
+    # # UPDATE
+    # update_dados = {
+    #     'nome': 'luiz',
+    #     'data': data_fuso_horario(),
+    #     'referencia': '8806',
+    #     'tipo': 'SAIDA',
+    #     'sku': 'CM07',
+    #     'descricao': 'fritadeira',
+    #     'quantidade': 2000
+    # }
     
-    # DELETE
-    estoque.delete_movimentacao(update_dados)
+    # # DELETE
+    # estoque.delete_movimentacao(update_dados)
 
     # SELECT
-    estoque.select_movimentacao('123abc')
+    # val = estoque.select_movimentacao()
+    # print(val)
 
 
 
