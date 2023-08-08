@@ -60,13 +60,13 @@ body {
   display: block;
 }
 
-.navbar-brand.nav-link.dropdown-toggle {
+/* .navbar-brand.nav-link.dropdown-toggle {
   display: flex;
-  flex-direction: column; /* Alinha ícone acima do texto */
+  flex-direction: column;
   align-items: center;
 }
 
 .navbar-brand.nav-link.dropdown-toggle i {
-  font-size: 20px; /* Tamanho do ícone */
-  margin-bottom: 5px; /* Espaçamento entre o ícone e o texto */
-}
+  font-size: 20px;
+  margin-bottom: 5px;
+} */
