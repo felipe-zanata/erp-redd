@@ -4,36 +4,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>Tela de Movimentações</title>
     {% load static %}
     <link href="{% static '../static/css/dar_baixa.css' %}" rel="stylesheet">
-
 </head>
 <body>
     <div class="container">
         <h2>Dar baixa</h2>
         <form>
-            <label for="operador">Operador:</label>
-            <input type="text" id="operador" name="operador" required>
+            <input type="text" value="{{ request.session.nome }}" id="operador" name="operador" readonly>           
 
-            <label for="data">Data:</label>
-            <input type="date" id="data" name="data" required>
-
+            <input type="text" value="Código" id="codigo-produto" name="codigo-produto" readonly></input>
+            
+            <input type="text" value="Nome" id="nome-produto" name="nome-produto" readonly>
+            
+            <input type="text" value="Quantidade"  id="qtidade-produto" name="qtidade-produto" readonly>
+            
             <label for="tipo">Tipo:</label>
             <select id="tipo" name="tipo">
                 <option value="entrada">Entrada</option>
                 <option value="saida">Saída</option>
             </select>
-            
-            <label for="codigo-produto">Código do Produto:</label>
-            <input type="text" id="codigo-produto" name="codigo-produto" required>
-            
-            <label for="nome-produto">Nome do Produto:</label>
-            <input type="text" id="nome-produto" name="nome-produto" required>
-            
-            <label for="qtidade-produto">Quantidade do Produto:</label>
-            <input type="number" id="qtidade-produto" name="qtidade-produto" required>
+
+            <label for="qtidade-produto-baixa">Qtidade Baixa:</label>
+            <input type="number" id="qtidade-produto-baixa" name="qtidade-produto-baixa" required>
             
             <button type="submit">Registrar Movimentação</button>
 
