@@ -15,40 +15,50 @@
 <link href="{% static '../static/css/importar_excel.css' %}" rel="stylesheet">
 </head>
 <body>
-  <div class="container-fluid content">
-  <h1 class="page-title">Importar Excel</h1>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label class="custom-file-upload" for="fileInput">
-      <span id="fileName">Importar Excel</span>
-      <input type="file" name="excel_file" id="fileInput" style="display: none;">
-    </label>
-    <button type="submit">Carregar</button>
-    <a class="back-buttons" href="/adm/">Voltar</a>
-  </form>
-
-    {% if excel_data %}
-    <h1 class="dados-imp">Dados Importados</h1>
-    <table>
-        <tr>
-            <th>Código do Produto</th>
-            <th>Nome do Produto</th>
-            <th>Quantidade</th>
-            <th>Hiperlink</th>
-            <th>Observação</th>
-        </tr>
-        {% for row in excel_data %}
-        <tr>
-            <td>{{ row.Codigo }}</td>
-            <td>{{ row.Nome }}</td>
-            <td>{{ row.Quantidade }}</td>
-            <td>{{ row.Hiperlink }}</td>
-            <td>{{ row.Observacao }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
+  <div class="center-container">
+    <div class="container-fluid content">
+    <h1 class="page-title">Importar Excel</h1>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label class="custom-file-upload" for="fileInput">
+          <span class="back-buttons" id="fileName">Importar Dados</span>
+          <input type="file" name="excel_file" id="fileInput" style="display: none;">
+        </label>
+        <button class="back-buttons" type="submit">Carregar Dados</button>
+        <a class="back-buttons" href="/adm/">Voltar</a>
+      </form>
+    </div>
   </div>
+
+  <div class="center-container">
+    <div class="container-fluid content">
+      {% if excel_data %}
+      <div class="centralizar">
+        <h1 class="dados-imp">Dados Importados</h1>
+        <a class="back-buttons" href="/produtos/">Importar Para Estoque</a>
+      </div>
+      <table>
+          <tr>
+              <th>Código do Produto</th>
+              <th>Nome do Produto</th>
+              <th>Quantidade</th>
+              <th>Hiperlink</th>
+              <th>Observação</th>
+          </tr>
+          {% for row in excel_data %}
+          <tr>
+              <td>{{ row.Codigo }}</td>
+              <td>{{ row.Nome }}</td>
+              <td>{{ row.Quantidade }}</td>
+              <td>{{ row.Hiperlink }}</td>
+              <td>{{ row.Observacao }}</td>
+          </tr>
+          {% endfor %}
+      </table>
+      {% endif %}
+    </div>
+  </div>
+
 </body>
 </html>
 
