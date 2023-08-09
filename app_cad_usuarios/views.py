@@ -90,7 +90,12 @@ def criar_user(request):
     return render(request, 'adm/criar_user.html')
 
 def gerenciar(request):
-    return render(request, 'adm/gerenciar.html')
+    tipo_acesso = request.session.get('tipo_acesso', None)
+    
+    if tipo_acesso == "admin":
+        return render(request, 'adm/gerenciar.html')
+    else:
+        return render(request, 'adm/sem_permissao.html')
 
 def editar_user(request):
     if request.method == 'GET':
