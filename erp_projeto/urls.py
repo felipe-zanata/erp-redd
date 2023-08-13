@@ -19,7 +19,7 @@ urlpatterns = [
     path('deletar_user/<str:user_id>/', views.deletar_user, name='deletar_user'),
     path('adm/', views.gerenciar, name='gerenciar'),
     path('movimentacao/', views.movimentacao, name='movimentacao'),
-    path('dar_baixa/', views.dar_baixa, name='baixa'),
+    path('dar_baixa/<str:item_id>/', views.dar_baixa, name='baixa'),
     path('importar_excel/', views.importar_excel, name='importar_excel'),
     
     # path('admin/', admin.site.urls),

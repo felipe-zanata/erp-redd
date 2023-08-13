@@ -40,13 +40,13 @@ class Estoque:
         if ret:
             self.__firebase.collection('estoque').document(ret['id']).update(dados)
 
-    def select_dados_produto(self, sku: str = None):
+    def select_dados_produto(self, sku_id: str = None):
         
         dados = self.__firebase.collection('estoque').get()
-        if sku:
+        if sku_id:
             for doc in dados:
                 dct_dados = doc.to_dict()
-                if dct_dados['sku'] == sku:
+                if doc.id == sku_id:
                     return {'id':doc.id, **dct_dados}
             return {}
         else:
@@ -80,6 +80,7 @@ class Estoque:
             else:
                 nova_qtde = produto["quantidade"] - qtde
 
+            # altera os dados com a nova quantidade de estoque
             self.__firebase.collection('estoque').document(produto['id'])\
                                                  .update({'quantidade': nova_qtde})
             
@@ -88,7 +89,7 @@ class Estoque:
                 'nome': nome_usuario,
                 'data': self.data_fuso_horario(),
                 'referencia': referen,
-                'tipo': tipo,
+                'tipo': tipo.upper(),
                 'sku':  produto['sku'],
                 'descricao': produto['descricao'],
                 'quantidade': qtde

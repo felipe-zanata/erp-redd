@@ -111,17 +111,17 @@ class AuthUsuarios:
 
 if __name__ == '__main__':
     auth = AuthUsuarios()
-    luiz = auth.select_dados('luiz')
-    print(luiz)
+    # luiz = auth.select_dados('luiz')
+    # print(luiz)
 
-#     # inserir novo usuario
-#     # novo_usuario = {
-#     #     'nome': 'Geovanne',
-#     #     'senha': '123',
-#     #     'avatar_url': 'http//teste',
-#     #     'email': 'Geovanne@gmail.com'
-#     # }
-#     # auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
+    # inserir novo usuario
+    novo_usuario = {
+        'nome': 'luiz',
+        'senha': '123',
+        'avatar_url': 'http//teste',
+        'email': 'luiz.cassimiro@gmail.com'
+    }
+    auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
 
 #     # #Testar auth
 #     # # usr = auth.select_dados(nome_usuario='luiz.eduardo', tipo_acesso='geral')

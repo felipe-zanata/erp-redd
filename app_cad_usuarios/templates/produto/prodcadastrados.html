@@ -13,20 +13,17 @@
 
 </head>
 <body>
-    <!-- Filtrar produtos -->
-    <!-- <h1>Bem-vindo(a), {{ request.session.nome_usuario }}!</h1> -->
    <br>
    <div class="container-fluid content">
         <h1>Filtrar Produtos</h1>
         <div class="filter-form">
-            <form action="{% url 'listagem_produtos' %}" method="get">
-                <div style="display: flex; align-items: center;">
-                    <input type="text" name="codigo_filtro" placeholder="Código do Produto">
-                    <input type="text" name="nome_filtro" placeholder="Nome do Produto">
-                    <input type="text" name="quantidade_filtro" placeholder="Quantidade">
-                </div>
-                <button type="submit">Buscar</button>
-            </form>
+          <form id="filtro-form">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <input type="text" id="codigo_filtro" name="codigo_filtro" placeholder="Código do Produto">
+                <input type="text" id="nome_filtro" name="nome_filtro" placeholder="Nome do Produto">
+                <input type="number" id="quantidade_filtro" name="quantidade_filtro" placeholder="Quantidade">
+            </div>
+          </form>
         </div>
     </div>
   
@@ -72,7 +69,7 @@
               <button class="delete-button" onclick="confirmDelete()"></button>
             </td> -->
             <td>
-              <a class="baixa-button" href="/dar_baixa/">
+              <a class="baixa-button" href="{% url 'baixa' item_id=codigo %}">
                 <i class="arrow-icon fas fa-arrow-up"></i>
                 <i class="arrow-icon fas fa-arrow-down"></i>
               </a>
@@ -85,5 +82,39 @@
   </div>
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+      // Função para realizar o filtro
+      function realizarFiltro() {
+          var filtroCodigo = $('#codigo_filtro').val().toUpperCase();
+          var filtroNome = $('#nome_filtro').val().toUpperCase();
+          var filtroQuantidade = parseFloat($('#quantidade_filtro').val()); // Converte para número
+  
+          $('tbody tr').each(function() {
+              var linha = $(this);
+              var codigo = linha.find('td:nth-child(2)').text().toUpperCase();
+              var nome = linha.find('td:nth-child(3)').text().toUpperCase();
+              var quantidade = parseFloat(linha.find('td:nth-child(4)').text());
+  
+              var codigoPassou = codigo.includes(filtroCodigo) || filtroCodigo === '';
+              var nomePassou = nome.includes(filtroNome) || filtroNome === '';
+              var quantidadePassou = isNaN(filtroQuantidade) || quantidade >= filtroQuantidade;
+  
+              if (codigoPassou && nomePassou && quantidadePassou) {
+                  linha.show();
+              } else {
+                  linha.hide();
+              }
+          });
+      }
+  
+      // Evento input para acionar o filtro
+      $('#codigo_filtro, #nome_filtro, #quantidade_filtro').on('input', function() {
+          realizarFiltro();
+      });
+  });
+  </script>
 
 {% endblock %}
