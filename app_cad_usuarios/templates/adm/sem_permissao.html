@@ -11,6 +11,7 @@
 
 </head>
 
+
 <form class="form-box">
   <div class="navbar">
     <div class="container-fluid d-flex justify-content-center">
@@ -33,6 +34,7 @@
               Login
           {% endif %}
         </span>
+        
         <div class="dropdown-menu" aria-labelledby="userMenu">
             <!-- <a class="dropdown-item" href="/admin/">Admin</a> Abre admin do django -->
             <a class="dropdown-item" href="/adm/">Gerenciamento</a>
@@ -42,8 +44,10 @@
     </div>
     </div>
   </div>
+
 </form>
 
+<h1>Acesso negado!</h1>
 {% block conteudo %}
 {% endblock %}
 
