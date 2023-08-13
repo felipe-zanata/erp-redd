@@ -14,11 +14,11 @@
         <form>
             <input type="text" value="{{ request.session.nome }}" id="operador" name="operador" readonly>           
 
-            <input type="text" value="Código" id="codigo-produto" name="codigo-produto" readonly></input>
+            <input type="text" value="{{ dados.sku }}" id="codigo-produto" name="codigo-produto" readonly></input>
             
-            <input type="text" value="Nome" id="nome-produto" name="nome-produto" readonly>
+            <input type="text" value="{{ dados.descricao }}" id="nome-produto" name="nome-produto" readonly>
             
-            <input type="text" value="Quantidade"  id="qtidade-produto" name="qtidade-produto" readonly>
+            <input type="text" value="{{ dados.quantidade }}" id="qtidade-produto" name="qtidade-produto" readonly>
             
             <label for="tipo">Tipo:</label>
             <select id="tipo" name="tipo">

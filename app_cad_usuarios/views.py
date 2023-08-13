@@ -161,8 +161,10 @@ def movimentacao(request):
 
 #         return render(request, 'produto/movimentacao.html', context=context)
     
-def dar_baixa(request):
-    return render(request, 'produto/dar_baixa.html')
+def dar_baixa(request, item_id):
+    est = Estoque()
+    dados = est.select_dados_produto(item_id)
+    return render(request, 'produto/dar_baixa.html',{'dados': dados})
 
 def importar_excel(request):
     if request.method == 'POST':
