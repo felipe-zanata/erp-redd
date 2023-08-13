@@ -57,7 +57,7 @@
   border-radius: 15px;
   box-shadow: 0px 0px 8px rgba(4, 2, 2, 0.994);
   padding: 10px;
-  max-width: 800px;
+  max-width: 1000px;
   margin-top: 10px;
 }
 
@@ -67,7 +67,7 @@
   text-align: center;
   }
 
-/* Botão buscar do filtro estilizado */
+/* Botão buscar do filtro estilizado
 .filter-form button {
   background-color: #f28d35;
   color: white;
@@ -78,7 +78,7 @@
   margin-top: 10px;
   margin-right: 10px;
   transition: background-color 0.5s;
-}
+} */
 
 /* Não vi grande mudança mas alterou um pouco a box do filtrar produtos */
 .filter-form {
@@ -96,7 +96,7 @@
   width: 150px;
 }
 
-/* Botão deletar */
+/* Botão deletar
 .delete-button::before {
   content: "X";
   color: rgb(255, 255, 255);
@@ -105,33 +105,32 @@
   transform: translate(-50%, -50%);
 }
 
-/* Botão editar */
 .edit-button::before {
   content: "\270E";
   position: 5px;
-}
+} */
 
-
-/* Parece que estende a borda do lista de prod cadastrados */
 table {
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #BDBDBD;
-}
-
-/* Borda da lista de produtos */
-th, td {
-  padding: 10px;
-  text-align: center;
+  table-layout: fixed;
 }
 
 th {
+  padding: 10px;
+  text-align: center;
   background-color: #dedede;
   border: 1px solid #BDBDBD;
 }
 
 td {
+  padding: 10px;
+  text-align: center;
   border-top: 1px solid #BDBDBD;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: ellipsis;
 }
 
 tbody{
@@ -140,6 +139,8 @@ tbody{
 }
 
 .baixa-button {
+  display: flex;
+  white-space: nowrap; /* Impede quebrar linhas */
   text-align: center;
   align-content: center;
   background-color: #f28d35;
@@ -154,6 +155,7 @@ tbody{
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.5s;
+  
 }
 
 /* Cor do exportar e importar */
