@@ -68,7 +68,7 @@ class Estoque:
         # Adicione o fuso horário do Brasil à data e hora atual
         data_hora_brasil = data_hora_utc.replace(tzinfo=pytz.utc).astimezone(fuso_horario_brasil)
 
-        return data_hora_brasil
+        return data_hora_brasil.strftime('%d/%m/%y %H:%M')
     
     def baixa_produto(self, sku: str, tipo: str, qtde: int, referen: str, nome_usuario: str):
 
