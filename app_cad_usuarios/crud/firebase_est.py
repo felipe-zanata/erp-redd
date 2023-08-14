@@ -72,13 +72,14 @@ class Estoque:
     
     def baixa_produto(self, sku: str, tipo: str, qtde: int, referen: str, nome_usuario: str):
 
-        produto = self.select_dados_produto(sku=sku)
+        produto = self.select_dados_produto(sku_id=sku)
+        print(produto)
         if produto:
             # verifica tipo movimentação
             if tipo =='entrada':
-                nova_qtde = produto["quantidade"] + qtde
+                nova_qtde = int(produto["quantidade"]) + qtde
             else:
-                nova_qtde = produto["quantidade"] - qtde
+                nova_qtde = int(produto["quantidade"]) - qtde
 
             # altera os dados com a nova quantidade de estoque
             self.__firebase.collection('estoque').document(produto['id'])\

@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render, redirect
 from .models import Usuario
 from .forms import UsuarioForm
@@ -20,14 +21,16 @@ def cadastrar(request):
         try:
             # data = json.loads(request.body)
             # print(data)
-            sku = request.POST.get('sku')
-            descricao = request.POST.get('descricao')
-            quantidade = request.POST.get('quantidade')
-            link = request.POST.get('hiperlink')
-            obs = request.POST.get('obs')
-            print(sku, descricao, quantidade, link, obs, sep='\n')
-            projeto = ProjetoEstoqueDemo()
-            projeto.inserir_produto(sku, descricao, quantidade, link, obs)
+            dados = {
+                'sku': request.POST.get('sku'),
+                'descricao': request.POST.get('descricao'),
+                'quantidade': request.POST.get('quantidade'),
+                'link': request.POST.get('hiperlink'),
+                'obs': request.POST.get('obs')
+            }
+
+            projeto = Estoque()
+            projeto.insert_novo_produto(dados)
 
             return redirect('listagem_produtos')
 
@@ -156,7 +159,19 @@ def movimentacao(request):
 def dar_baixa(request, item_id):
     est = Estoque()
     dados = est.select_dados_produto(item_id)
+    dados['item_id'] = item_id
     return render(request, 'produto/dar_baixa.html',{'dados': dados})
+
+def exec_baixa(request):
+    if request.method == 'POST':
+        operador = request.POST.get('operador')
+        id_registro = request.POST.get('id_registro')
+        tipo = request.POST.get('tipo')
+        qtidade_produto_baixa = int(request.POST.get('qtidade-produto-baixa'))
+        baixa = Estoque()
+        print(id_registro,tipo,sep='\n')
+        baixa.baixa_produto(sku=id_registro, tipo=tipo, qtde=qtidade_produto_baixa,referen=str(random.randint(8800, 8899)), nome_usuario=operador)
+    return redirect('listagem_produtos')
 
 def importar_excel(request):
     if request.method == 'POST':
