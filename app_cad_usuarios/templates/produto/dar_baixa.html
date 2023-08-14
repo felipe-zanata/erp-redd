@@ -12,12 +12,13 @@
     <div class="container">
         <h2>Dar baixa</h2>
         <form>
+            <label>Operador:</label>
             <input type="text" value="{{ request.session.nome }}" id="operador" name="operador" readonly>           
-
+            <label>Tipo de produto:</label>
             <input type="text" value="{{ dados.sku }}" id="codigo-produto" name="codigo-produto" readonly></input>
-            
+            <label>Descrição:</label>
             <input type="text" value="{{ dados.descricao }}" id="nome-produto" name="nome-produto" readonly>
-            
+            <label>Quantidade atual:</label>
             <input type="text" value="{{ dados.quantidade }}" id="qtidade-produto" name="qtidade-produto" readonly>
             
             <label for="tipo">Tipo:</label>
@@ -26,7 +27,7 @@
                 <option value="saida">Saída</option>
             </select>
 
-            <label for="qtidade-produto-baixa">Qtidade Baixa:</label>
+            <label for="qtidade-produto-baixa">Quantidade da baixa:</label>
             <input type="number" id="qtidade-produto-baixa" name="qtidade-produto-baixa" required>
             
             <button type="submit">Registrar Movimentação</button>
