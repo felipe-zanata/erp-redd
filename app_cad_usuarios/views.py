@@ -157,9 +157,17 @@ def movimentacao(request):
         return render(request, 'produto/movimentacao.html')
    
 def dar_baixa(request, item_id):
-    est = Estoque()
-    dados = est.select_dados_produto(item_id)
-    dados['item_id'] = item_id
+    # est = Estoque()
+    # dados = est.select_dados_produto(item_id)
+    # dados['item_id'] = item_id
+    dados = {
+
+        "item_id": item_id,
+        "sku": request.GET.get('sku'),
+        "descricao" : request.GET.get('desc'),
+        'quantidade' : request.GET.get('qtde')
+
+    }
     return render(request, 'produto/dar_baixa.html',{'dados': dados})
 
 def exec_baixa(request):
