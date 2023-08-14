@@ -87,6 +87,21 @@ def produtos_filtro(request):
         return render(request, 'produto/prodcadastrados.html')
 
 def criar_user(request):
+    if request.method == 'POST':
+        nome = request.POST.get("nome")
+        email = request.POST.get("email").lower().strip()
+        senha1 = request.POST.get('password')
+        acesso = request.POST.get('tipo')
+        dados = {
+            'nome' : nome,
+            'email' : email,
+            'senha' : senha1,
+            'avatar_url': 'http//teste',
+        }
+        print(dados)
+        new_user = AuthUsuarios()
+        new_user.inserir_novo_usuario(dados=dados, tipo_usuario=acesso)
+        
     return render(request, 'adm/criar_user.html')
 
 def gerenciar(request):
@@ -135,37 +150,7 @@ def movimentacao(request):
     else:
         print("post")
         return render(request, 'produto/movimentacao.html')
-
-    
-# def filter_movimentacao(request):
-#     item = FiltroMovientacao.objects.all()
-#     item_filtrado = None
-
-#     if request.method == 'GET':
-#         filtro = ItemFilterMovimentacao(request.GET)
-#         if filtro.is_valid():
-#             dados_filtro = filtro.cleaned_data
-#             item_filtrado = item
-
-#             if dados_filtro['txt_cod_produto']:
-#                 item_filtrado = item_filtrado.filter(txt_cod_produto__icontains=dados_filtro['txt_cod_produto'])
-
-#             if dados_filtro['txt_nome_produto']:
-#                 item_filtrado = item_filtrado.filter(txt_nome_produto__icontains=dados_filtro['txt_nome_produto'])
-
-#             if dados_filtro['txt_qtde_produto']:
-#                 item_filtrado = item_filtrado.filter(txt_qtde_produto__icontains=dados_filtro['txt_qtde_produto'])
-#         else:
-#             filtro = ItemFilterMovimentacao()
-
-#         context = {
-#             'filtro': filtro,
-#             'item_filtrado': item_filtrado
-
-#         }
-
-#         return render(request, 'produto/movimentacao.html', context=context)
-    
+   
 def dar_baixa(request, item_id):
     est = Estoque()
     dados = est.select_dados_produto(item_id)

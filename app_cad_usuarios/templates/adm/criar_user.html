@@ -13,7 +13,8 @@
 <body>
     <div class="container">
         <h2>Criar Novo Usuário</h2>
-        <form action="/cadastrar-usuario/" method="POST">
+        <form action="/criar_user/" method="post">
+            {% csrf_token %}
             <div class="input-group">
                 <label for="tipo" style="margin-right: 10px;">Tipo:</label>
                 <select id="tipo" name="tipo">
