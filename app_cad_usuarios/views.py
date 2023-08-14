@@ -52,27 +52,29 @@ def deletar(request, sku):
     pass
 
 def login(request):
-    if request.method == "POST":
-        email = request.POST.get('email')
-        senha = request.POST.get('senha')
-        auth = AuthUsuarios()
-        data = auth.select_dados(email_usuario=email)
-        if data['senha'] == senha:
-            print("Logado!")
-            request.session['id'] = data['id']
-            request.session['tipo_acesso'] = data['tipo_acesso']
-            request.session['senha'] = data['senha']
-            request.session['nome'] = data['nome']
-            request.session['avatar_url'] = data['avatar_url']
-            request.session['email'] = data['email']
-            return redirect('listagem_produtos')
+    try: 
+        if request.method == "POST":
+            email = request.POST.get('email')
+            senha = request.POST.get('senha')
+            auth = AuthUsuarios()
+            data = auth.select_dados(email_usuario=email)
+            if data['senha'] == senha:
+                print("Logado!")
+                request.session['id'] = data['id']
+                request.session['tipo_acesso'] = data['tipo_acesso']
+                request.session['senha'] = data['senha']
+                request.session['nome'] = data['nome']
+                request.session['avatar_url'] = data['avatar_url']
+                request.session['email'] = data['email']
+                return redirect('listagem_produtos')
+            else:
+                print("Senha incorreta")
+                return render(request, 'login/login_erro.html', {'error_message': 'Usuário ou senha incorretos'})
+            
         else:
-            print("Senha incorreta")
-        
-    else:
-        return render(request, 'login/login.html')
-
-    return render(request, 'login/login.html')
+            return render(request, 'login/login.html')
+    except:
+        return render(request, 'login/login_erro.html', {'error_message': 'Usuário ou senha incorretos'})
 
 def produtos_filtro(request):
     if request.method == 'GET':

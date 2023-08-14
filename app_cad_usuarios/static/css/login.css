@@ -60,3 +60,7 @@
     height: auto;
     margin-left: 10px;
   }
+
+  #colored-heading {
+    color: red; /* Defina a cor que você deseja */
+}
