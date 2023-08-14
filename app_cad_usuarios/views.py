@@ -18,14 +18,16 @@ from django.http import JsonResponse
 def cadastrar(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-            sku = data.get('sku')
-            descricao = data.get('descricao')
-            quantidade = data.get('quantidade')
-            preco = data.get('preco')
-            obs = data.get('obs')
+            # data = json.loads(request.body)
+            # print(data)
+            sku = request.POST.get('sku')
+            descricao = request.POST.get('descricao')
+            quantidade = request.POST.get('quantidade')
+            link = request.POST.get('hiperlink')
+            obs = request.POST.get('obs')
+            print(sku, descricao, quantidade, link, obs, sep='\n')
             projeto = ProjetoEstoqueDemo()
-            projeto.inserir_produto(sku, descricao, quantidade, preco, obs)
+            projeto.inserir_produto(sku, descricao, quantidade, link, obs)
 
             return redirect('listagem_produtos')
 
