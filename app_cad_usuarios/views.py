@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render, redirect
 from .models import Usuario
 from .forms import UsuarioForm
@@ -18,14 +19,18 @@ from django.http import JsonResponse
 def cadastrar(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-            sku = data.get('sku')
-            descricao = data.get('descricao')
-            quantidade = data.get('quantidade')
-            preco = data.get('preco')
-            obs = data.get('obs')
-            projeto = ProjetoEstoqueDemo()
-            projeto.inserir_produto(sku, descricao, quantidade, preco, obs)
+            # data = json.loads(request.body)
+            # print(data)
+            dados = {
+                'sku': request.POST.get('sku'),
+                'descricao': request.POST.get('descricao'),
+                'quantidade': request.POST.get('quantidade'),
+                'link': request.POST.get('hiperlink'),
+                'obs': request.POST.get('obs')
+            }
+
+            projeto = Estoque()
+            projeto.insert_novo_produto(dados)
 
             return redirect('listagem_produtos')
 
@@ -79,16 +84,46 @@ def login(request):
 def produtos_filtro(request):
     if request.method == 'GET':
         try:
-            est = Estoque()
-            dados = est.select_dados_produto()
-            return render(request, 'produto/prodcadastrados.html', {'produtos': dados})
+            if 'dados_firebase' not in request.session:
+                est = Estoque()
+                dados = est.select_dados_produto()
+                request.session['dados_firebase'] = dados
+            return render(request, 'produto/prodcadastrados.html', {'produtos': request.session['dados_firebase']})
         
         except Exception as error:
             return render(request, 'produto/prodcadastrados.html')
     else:
         return render(request, 'produto/prodcadastrados.html')
 
+def atualizar_dados(request):
+    try:
+        if 'dados_firebase' in request.session:
+            del request.session['dados_firebase']
+        
+        est = Estoque()
+        dados = est.select_dados_produto()
+        request.session['dados_firebase'] = dados
+
+        return render(request, 'produto/produtos_list.html', {'produtos': dados})
+
+    except Exception as error:
+        return render(request, 'produto/produtos_list.html')
+
 def criar_user(request):
+    if request.method == 'POST':
+        nome = request.POST.get("nome")
+        email = request.POST.get("email").lower().strip()
+        senha1 = request.POST.get('password')
+        acesso = request.POST.get('tipo')
+        dados = {
+            'nome' : nome,
+            'email' : email,
+            'senha' : senha1,
+            'avatar_url': 'http//teste',
+        }
+        new_user = AuthUsuarios()
+        new_user.inserir_novo_usuario(dados=dados, tipo_usuario=acesso)
+        
     return render(request, 'adm/criar_user.html')
 
 def gerenciar(request):
@@ -137,41 +172,37 @@ def movimentacao(request):
     else:
         print("post")
         return render(request, 'produto/movimentacao.html')
-
-    
-# def filter_movimentacao(request):
-#     item = FiltroMovientacao.objects.all()
-#     item_filtrado = None
-
-#     if request.method == 'GET':
-#         filtro = ItemFilterMovimentacao(request.GET)
-#         if filtro.is_valid():
-#             dados_filtro = filtro.cleaned_data
-#             item_filtrado = item
-
-#             if dados_filtro['txt_cod_produto']:
-#                 item_filtrado = item_filtrado.filter(txt_cod_produto__icontains=dados_filtro['txt_cod_produto'])
-
-#             if dados_filtro['txt_nome_produto']:
-#                 item_filtrado = item_filtrado.filter(txt_nome_produto__icontains=dados_filtro['txt_nome_produto'])
-
-#             if dados_filtro['txt_qtde_produto']:
-#                 item_filtrado = item_filtrado.filter(txt_qtde_produto__icontains=dados_filtro['txt_qtde_produto'])
-#         else:
-#             filtro = ItemFilterMovimentacao()
-
-#         context = {
-#             'filtro': filtro,
-#             'item_filtrado': item_filtrado
-
-#         }
-
-#         return render(request, 'produto/movimentacao.html', context=context)
-    
+   
 def dar_baixa(request, item_id):
-    est = Estoque()
-    dados = est.select_dados_produto(item_id)
+    # est = Estoque()
+    # dados = est.select_dados_produto(item_id)
+    # dados['item_id'] = item_id
+    dados = {
+
+        "item_id": item_id,
+        "sku": request.GET.get('sku'),
+        "descricao" : request.GET.get('desc'),
+        'quantidade' : request.GET.get('qtde')
+
+    }
     return render(request, 'produto/dar_baixa.html',{'dados': dados})
+
+def exec_baixa(request):
+    if request.method == 'POST':
+        operador = request.POST.get('operador')
+        id_registro = request.POST.get('id_registro')
+        tipo = request.POST.get('tipo')
+        qtidade_produto_baixa = int(request.POST.get('qtidade-produto-baixa'))
+        baixa = Estoque()
+        baixa.baixa_produto(
+                            request=request,
+                            sku=id_registro, 
+                            tipo=tipo, 
+                            qtde=qtidade_produto_baixa,
+                            referen=str(random.randint(8800, 8899)), 
+                            nome_usuario=operador)
+        
+    return redirect('listagem_produtos')
 
 def importar_excel(request):
     if request.method == 'POST':
@@ -193,6 +224,24 @@ def importar_excel(request):
 
     context = {'form': form}
     return render(request, 'produto/importar_excel.html', context)
+
+# def carregar_dados_excel(request):
+#     import pandas as pd
+#     estoque = Estoque()
+
+#     df = pd.DataFrame(pd.read_excel(''))
+
+#     for idx, row in df.iterrows():
+#         if not row['sku'] == '--':
+#             dados = {
+#                 'sku': row['sku'],
+#                 'descricao': str(row['Descricao']),
+#                 'quantidade': 0,
+#                 'url': row['url'],
+#                 'obs': row['obs']
+#             }
+#             estoque.insert_novo_produto(dados)
+#     return render(request, 'produto/importar_excel.html')
 
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos

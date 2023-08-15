@@ -20,6 +20,7 @@ urlpatterns = [
     path('adm/', views.gerenciar, name='gerenciar'),
     path('movimentacao/', views.movimentacao, name='movimentacao'),
     path('dar_baixa/<str:item_id>/', views.dar_baixa, name='baixa'),
+    path('exec_baixa/', views.exec_baixa, name='exe_baixa'),
     path('importar_excel/', views.importar_excel, name='importar_excel'),
     path('login_incorreto/', views.login, name='login_erro'),
     # path('admin/', admin.site.urls),
