@@ -22,5 +22,6 @@ urlpatterns = [
     path('dar_baixa/<str:item_id>/', views.dar_baixa, name='baixa'),
     path('importar_excel/', views.importar_excel, name='importar_excel'),
     path('login_incorreto/', views.login, name='login_erro'),
+    path('logout/', views.logout, name='logout'),
     # path('admin/', admin.site.urls),
 ]   

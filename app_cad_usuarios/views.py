@@ -8,6 +8,8 @@ from .crud.firebase_est import Estoque
 from .context_processors import nome_do_usuario 
 from .forms import ExcelImportForm
 import pandas as pd
+from firebase_admin import auth
+
 
 # def home(request):
 #     return render(request, 'base/home.html')
@@ -210,3 +212,9 @@ def importar_excel(request):
 #             pass
             
 #     return render(request, 'usuarios/login.html')
+
+def logout(request):
+    # Lógica para o logout (remova o usuário da sessão e outras ações necessárias)
+    request.session.flush()  # Isso limpa todas as informações da sessão
+    
+    return redirect('login')  # Redirecione para a página de login após o logout
