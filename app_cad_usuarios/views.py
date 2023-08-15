@@ -100,19 +100,22 @@ def gerenciar(request):
         return render(request, 'adm/gerenciar.html')
     else:
         return render(request, 'adm/sem_permissao.html')
-
+    
 def editar_user(request):
+    return render(request, 'adm/editar_user.html')
+
+def gerenciar_user(request):
     if request.method == 'GET':
         try:
             auth = AuthUsuarios()
             dados = auth.select_dados()
             # print(dados)
-            return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
+            return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
         except Exception as error:
-            return render(request, 'adm/editar_remover_user.html')
+            return render(request, 'adm/gerenciar_user.html')
     else:
         print("post")
-        return render(request, 'adm/editar_remover_user.html')
+        return render(request, 'adm/gerenciar_user.html')
 
 def deletar_user(request):
     if request.method == 'GET':
@@ -120,12 +123,12 @@ def deletar_user(request):
             auth = AuthUsuarios()
             dados = auth.select_dados()
             # print(dados)
-            return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
+            return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
         except Exception as error:
-            return render(request, 'adm/editar_remover_user.html')
+            return render(request, 'adm/gerenciar_user.html')
     else:
         print("post")
-        return render(request, 'adm/editar_remover_user.html')
+        return render(request, 'adm/gerenciar_user.html')
 
 def movimentacao(request):
     if request.method == 'GET':

@@ -14,8 +14,8 @@ urlpatterns = [
     path('deletar_produto/<str:sku>/', views.deletar, name='deletar_produto'),
     path('login/', views.login, name='login'),
     path('criar_user/', views.criar_user, name='criar_usuario'),
-    path('editar_user/', views.editar_user, name='editar_user'),
-    path('editar_user/<str:user_id>/', views.editar_user, name='editar_user'),
+    path('gerenciar_user/', views.gerenciar_user, name='gerenciar_user'),
+    path('gerenciar_user/<str:user_id>/', views.gerenciar_user, name='gerenciar_user'),
     path('deletar_user/<str:user_id>/', views.deletar_user, name='deletar_user'),
     path('adm/', views.gerenciar, name='gerenciar'),
     path('movimentacao/', views.movimentacao, name='movimentacao'),
@@ -23,5 +23,6 @@ urlpatterns = [
     path('importar_excel/', views.importar_excel, name='importar_excel'),
     path('login_incorreto/', views.login, name='login_erro'),
     path('logout/', views.logout, name='logout'),
+    path('editar_user/', views.editar_user, name='editar_user'),
     # path('admin/', admin.site.urls),
 ]   
