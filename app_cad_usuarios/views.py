@@ -1,12 +1,9 @@
 import random
 from django.shortcuts import render, redirect
-from .models import Usuario
-from .forms import UsuarioForm
 from .crud.firebase_crud import ProjetoEstoqueDemo
 from .crud.firebase_auth import AuthUsuarios
 from .crud.firebase_mov import Movimentacao
 from .crud.firebase_est import Estoque
-from .context_processors import nome_do_usuario 
 from .forms import ExcelImportForm
 import pandas as pd
 
@@ -20,7 +17,6 @@ def cadastrar(request):
     if request.method == 'POST':
         try:
             # data = json.loads(request.body)
-            # print(data)
             dados = {
                 'sku': request.POST.get('sku'),
                 'descricao': request.POST.get('descricao'),
@@ -28,7 +24,6 @@ def cadastrar(request):
                 'link': request.POST.get('hiperlink'),
                 'obs': request.POST.get('obs')
             }
-
             projeto = Estoque()
             projeto.insert_novo_produto(dados)
 
@@ -38,23 +33,9 @@ def cadastrar(request):
             return JsonResponse({"error": "Invalid JSON data"}, status=400)
 
     else:
-        usuario_form = UsuarioForm()
-        produtos = {'formulario': usuario_form}
+        produtos = {'formulario': 'usuario_form'}
         return render(request, 'produto/cadastro.html', context=produtos)
 
-def alterar(request):
-    if request.method == 'POST':
-        usuario_form = UsuarioForm(request.POST)
-        if usuario_form.is_valid():
-            usuario_form.save()
-        return redirect('listagem_produtos')
-    else:
-        usuario_form = UsuarioForm()
-        produtos = {'formulario': usuario_form}
-        return render(request, 'produto/alterar.html', context=produtos)
-
-def deletar(request, sku):
-    pass
 
 def login(request):
     try: 
@@ -84,11 +65,12 @@ def login(request):
 def produtos_filtro(request):
     if request.method == 'GET':
         try:
-            if 'dados_firebase' not in request.session:
-                est = Estoque()
-                dados = est.select_dados_produto()
-                request.session['dados_firebase'] = dados
-            return render(request, 'produto/prodcadastrados.html', {'produtos': request.session['dados_firebase']})
+            # if 'dados_firebase' not in request.session:
+            est = Estoque()
+            dados = est.select_dados_produto()
+                # request.session['dados_firebase'] = dados
+            return render(request, 'produto/prodcadastrados.html', {'produtos': dados})
+            # return render(request, 'produto/prodcadastrados.html', {'produtos': request.session['dados_firebase']})
         
         except Exception as error:
             return render(request, 'produto/prodcadastrados.html')
@@ -144,7 +126,6 @@ def editar_user(request):
         except Exception as error:
             return render(request, 'adm/editar_remover_user.html')
     else:
-        print("post")
         return render(request, 'adm/editar_remover_user.html')
 
 def deletar_user(request):
@@ -157,7 +138,6 @@ def deletar_user(request):
         except Exception as error:
             return render(request, 'adm/editar_remover_user.html')
     else:
-        print("post")
         return render(request, 'adm/editar_remover_user.html')
 
 def movimentacao(request):
@@ -170,7 +150,6 @@ def movimentacao(request):
         except Exception as error:
             return render(request, 'adm/editar_remover_user.html')
     else:
-        print("post")
         return render(request, 'produto/movimentacao.html')
    
 def dar_baixa(request, item_id):
@@ -213,10 +192,23 @@ def importar_excel(request):
                 excel_data = pd.read_excel(excel_file)
 
                 excel_data.fillna("--", inplace=True)
+                list_col = ['Nome','Quantidade','Codigo','Hiperlink','Observacao']
+                
+                # verifica se todas as colunas estão no padrão
+                resultado = excel_data.columns.isin(list_col).all()
+                if resultado:                    
 
-                context = {
-                    'excel_data': excel_data.to_dict(orient='records'),
-                }
+                    context = {
+                        'excel_data': excel_data.to_dict(orient='records'),
+                        'mensage': 'Gerado com sucesso'
+                    }
+                else:
+                    list_ausent = set(list_col) - set(excel_data.columns)
+                    context = {
+                        'excel_data': None,
+                        'mensage': ", ".join(map(str,list_ausent)) 
+                    }
+
 
                 return render(request, 'produto/importar_excel.html', context)
     else:
@@ -225,23 +217,31 @@ def importar_excel(request):
     context = {'form': form}
     return render(request, 'produto/importar_excel.html', context)
 
-# def carregar_dados_excel(request):
-#     import pandas as pd
-#     estoque = Estoque()
 
-#     df = pd.DataFrame(pd.read_excel(''))
 
-#     for idx, row in df.iterrows():
-#         if not row['sku'] == '--':
-#             dados = {
-#                 'sku': row['sku'],
-#                 'descricao': str(row['Descricao']),
-#                 'quantidade': 0,
-#                 'url': row['url'],
-#                 'obs': row['obs']
-#             }
-#             estoque.insert_novo_produto(dados)
-#     return render(request, 'produto/importar_excel.html')
+def carregar_dados_excel(request):
+    if request.method == 'POST':
+        try:
+            # Load JSON data from the request body
+            json_data = json.loads(request.body)
+            
+            projeto = Estoque()
+            # Loop through each item in the JSON data
+            projeto.insert_novo_produto_massivo(json_data, request)
+            # for item in json_data:
+            #     dados = {
+            #         'sku': item['sku'],
+            #         'descricao': item['descricao'],
+            #         'quantidade': item['quantidade'],
+            #         'link': item['hiperlink'],
+            #         'obs': item['obs']
+            #     }
+            #     projeto.insert_novo_produto(dados)
+
+            return redirect('listagem_produtos')
+
+        except json.JSONDecodeError as e:
+            return JsonResponse({"error": "Invalid JSON data"}, status=400)
 
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos
