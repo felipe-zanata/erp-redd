@@ -82,14 +82,17 @@ def login(request):
 def produtos_filtro(request):
     if request.method == 'GET':
         try:
-            est = Estoque()
-            dados = est.select_dados_produto()
-            return render(request, 'produto/prodcadastrados.html', {'produtos': dados})
+            if 'dados_firebase' not in request.session:
+                est = Estoque()
+                dados = est.select_dados_produto()
+                request.session['dados_firebase'] = dados
+            return render(request, 'produto/prodcadastrados.html', {'produtos': request.session['dados_firebase']})
         
         except Exception as error:
             return render(request, 'produto/prodcadastrados.html')
     else:
         return render(request, 'produto/prodcadastrados.html')
+       
 
 def criar_user(request):
     if request.method == 'POST':
@@ -103,7 +106,6 @@ def criar_user(request):
             'senha' : senha1,
             'avatar_url': 'http//teste',
         }
-        print(dados)
         new_user = AuthUsuarios()
         new_user.inserir_novo_usuario(dados=dados, tipo_usuario=acesso)
         
@@ -177,8 +179,14 @@ def exec_baixa(request):
         tipo = request.POST.get('tipo')
         qtidade_produto_baixa = int(request.POST.get('qtidade-produto-baixa'))
         baixa = Estoque()
-        print(id_registro,tipo,sep='\n')
-        baixa.baixa_produto(sku=id_registro, tipo=tipo, qtde=qtidade_produto_baixa,referen=str(random.randint(8800, 8899)), nome_usuario=operador)
+        baixa.baixa_produto(
+                            request=request,
+                            sku=id_registro, 
+                            tipo=tipo, 
+                            qtde=qtidade_produto_baixa,
+                            referen=str(random.randint(8800, 8899)), 
+                            nome_usuario=operador)
+        
     return redirect('listagem_produtos')
 
 def importar_excel(request):
@@ -201,6 +209,24 @@ def importar_excel(request):
 
     context = {'form': form}
     return render(request, 'produto/importar_excel.html', context)
+
+# def carregar_dados_excel(request):
+#     import pandas as pd
+#     estoque = Estoque()
+
+#     df = pd.DataFrame(pd.read_excel(''))
+
+#     for idx, row in df.iterrows():
+#         if not row['sku'] == '--':
+#             dados = {
+#                 'sku': row['sku'],
+#                 'descricao': str(row['Descricao']),
+#                 'quantidade': 0,
+#                 'url': row['url'],
+#                 'obs': row['obs']
+#             }
+#             estoque.insert_novo_produto(dados)
+#     return render(request, 'produto/importar_excel.html')
 
 # def login(request):
 #     # Verificação de usuário e senha pré-definidos

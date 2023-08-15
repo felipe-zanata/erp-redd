@@ -70,10 +70,10 @@ class Estoque:
 
         return data_hora_brasil.strftime('%d/%m/%y %H:%M')
     
-    def baixa_produto(self, sku: str, tipo: str, qtde: int, referen: str, nome_usuario: str):
+    def baixa_produto(self,request, sku: str, tipo: str, qtde: int, referen: str, nome_usuario: str):
 
         produto = self.select_dados_produto(sku_id=sku)
-        print(produto)
+        nova_qtde: int = 0
         if produto:
             # verifica tipo movimentação
             if tipo =='entrada':
@@ -96,14 +96,24 @@ class Estoque:
                 'quantidade': qtde
             }
             est.insert_movimentacao(dados)
+            atualiza_produto(request, produto['id'], nova_qtde)
 
+def atualiza_produto(request, item_id: str, qtde: int):
 
+    dct_produto: dict = request.session['dados_firebase']
+    
+    for chave, valor in dct_produto.items():
+        if chave == item_id:
+            dct_produto[item_id]['quantidade'] = qtde
+            # import ipdb;ipdb.set_trace()
+            break
+    request.session['dados_firebase'] = dct_produto
 # if __name__ == '__main__':
     # import pandas as pd
-    # import random
-    # estoque = Estoque()
-    # val = estoque.select_dados_produto()
-    # print(val)
+    # # import random
+    # # estoque = Estoque()
+    # # val = estoque.select_dados_produto()
+    # # print(val)
 
     # df = pd.DataFrame(pd.read_excel(r"C:\Users\2103896595\Desktop\Pasta1.xlsx"))
 
