@@ -92,7 +92,20 @@ def produtos_filtro(request):
             return render(request, 'produto/prodcadastrados.html')
     else:
         return render(request, 'produto/prodcadastrados.html')
-       
+
+def atualizar_dados(request):
+    try:
+        if 'dados_firebase' in request.session:
+            del request.session['dados_firebase']
+        
+        est = Estoque()
+        dados = est.select_dados_produto()
+        request.session['dados_firebase'] = dados
+
+        return render(request, 'produto/produtos_list.html', {'produtos': dados})
+
+    except Exception as error:
+        return render(request, 'produto/produtos_list.html')
 
 def criar_user(request):
     if request.method == 'POST':

@@ -34,6 +34,7 @@
       <!-- <label for="file-input" class="export-button">Importar Excel
         <input type="file" id="file-input" class="import-input" accept=".xlsx, .xls, .csv">
       </label> -->
+      <button class="export-button" id="atualizar-button">Atualizar</button>
       <button class="export-button">Exportar Excel</button>
     </div>
     <div class="table-container" style="height: 500px; overflow-y: auto;">
@@ -116,5 +117,30 @@
       });
   });
   </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const atualizarButton = document.getElementById("atualizar-button");
+      
+      atualizarButton.addEventListener("click", function() {
+          // Faz uma requisição ao servidor para atualizar os dados
+          fetch("/produtos/", {
+              method: "GET",
+          })
+          .then(response => response.text())
+          .then(data => {
+              // Atualiza a página com os novos dados
+              document.getElementById("produtos-list").innerHTML = data;
+  
+              // Faz o refresh da página
+              window.location.reload();
+          })
+          .catch(error => {
+              console.error("Erro ao atualizar dados:", error);
+          });
+      });
+  });
+  </script>
+  
 
 {% endblock %}
