@@ -24,7 +24,7 @@
           <span class="back-buttons" id="fileName" >Importar Dados</span>
           <input type="file" name="excel_file" id="fileInput" style="display: none;">
         </label>
-        <button class="back-buttons" type="submit" style="height: 40px; text-align: center; ">Carregar Dados</button>
+        <button class="back-buttons" type="submit" style="height: 37px; text-align: center; ">Carregar Dados</button>
         <a class="back-buttons" href="/adm/">Voltar</a>
       </form>
     </div>
@@ -35,7 +35,7 @@
       <div class="container-fluid content" style="height: 500px; width: auto; overflow-y: auto;">
         <div class="centralizar">
           <h1 class="dados-imp">Dados Importados</h1>
-          
+
         </div>
         <table>
           <tr>
@@ -47,9 +47,9 @@
           </tr>
           {% if excel_data %}
           
-          <button class="back-buttons" type="submit">
-            Importar Para Estoque 
-            <div id="loading" class="custom-loader" style="display: none;"></div>
+          <button class="back-buttons" type="submit" style="position: relative;">
+            <div id="loading" class="custom-loader" style=" display: block; position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%);"></div>
+            Importar Para Estoque
           </button>
 
           <!-- <div id="loading" style="display: none;">

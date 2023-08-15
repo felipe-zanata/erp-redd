@@ -199,16 +199,34 @@ label:hover {
   align-items: center; /* Centralizar verticalmente */
 }
 
-.custom-loader {
+/* .custom-loader {
   width:120px;
   height:20px;
   border-radius: 20px;
   align-self: center;
   background:
-   repeating-linear-gradient(135deg,#F4E6BB 0 10px,#F4E6BBbf 0 20px) left/0% 100%   no-repeat,
+   repeating-linear-gradient(135deg,#f38e4f 0 10px,#f9d6c1 0 20px) left/0% 100%   no-repeat,
    repeating-linear-gradient(135deg,#F4E6BB33    0 10px,#F4E6BB1a    0 20px) left/100% 100%;
   animation:p3 2s infinite;
 }
 @keyframes p3 {
     100% {background-size:100% 100%}
+} */
+
+.custom-loader {
+   height:6px;
+   width:160px;
+   background:
+    linear-gradient(#F4F4F4 0 0),
+    linear-gradient(#F4F4F4 0 0),
+    #f28d35;
+  background-size: 60% 100%;
+  background-repeat: no-repeat;
+  animation: p6 3s infinite;
+}
+
+@keyframes p6 {
+  0%   {background-position:-150% 0,-150% 0}
+  66%  {background-position: 250% 0,-150% 0}
+  100% {background-position: 250% 0, 250% 0}
 }
