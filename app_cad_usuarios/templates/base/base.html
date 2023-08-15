@@ -31,7 +31,7 @@
         <div class="dropdown-menu" aria-labelledby="userMenu">
             <!-- <a class="dropdown-item" href="/admin/">Admin</a> Abre admin do django -->
             <a class="dropdown-item" href="/adm/">Gerenciamento</a>
-            <a class="dropdown-item" href="/login/">Sair</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
             <!-- Adicione outras opções do menu aqui -->
         </div>
     </div>

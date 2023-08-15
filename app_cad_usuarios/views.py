@@ -6,6 +6,8 @@ from .crud.firebase_mov import Movimentacao
 from .crud.firebase_est import Estoque
 from .forms import ExcelImportForm
 import pandas as pd
+from firebase_admin import auth
+
 
 # def home(request):
 #     return render(request, 'base/home.html')
@@ -115,18 +117,23 @@ def gerenciar(request):
         return render(request, 'adm/gerenciar.html')
     else:
         return render(request, 'adm/sem_permissao.html')
-
+    
 def editar_user(request):
+    return render(request, 'adm/editar_user.html')
+
+def gerenciar_user(request):
     if request.method == 'GET':
         try:
             auth = AuthUsuarios()
             dados = auth.select_dados()
             # print(dados)
-            return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
+            return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
         except Exception as error:
-            return render(request, 'adm/editar_remover_user.html')
+            return render(request, 'adm/gerenciar_user.html')
     else:
-        return render(request, 'adm/editar_remover_user.html')
+        print("post")
+        return render(request, 'adm/gerenciar_user.html')
+
 
 def deletar_user(request):
     if request.method == 'GET':
@@ -134,11 +141,12 @@ def deletar_user(request):
             auth = AuthUsuarios()
             dados = auth.select_dados()
             # print(dados)
-            return render(request, 'adm/editar_remover_user.html', context={'dados': dados})
+            return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
         except Exception as error:
-            return render(request, 'adm/editar_remover_user.html')
+            return render(request, 'adm/gerenciar_user.html')
     else:
-        return render(request, 'adm/editar_remover_user.html')
+        print("post")
+        return render(request, 'adm/gerenciar_user.html')
 
 def movimentacao(request):
     if request.method == 'GET':
@@ -259,3 +267,9 @@ def carregar_dados_excel(request):
 #             pass
             
 #     return render(request, 'usuarios/login.html')
+
+def logout(request):
+    # Lógica para o logout (remova o usuário da sessão e outras ações necessárias)
+    request.session.flush()  # Isso limpa todas as informações da sessão
+    
+    return redirect('login')  # Redirecione para a página de login após o logout
