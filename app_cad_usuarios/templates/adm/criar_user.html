@@ -13,7 +13,8 @@
 <body>
     <div class="container">
         <h2>Criar Novo Usuário</h2>
-        <form action="/cadastrar-usuario/" method="POST">
+        <form action="/criar_user/" method="post" onsubmit="return verificaSenha()">
+            {% csrf_token %}
             <div class="input-group">
                 <label for="tipo" style="margin-right: 10px;">Tipo:</label>
                 <select id="tipo" name="tipo">
@@ -44,4 +45,17 @@
 </body>
 </html>
 
+<script>
+    function verificaSenha() {
+        var senha = document.getElementById("password").value;
+        var confirmaSenha = document.getElementById("confirm-password").value;
+
+        if (senha !== confirmaSenha) {
+            alert('Senhas não Conferem!');
+            return false; // Impede a submissão do formulário
+        }
+        return true;
+        
+    }
+</script>
 {% endblock %}

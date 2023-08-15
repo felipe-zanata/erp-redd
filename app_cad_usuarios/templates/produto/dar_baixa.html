@@ -11,8 +11,9 @@
 <body>
     <div class="container">
         <h2>Dar baixa</h2>
-        <form>
-            <label>Operador:</label>
+        <form action="/exec_baixa/" method="post" onsubmit="return validarQuantidade()">
+            {% csrf_token %}
+            <input type="text" style="display: None;" value="{{ dados.item_id }}" id="id_registro" name="id_registro" readonly>
             <input type="text" value="{{ request.session.nome }}" id="operador" name="operador" readonly>           
             <label>Tipo de produto:</label>
             <input type="text" value="{{ dados.sku }}" id="codigo-produto" name="codigo-produto" readonly></input>
@@ -38,4 +39,27 @@
 </body>
 </html>
 
+<script>
+    function validarQuantidade() {
+        var qtidadeProduto = parseFloat(document.getElementById("qtidade-produto").value);
+        var qtidadeProdutoBaixa = parseFloat(document.getElementById("qtidade-produto-baixa").value);
+        var tipoBaixa = String(document.getElementById("tipo").value);
+    
+        if (tipoBaixa == 'entrada') {
+            if (qtidadeProdutoBaixa > 0) {
+                return true; // Permite a submissão do formulário
+            }else{
+                alert('Insira uma quantidade válida.');
+                return false; // Impede a submissão do formulário
+            }
+        } else {
+            if (qtidadeProdutoBaixa <= qtidadeProduto) {
+                return true; // Permite a submissão do formulário
+            }else{
+                alert('Quantidade de baixa maior que existente em estoque');
+                return false; // Impede a submissão do formulário
+            }
+        }
+    }
+    </script>
 {% endblock %}

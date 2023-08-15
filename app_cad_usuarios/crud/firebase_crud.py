@@ -1,65 +1,67 @@
 import random
-import pyrebase
-from decouple import config
+import firebase_admin
+
+from firebase_admin import credentials, firestore
 
 class CadastroProduto:
 
-    def __init__(self,sku: int, descricao: str, qtde: int = 0, preco: float = 0.0, obs: str = '') -> None:
+    def __init__(self,sku: int, descricao: str, qtde: int = 0, hiperlink: str = '', obs: str = '') -> None:
         self.sku = sku
         self.descricao = descricao
         self.quantidade = qtde
-        self.preco = preco
+        self.hiperlink = hiperlink
         self.obs = obs
 
 
 class ProjetoEstoqueDemo:
+    _instance = None
 
     def __init__(self) -> None:
-        self.__firebase_cofig = self.configuracao_firebase()
+        self.__dir_credencial = 'app_cad_usuarios\crud\credencial.json'
+        self.__firebase = self.configuracao_firebase()
         # self.nivel_acesso = self.verifica_nivel()
 
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(ProjetoEstoqueDemo, cls).__new__(cls)
+        return cls._instance
+    
     def configuracao_firebase(self):
         """insere os parametros de ligação"""
         try:
-            firebase_config: dict = {
-            'apiKey': config('API_KEY'),
-            'authDomain':  config('AUTH_DOMAIN'),
-            'databaseURL':  config('DATABASE_URL'),
-            'projectId':  config('PROJECT_ID'),
-            'storageBucket':  config('STORAGE_BUCKET'),
-            'messagingSenderId': config('MESSAGING_SENDER_ID'),
-            'appId':  config('APP_ID')
-            }
-
-            return pyrebase.initialize_app(firebase_config)
+            if not firebase_admin._apps:
+                cred = credentials.Certificate(self.__dir_credencial)
+                firebase_admin.initialize_app(credential=cred)
+            return firestore.client()
         except Exception as e:
             print("Erro ao configurar o Firebase", str(e))
 
-    def inserir_produto(self, sku, descricao, quantidade, preco, obs):
+    def inserir_produto(self, sku, descricao, quantidade, hiperlink, obs):
         """cadastramento do novo produto na base"""
         try:
-            cadastro_produto = CadastroProduto(sku, descricao, quantidade, preco, obs)
-            db = self.__firebase_cofig.database()
-            db.child('/produtos').child(cadastro_produto.sku).set({
-                "Descricao" : cadastro_produto.descricao,
-                "Quantidade": cadastro_produto.quantidade,
-                "Preço": cadastro_produto.preco,
-                "Obs": cadastro_produto.obs})
+            cadastro_produto = CadastroProduto(sku, descricao, quantidade, hiperlink, obs)
+            colecao = self.__firebase.collection('estoque')
+            colecao.add({
+                "sku" : cadastro_produto.sku,
+                "descricao" : cadastro_produto.descricao,
+                "quantidade": cadastro_produto.quantidade,
+                "url": cadastro_produto.hiperlink,
+                "obs": cadastro_produto.obs})
             print ("Novo registro adicionado com sucesso")
 
         except Exception as e:
             print("Erro ao cadastrar um produto no estoque", str(e))
     
-    def inserir_historico_mov(self, sku, descricao, quantidade, preco, obs):
+    def inserir_historico_mov(self, sku, descricao, quantidade, hiperlink, obs):
         """grava no banco de dados o historico de entrada e saida do produto"""
         try:
-            cadastro_produto = CadastroProduto(sku, descricao, quantidade, preco, obs)
-            db = self.__firebase_cofig.database()
-            db.child('/movimentacao').child().set({
-                "usuario" : cadastro_produto.descricao,
-                "data": cadastro_produto.quantidade,
-                "codigo": cadastro_produto.preco,
-                "tipo": cadastro_produto.obs})
+            # cadastro_produto = CadastroProduto(sku, descricao, quantidade, hiperlink, obs)
+            # colecao = self.__firebase.collection('movimentacao')
+            # colecao.add({
+            #     "usuario" : cadastro_produto.descricao,
+            #     "data": cadastro_produto.quantidade,
+            #     "codigo": cadastro_produto.hiperlink,
+            #     "tipo": cadastro_produto.obs})
             print ("Novo registro adicionado com sucesso")
 
         except Exception as e:
