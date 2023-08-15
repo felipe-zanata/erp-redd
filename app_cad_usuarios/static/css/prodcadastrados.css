@@ -112,9 +112,12 @@
 
 table {
   border-collapse: collapse;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   border: 1px solid #BDBDBD;
-  table-layout: fixed;
+  /* table-layout: fixed; */
 }
 
 th {
@@ -128,8 +131,8 @@ td {
   padding: 10px;
   text-align: center;
   border-top: 1px solid #BDBDBD;
-  white-space: nowrap;
-  overflow: visible;
+  /* white-space: nowrap; */
+  overflow: auto;
   text-overflow: ellipsis;
 }
 
@@ -149,9 +152,9 @@ tbody{
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-  margin-inline: 5px;
+  /* margin-inline: 5px; */
   height: auto;
-  width: 150px;
+  width: 70px;
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.5s;
