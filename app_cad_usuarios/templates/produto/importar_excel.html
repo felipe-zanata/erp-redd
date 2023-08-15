@@ -21,30 +21,41 @@
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <label class="custom-file-upload" for="fileInput">
-          <span class="back-buttons" id="fileName">Importar Dados</span>
+          <span class="back-buttons" id="fileName" >Importar Dados</span>
           <input type="file" name="excel_file" id="fileInput" style="display: none;">
         </label>
-        <button class="back-buttons" type="submit">Carregar Dados</button>
+        <button class="back-buttons" type="submit" style="height: 40px; text-align: center; ">Carregar Dados</button>
         <a class="back-buttons" href="/adm/">Voltar</a>
       </form>
     </div>
   </div>
 
   <div class="center-container">
-    <div class="container-fluid content">
-      {% if excel_data %}
-      <div class="centralizar">
-        <h1 class="dados-imp">Dados Importados</h1>
-        <a class="back-buttons" href="/produtos/">Importar Para Estoque</a>
-      </div>
-      <table>
+    <form id="salvarFirebase">
+      <div class="container-fluid content" style="height: 500px; width: auto; overflow-y: auto;">
+        <div class="centralizar">
+          <h1 class="dados-imp">Dados Importados</h1>
+          
+        </div>
+        <table>
           <tr>
-              <th>Código do Produto</th>
-              <th>Nome do Produto</th>
-              <th>Quantidade</th>
-              <th>Hiperlink</th>
-              <th>Observação</th>
+            <th>Código do Produto</th>
+            <th>Nome do Produto</th>
+            <th>Quantidade</th>
+            <th>Hiperlink</th>
+            <th>Observação</th>
           </tr>
+          {% if excel_data %}
+          
+          <button class="back-buttons" type="submit">
+            Importar Para Estoque 
+            <div id="loading" class="custom-loader" style="display: none;"></div>
+          </button>
+
+          <!-- <div id="loading" style="display: none;">
+            <img src="../static/carregando.gif" alt="Carregando...">
+          </div> -->
+          
           {% for row in excel_data %}
           <tr>
               <td>{{ row.Codigo }}</td>
@@ -54,14 +65,32 @@
               <td>{{ row.Observacao }}</td>
           </tr>
           {% endfor %}
+          {% else %}
+            <p>Colunas não localizadas: {{ mensage }}</p>
+          {% endif %}
       </table>
-      {% endif %}
-    </div>
+      </div>
+    </form>
   </div>
 
 </body>
 </html>
-
+<!-- 
+<style>
+.custom-loader {
+  width:120px;
+  height:20px;
+  border-radius: 20px;
+  align-self: center;
+  background:
+   repeating-linear-gradient(135deg,#F4E6BB 0 10px,#F4E6BBbf 0 20px) left/0% 100%   no-repeat,
+   repeating-linear-gradient(135deg,#F4E6BB33    0 10px,#F4E6BB1a    0 20px) left/100% 100%;
+  animation:p3 2s infinite;
+}
+@keyframes p3 {
+    100% {background-size:100% 100%}
+}
+</style> -->
 <script>
   const fileInput = document.getElementById('fileInput');
   const fileName = document.getElementById('fileName');
@@ -74,5 +103,72 @@
     }
   });
 </script>
+<script>
+  document.getElementById("salvarFirebase").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+      // Mostrar o GIF de carregamento e desabilitar o botão
+      var loadingDiv = document.getElementById("loading");
+      var salvarButton = document.getElementById("salvarFirebase");
+      loadingDiv.style.display = "block";
+      salvarButton.disabled = true;
+
+    var tableRows = document.querySelectorAll("table tbody tr");
+    var products = [];
+
+    tableRows.forEach(function(row) {
+      var produto = {
+        sku: row.cells[0].textContent,
+        descricao: row.cells[1].textContent,
+        quantidade: parseFloat(row.cells[2].textContent),
+        hiperlink: row.cells[3].textContent,
+        obs: row.cells[4].textContent
+      };
+      products.push(produto);
+    });
+
+    var data = JSON.stringify(products);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/carregar_dados_excel/", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    var csrftoken = getCookie('csrftoken');
+    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          console.log("Produtos cadastrados com sucesso!");
+          alert('Importado com Sucesso!');
+          loadingDiv.style.display = "none";
+          
+
+        } else {
+          console.error("Erro ao cadastrar produtos:", xhr.statusText);
+          alert('Erro ao cadastrar produtos');
+        }
+      }
+    };
+
+    xhr.send(data);
+  });
+
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+
 
 {% endblock %}
