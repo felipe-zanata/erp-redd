@@ -38,8 +38,11 @@
                 <label for="confirm-password">Confirmar Senha:</label>
                 <input type="password" id="confirm-password" name="confirm_password" required>
             </div>
-            <button type="submit">Registrar novo usuário</button>
-            <a class="back-button" href="/adm/">Voltar</a>
+            <!-- <div id="mensagem-retorno" style="display: none;"></div>
+                <button type="submit" id="botao-registrar">Registrar usuário</button> -->
+                <button type="submit">Registrar novo usuário</button>
+                <a class="back-button" href="/adm/">Voltar</a>
+
         </form>
     </div>
 </body>
@@ -58,4 +61,21 @@
         
     }
 </script>
+
+<!-- <script>
+    document.getElementById("botao-registrar").addEventListener("click", function(event) {
+      event.preventDefault(); // Evita que o formulário seja enviado
+  
+      // Simula o processo de cadastro (substitua isso pelo código real de cadastro)
+      // Aqui estamos apenas esperando 2 segundos antes de exibir a mensagem de retorno
+      setTimeout(function() {
+        var mensagemElement = document.getElementById("mensagem-retorno");
+        mensagemElement.innerHTML = "Novo usuário cadastrado com sucesso!";
+        mensagemElement.style.display = "block";
+      }, 2000); // 2 segundos
+  
+      // Você também pode adicionar aqui o código para enviar o formulário de cadastro para o servidor
+      // ou fazer a chamada AJAX para realizar o cadastro real do usuário
+    });
+  </script> -->
 {% endblock %}
