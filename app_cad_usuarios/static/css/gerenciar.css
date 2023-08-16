@@ -17,11 +17,13 @@ body {
     max-width: 400px;
 }
 
+/* Definiçoes do menu de adm */
 .menu {
     margin-top: 20px;
 }
 
-.menu a {
+/* Botões menu */
+.todos-botoes-menu a {
     display: block;
     margin: 10px 0;
     padding: 10px;
@@ -30,7 +32,7 @@ body {
     border-radius: 5px;
 }
 
-.menu a:hover {
+.todos-botoes-menu a:hover {
     background-color: #f66f00;
 }
 

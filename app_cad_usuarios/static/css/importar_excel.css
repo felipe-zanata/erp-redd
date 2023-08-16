@@ -1,29 +1,14 @@
-/* Botao import e export */
-/* .export-button {
-text-align: center;
-align-content: center;
-background-color: #f28d35;
-color: white;
-border: none;
-border-radius: 5px;
-padding: 10px;
-margin-bottom: 10px;
-margin-inline: 5px;
-height: auto;
-width: 150px;
-cursor: pointer;
-transition: background-color 0.5s;
-} */
-
-/* Cor do exportar e importar */
-.export-button:hover {
-background-color: #f66f00;
-color: white;
+.center-container {
+  display: flex;
+  justify-content: center; /* Centralizar horizontalmente */
+  align-items: center; /* Centralizar verticalmente */
+  height: 100vh; /* 100% da altura da viewport */
 }
 
-/* Esconder ficheiro do importar */
-.import-input {
-display: none;
+/* centralizar e arrumar tamanho da fonte titulo filtrar produtos e lista de prod cadastrados */
+.container-fluid.content h1 {
+  font-size: 28px;
+  text-align: center;
 }
 
 /* Separar e centralizar filtrar produtos e produtos cadastrados */
@@ -34,12 +19,6 @@ box-shadow: 0px 0px 8px rgba(4, 2, 2, 0.994);
 padding: 10px;
 max-width: 800px;
 margin-top: 10px;
-}
-
-/* centralizar e arrumar tamanho da fonte titulo filtrar produtos e lista de prod cadastrados */
-.container-fluid.content h1 {
-font-size: 28px;
-text-align: center;
 }
 
 /* Botão buscar do filtro estilizado */
@@ -71,22 +50,6 @@ margin: 0 10px;
 width: 150px;
 }
 
-/* Botão deletar */
-.delete-button::before {
-content: "X";
-color: rgb(255, 255, 255);
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-}
-
-/* Botão editar */
-.edit-button::before {
-content: "\270E";
-position: 5px;
-}
-
-
 /* Parece que estende a borda do lista de prod cadastrados */
 table {
 border-collapse: collapse;
@@ -114,7 +77,7 @@ height: 50px;
 overflow-y: scroll; 
 }
 
-.back-buttons {
+.botao-importar-excel {
   background-color: #f28d35;
   color: white;
   border: none;
@@ -131,7 +94,28 @@ overflow-y: scroll;
 }
 
 /* Degrade botão novo user */
-.back-buttons:hover {
+.botao-importar-excel:hover {
+  background-color: #f66f00;
+}
+
+.botao-voltar {
+  background-color: #f28d35;
+  color: white;
+  border: none;
+  height: 60px;
+  border-radius: 5px;
+  padding: 8px 12px;
+  text-align: center;
+  align-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 10px;
+  margin-right: 10px;
+  transition: background-color 0.5s;
+}
+
+/* Degrade botão novo user */
+.botao-voltar:hover {
   background-color: #f66f00;
 }
 
@@ -158,36 +142,6 @@ align-content: center;
   align-content: center;
 }
 
-/* label {
-    text-align: center;
-    align-content: center;
-    background-color: #f28d35;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    margin-inline: 5px;
-    height: auto;
-    width: 150px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.5s;
-    
-}
-
-label:hover {
-  background-color: #f66f00;
-  color: white;
-  } */
-
-.center-container {
-  display: flex;
-  justify-content: center; /* Centralizar horizontalmente */
-  align-items: center; /* Centralizar verticalmente */
-  height: 100vh; /* 100% da altura da viewport */
-}
-
 /* Seletor para centralizar os botões no meio da tela */
 .container-fluid.content {
   text-align: center;
@@ -199,21 +153,7 @@ label:hover {
   align-items: center; /* Centralizar verticalmente */
 }
 
-/* .custom-loader {
-  width:120px;
-  height:20px;
-  border-radius: 20px;
-  align-self: center;
-  background:
-   repeating-linear-gradient(135deg,#f38e4f 0 10px,#f9d6c1 0 20px) left/0% 100%   no-repeat,
-   repeating-linear-gradient(135deg,#F4E6BB33    0 10px,#F4E6BB1a    0 20px) left/100% 100%;
-  animation:p3 2s infinite;
-}
-@keyframes p3 {
-    100% {background-size:100% 100%}
-} */
-
-.custom-loader {
+.animacao-carregamento {
    height:6px;
    width:160px;
    background:

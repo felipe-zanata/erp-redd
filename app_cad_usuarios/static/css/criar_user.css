@@ -20,8 +20,8 @@ body {
 }
 
 /* Distanciamento entre inputs de criar user */
-.input-group {
-    margin-bottom: 15px;
+.distanciamento-inputs {
+    margin-bottom: 20px;
 }
 
 /* Não sei mas preferi deixar */
@@ -56,7 +56,8 @@ button:hover {
     background-color: #f66f00;
 }
 
-.back-button {
+/* Botão voltar */
+.botao-voltar {
     background-color: #f28d35;
     color: white;
     border: none;
@@ -70,14 +71,15 @@ button:hover {
   }
 
 /* Degrade botão novo user */
-.back-button:hover {
+.botao-voltar:hover {
     background-color: #f66f00;
 }
 
+/* botao voltar para nao ficar azul ao passar mouse */
 a {
-    color: #ffffff; /* Altere a cor conforme necessário */
+    color: #ffffff;
 }
 
 a:hover {
-    color: #ffffff; /* Altere a cor conforme necessário */
+    color: #ffffff;
 }

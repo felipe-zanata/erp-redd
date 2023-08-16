@@ -5,31 +5,84 @@ body{
   flex-direction: column;
 }
 
-.content input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-/* Formatação de icones do excluir e editar */
-.content button {
-  background-color: #f28d35;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.5s;
+/* centralizar e arrumar tamanho da fonte titulo filtrar produtos e lista de prod cadastrados */
+.container-fluid.content h1 {
+  font-size: 28px;
+  text-align: center;
 }
 
+/* Distanciamento dos inputs de filtrar produtos */
+.txt-filtros input {
+  padding: 5px;
+  margin: 0 10px;
+  width: 150px;
+}
+
+/* Padroniza tamanho de todos os filtros */
+.content input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Caixa de movimentações (se tirar a caixa fica maior)*/ 
+.container {
+  max-width: 800px;
+  margin-top: 10px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+}
 /* Degrade ao passar mouse em cima do editar/excluir */
 .content button:hover {
   background-color: #f66f00;
 }
 
-/* Botao import e export */
+.content {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 0px 8px rgba(4, 2, 2, 0.994);
+  padding: 10px;
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+/* Parece que estende a borda do lista de prod cadastrados */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #BDBDBD;
+}
+
+/* Borda da lista de produtos */
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #dedede;
+  border: 1px solid #BDBDBD;
+}
+
+td {
+  border-top: 1px solid #BDBDBD;
+}
+
+tbody{
+  height: 50px; 
+  overflow-y: scroll; 
+}
+
+h2 {
+  text-align: center;
+}
+
+/* Botao voltar */
 .botao-voltar {
   text-align: center;
   align-content: center;
@@ -51,105 +104,4 @@ body{
 .botao-voltar:hover {
   background-color: #f66f00;
   color: white;
-}
-
-/* Caixa de movimentações */
-.container {
-    max-width: 800px;
-    margin-top: 10px;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgb(0, 0, 0);
-}
-
-.content {
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0px 0px 8px rgba(4, 2, 2, 0.994);
-    padding: 10px;
-    max-width: 800px;
-    margin: 10px auto;
-}
-
-/* centralizar e arrumar tamanho da fonte titulo filtrar produtos e lista de prod cadastrados */
-.container-fluid.content h1 {
-    font-size: 28px;
-    text-align: center;
-    }
-  
-/* Botão buscar do filtro estilizado */
-.filter-form button {
-background-color: #f28d35;
-color: white;
-border: none;
-border-radius: 5px;
-padding: 5px 10px;
-cursor: pointer;
-margin-top: 10px;
-margin-right: 10px;
-transition: background-color 0.5s;
-}
-
-/* Não vi grande mudança mas alterou um pouco a box do filtrar produtos */
-.filter-form {
-margin-bottom: 10px;
-text-align: center;
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-
-/* Distanciamento dos inputs de filtrar produtos */
-.filter-form input {
-padding: 5px;
-margin: 0 10px;
-width: 150px;
-}
-
-/* Parece que estende a borda do lista de prod cadastrados */
-table {
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px solid #BDBDBD;
-}
-
-/* Borda da lista de produtos */
-th, td {
-padding: 10px;
-text-align: center;
-}
-
-th {
-background-color: #dedede;
-border: 1px solid #BDBDBD;
-}
-
-td {
-border-top: 1px solid #BDBDBD;
-}
-
-tbody{
-height: 50px; 
-overflow-y: scroll; 
-}
-
-button {
-    height: auto;
-    width: 80px;
-    padding: 5px 10px;
-    background-color: #f28d35;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #f66f00;
-}
-
-h2 {
-    text-align: center;
 }

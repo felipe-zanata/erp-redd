@@ -1,84 +1,8 @@
-/* Formatação de input filtros */
-.content input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-/* Formatação de icones do excluir e editar */
-.content button {
-  background-color: #f28d35;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.5s;
-}
-
-/* Degrade ao passar mouse em cima do editar/excluir */
-.content button:hover {
-  background-color: #f66f00;
-}
-
-/* Botao import e export */
-.export-button {
-  text-align: center;
-  align-content: center;
-  background-color: #f28d35;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-  margin-inline: 5px;
-  height: auto;
-  width: 150px;
-  cursor: pointer;
-  transition: background-color 0.5s;
-}
-
-/* Cor do exportar e importar */
-.export-button:hover {
-  background-color: #f66f00;
-  color: white;
-}
-
-/* Esconder ficheiro do importar */
-.import-input {
-  display: none;
-}
-
-/* Separar e centralizar filtrar produtos e produtos cadastrados */
-.content {
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0px 0px 8px rgba(4, 2, 2, 0.994);
-  padding: 10px;
-  max-width: 1000px;
-  margin-top: 10px;
-}
-
 /* centralizar e arrumar tamanho da fonte titulo filtrar produtos e lista de prod cadastrados */
 .container-fluid.content h1 {
   font-size: 28px;
   text-align: center;
-  }
-
-/* Botão buscar do filtro estilizado
-.filter-form button {
-  background-color: #f28d35;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin-top: 10px;
-  margin-right: 10px;
-  transition: background-color 0.5s;
-} */
+}
 
 /* Não vi grande mudança mas alterou um pouco a box do filtrar produtos */
 .filter-form {
@@ -96,19 +20,30 @@
   width: 150px;
 }
 
-/* Botão deletar
-.delete-button::before {
-  content: "X";
-  color: rgb(255, 255, 255);
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+
+/* Formatação de input filtros */
+.content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+/* Esconder ficheiro do importar */
+.import-input {
+  display: none;
 }
 
-.edit-button::before {
-  content: "\270E";
-  position: 5px;
-} */
+/* Separar e centralizar filtrar produtos e produtos cadastrados */
+.content {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 0px 8px rgba(4, 2, 2, 0.994);
+  padding: 10px;
+  max-width: 1000px;
+  margin-top: 10px;
+}
 
 table {
   border-collapse: collapse;
@@ -117,7 +52,6 @@ table {
   justify-content: center;
   width: 100%;
   border: 1px solid #BDBDBD;
-  /* table-layout: fixed; */
 }
 
 th {
@@ -131,7 +65,6 @@ td {
   padding: 10px;
   text-align: center;
   border-top: 1px solid #BDBDBD;
-  /* white-space: nowrap; */
   overflow: auto;
   text-overflow: ellipsis;
 }
@@ -141,7 +74,9 @@ tbody{
   overflow-y: scroll; 
 }
 
-.baixa-button {
+
+/* Botões da tela */
+.botao-baixa {
   display: flex;
   white-space: nowrap; /* Impede quebrar linhas */
   text-align: center;
@@ -158,16 +93,63 @@ tbody{
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.5s;
-  
+  justify-content: center;
+  align-items: center;  
 }
 
 /* Cor do exportar e importar */
-.baixa-button:hover {
+.botao-baixa:hover {
   background-color: #f66f00;
   color: white;
 }
 
 .arrow-icon {
   margin: 3px;
+  justify-content: center;
 }
 
+/* Botao import e export */
+.botao-exportar {
+  text-align: center;
+  align-content: center;
+  background-color: #f28d35;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-inline: 5px;
+  height: auto;
+  width: 150px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+/* Cor do exportar e importar */
+.botao-exportar:hover {
+  background-color: #f66f00;
+  color: white;
+}
+
+/* Botao import e export */
+.botao-atualizar {
+  text-align: center;
+  align-content: center;
+  background-color: #f28d35;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-inline: 5px;
+  height: auto;
+  width: 150px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+/* Cor do exportar e importar */
+.botao-atualizar:hover {
+  background-color: #f66f00;
+  color: white;
+}

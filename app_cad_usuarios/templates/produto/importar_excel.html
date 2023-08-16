@@ -8,7 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,15 +16,15 @@
 <body>
   <div class="center-container">
     <div class="container-fluid content">
-    <h1 class="page-title">Importar Excel</h1>
+    <h1>Importar Excel</h1>
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <label class="custom-file-upload" for="fileInput">
-          <span class="back-buttons" id="fileName" >Importar Dados</span>
+          <span class="botao-importar-excel" id="fileName" >Importar Dados</span>
           <input type="file" name="excel_file" id="fileInput" style="display: none;">
         </label>
         <button type="submit" >Carregar Dados</button>
-        <a class="back-buttons" href="/adm/">Voltar</a>
+        <a class="botao-voltar" href="/adm/">Voltar</a>
       </form>
     </div>
   </div>
@@ -47,8 +46,8 @@
           </tr>
           {% if excel_data %}
           
-          <button class="back-buttons" type="submit" style="position: relative;">
-            <div id="loading" class="custom-loader" style=" display: contents; position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%);"></div>
+          <button type="submit" style="position: relative; margin-bottom: 10px;">
+            <div id="loading" class="animacao-carregamento" style=" display: contents; position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%);"></div>
             Importar Para Estoque
           </button>
 

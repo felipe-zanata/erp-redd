@@ -15,8 +15,8 @@
         <h2>Alterar Tipo Usuário</h2>
         
         <form action="/cadastrar-usuario/" method="POST">
-            <div class="input-group">
-                <label for="tipo" style="margin-right: 10px;">Tipo:</label>
+            <div class="tipo-conta">
+                <label for="tipo" style="margin-right: 10px; margin-bottom: 5px;">Tipo:</label>
                 <select id="tipo" name="tipo">
                     <option value="admin">Administrador</option>
                     <option value="geral">Vendedor</option>
@@ -35,7 +35,7 @@
                 <input type="password" id="password" name="password"  readonly>
             </div>
             <button type="submit">Confirmar alteração</button>
-            <a class="back-button" href="/gerenciar_user/">Voltar</a>
+            <a class="botao-voltar" href="/gerenciar_user/">Voltar</a>
         </form>
     </div>
 </body>

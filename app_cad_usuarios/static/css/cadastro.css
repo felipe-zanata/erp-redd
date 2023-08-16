@@ -9,30 +9,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.995);
 }
 
-.no-style {
-    background-color: #f28d35;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    padding: 10px 10px;
-    text-decoration: none;
-    cursor: pointer;
-
-  }
-
-/* Degrade botão novo user */
-.no-style:hover {
-    background-color: #f66f00;
-}
-
-a {
-    color: #ffffff; /* Altere a cor conforme necessário */
-}
-
-a:hover {
-    color: #ffffff; /* Altere a cor conforme necessário */
-}
-
+/* Botão novo cadastro */
 button {
     background-color: #f28d35;
     color: white;
@@ -45,12 +22,12 @@ button {
     transition: background-color 0.5s;
   }
 
-/* Degrade botão novo user */
 button:hover {
     background-color: #f66f00;
 }
 
-.back-button {
+/* Botão voltar */
+.botao-voltar {
     background-color: #f28d35;
     color: white;
     border: none;
@@ -64,14 +41,15 @@ button:hover {
   }
 
 /* Degrade botão novo user */
-.back-button:hover {
+.botao-voltar:hover {
     background-color: #f66f00;
 }
 
+/* Não deixar botao voltar azul */
 a {
-    color: #ffffff; /* Altere a cor conforme necessário */
+    color: #ffffff;
 }
 
 a:hover {
-    color: #ffffff; /* Altere a cor conforme necessário */
+    color: #ffffff;
 }
