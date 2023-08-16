@@ -30,7 +30,7 @@ body{
 }
 
 /* Botao import e export */
-.export-button {
+.botao-voltar {
   text-align: center;
   align-content: center;
   background-color: #f28d35;
@@ -38,6 +38,7 @@ body{
   border: none;
   border-radius: 5px;
   padding: 10px;
+  text-decoration: none;
   margin-bottom: 10px;
   margin-inline: 5px;
   height: auto;
@@ -47,7 +48,7 @@ body{
 }
 
 /* Cor do exportar e importar */
-.export-button:hover {
+.botao-voltar:hover {
   background-color: #f66f00;
   color: white;
 }

@@ -32,3 +32,46 @@ a {
 a:hover {
     color: #ffffff; /* Altere a cor conforme necessário */
 }
+
+button {
+    background-color: #f28d35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: background-color 0.5s;
+  }
+
+/* Degrade botão novo user */
+button:hover {
+    background-color: #f66f00;
+}
+
+.back-button {
+    background-color: #f28d35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: background-color 0.5s;
+  }
+
+/* Degrade botão novo user */
+.back-button:hover {
+    background-color: #f66f00;
+}
+
+a {
+    color: #ffffff; /* Altere a cor conforme necessário */
+}
+
+a:hover {
+    color: #ffffff; /* Altere a cor conforme necessário */
+}

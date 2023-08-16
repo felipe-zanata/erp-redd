@@ -24,7 +24,7 @@
           <span class="back-buttons" id="fileName" >Importar Dados</span>
           <input type="file" name="excel_file" id="fileInput" style="display: none;">
         </label>
-        <button class="back-buttons" type="submit" style="height: 37px; text-align: center; ">Carregar Dados</button>
+        <button type="submit" >Carregar Dados</button>
         <a class="back-buttons" href="/adm/">Voltar</a>
       </form>
     </div>
@@ -48,7 +48,7 @@
           {% if excel_data %}
           
           <button class="back-buttons" type="submit" style="position: relative;">
-            <div id="loading" class="custom-loader" style=" display: block; position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%);"></div>
+            <div id="loading" class="custom-loader" style=" display: contents; position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%);"></div>
             Importar Para Estoque
           </button>
 
@@ -142,7 +142,7 @@
           console.log("Produtos cadastrados com sucesso!");
           alert('Importado com Sucesso!');
           loadingDiv.style.display = "none";
-          
+
 
         } else {
           console.error("Erro ao cadastrar produtos:", xhr.statusText);
