@@ -172,23 +172,21 @@ def gerenciar_user(request):
         return render(request, 'adm/sem_permissao.html')
 
 
-def deletar_user(request):
+def deletar_user(request, user_id, tipo_id):
     tipo_acesso = request.session.get('tipo_acesso', None)
     
-    if tipo_acesso == "admin":    
-        if request.method == 'GET':
-            try:
-                auth = AuthUsuarios()
-                dados = auth.select_dados()
-                # print(dados)
-                return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
-            except Exception as error:
-                return render(request, 'adm/gerenciar_user.html')
-        else:
-            print("post")
+    
+    
+    if tipo_acesso == "admin": 
+        auth = AuthUsuarios()
+        auth.deletar_usuario(tipo_id, user_id)
+
+        try:
+            dados = auth.select_dados()
+            return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
+        except Exception as error:
             return render(request, 'adm/gerenciar_user.html')
-    else:
-        return render(request, 'adm/sem_permissao.html')
+
 
 def movimentacao(request):
     tipo_acesso = request.session.get('tipo_acesso', None)

@@ -42,10 +42,14 @@
                         </span>
                     </td>
                     <td>
-                        <a href="{% url 'editar_user' %}"><button type="button"><i class="fas fa-edit"></i></button></a>
+                        <a href="{% url 'editar_user' %}">
+                            <button type="button"><i class="fas fa-edit"></i></button>
+                        </a>
                     </td>
                     <td>
-                        <button><i class="fas fa-trash-alt"></i></button>
+                        <a href="{% url 'deletar_user' user_id=chave tipo_id=valor.tipo_acesso%}" class="delete-link">
+                            <button><i class="fas fa-trash-alt"></i></button>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -74,6 +78,26 @@
         });
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('.delete-link').on('click', function(e) {
+            e.preventDefault();
+
+            var userName = $(this).closest('tr').find('td:eq(1)').text();
+            var userType = $(this).closest('tr').find('td:eq(0)').text();
+
+            var confirmation = confirm("Tem certeza que deseja deletar?\n" + 
+                                     "Usuário: " + userName + "\n" +
+                                     "Tipo de acesso: " + userType);
+
+            if (confirmation) {
+                window.location.href = $(this).attr('href');
+            }
+        });
+    });
+</script>
+
 
 
 
