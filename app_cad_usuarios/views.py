@@ -70,7 +70,7 @@ def cadastrar(request):
     
 def produtos_filtro(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
-    
+    print("PAssei")
     if tipo_acesso == "admin" or tipo_acesso == "geral":
         if request.method == 'GET':
             try:

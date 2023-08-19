@@ -31,7 +31,16 @@
                     <td>{{ valor.tipo_acesso }}</td>
                     <td>{{ valor.nome }}</td>
                     <td>{{ valor.email }}</td>
-                    <td>{{ valor.senha }}</td>
+                    <td>
+                        <span class="password-toggle">
+                            <span class="password-value" style="display: none;">{{ valor.senha }}</span>
+                            <span class="password-mask">******</span>
+                            <button class="toggle-button custom-button" type="button">
+                                <i class="fas fa-eye" style="display: none;"></i>
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </span>
+                    </td>
                     <td>
                         <a href="{% url 'editar_user' %}"><button type="button"><i class="fas fa-edit"></i></button></a>
                     </td>
@@ -47,5 +56,25 @@
     </div>
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".toggle-button").click(function() {
+            var passwordToggle = $(this).closest(".password-toggle");
+            var passwordValue = passwordToggle.find(".password-value");
+            var passwordMask = passwordToggle.find(".password-mask");
+            var eyeIcon = passwordToggle.find(".fa-eye");
+            var eyeSlashIcon = passwordToggle.find(".fa-eye-slash");
+            
+            passwordValue.toggle();
+            passwordMask.toggle();
+            eyeIcon.toggle();
+            eyeSlashIcon.toggle();
+        });
+    });
+</script>
+
+
 
 {% endblock %}

@@ -36,9 +36,10 @@
         <input type="file" id="file-input" class="import-input" accept=".xlsx, .xls, .csv">
       </label> -->
 
-      <button class="botao-atualizar" id="atualizar-button">Atualizar</button>
+      <!-- <button class="botao-atualizar" id="atualizar-button">Atualizar</button> -->
+      <a class="botao-atualizar" href="{% url 'listagem_produtos' %}" >Atualizar</a>
       <button id="exportButton" class="botao-exportar">Exportar csv</button>
-    </div>
+    </div>  
     <div class="table-container" style="height: 500px; overflow-y: auto; ">
       <table>
         <thead>
@@ -170,7 +171,7 @@ function getTableData() {
   });
   </script>
 
-<script>
+<!-- <script>
   document.addEventListener("DOMContentLoaded", function() {
       const atualizarButton = document.getElementById("atualizar-button");
       
@@ -193,6 +194,6 @@ function getTableData() {
       });
   });
   </script>
-  
+   -->
 
 {% endblock %}

@@ -314,7 +314,6 @@ pyrightconfig.json
 
 # Fim de https://www.toptal.com/developers/gitignore/api/django,python,firebase,visualstudiocode
 
-app_cad_usuarios/__pycache__/
-app_cad_usuarios/crud/__pycache__/
-erp_projeto/__pycache__/
-
+app_cad_usuarios/__pycache__/*
+app_cad_usuarios/crud/__pycache__/*
+erp_projeto/__pycache__/*
