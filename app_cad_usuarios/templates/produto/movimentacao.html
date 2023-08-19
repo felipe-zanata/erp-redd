@@ -13,9 +13,9 @@
 
 </head>
 <body>
-     <!-- Filtrar produtos -->
-   <br>
-   <div class="container-fluid content">
+    <!-- Filtrar produtos -->
+<br>
+<div class="container-fluid content">
         <h1>Filtrar</h1>
         <div class="filter-form">
             <!-- <form action="{% url 'listagem_produtos' %}" method="get"> -->
@@ -35,7 +35,9 @@
     </div>
 
     <div class="container">
-        <h2>Movimentações de Produtos</h2>
+        <h2>Movimentações de Produtos
+            <button id="exportButton" class="export-button">Exportar csv</button>
+        </h2>
         <table id="tabela-produtos">
             <thead>
                 <tr>
@@ -73,6 +75,56 @@
     </div>
 </body>
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    var exportButton = document.getElementById("exportButton");
+
+    if (exportButton) {
+        exportButton.addEventListener("click", function () {
+        var csvData = Papa.unparse(getTableDataMov());
+
+        var blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "movientacao.csv";
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        });
+    } else {
+        console.error("Elemento não encontrado. Verifique o ID do elemento e o carregamento do script.");
+    }
+});
+
+    function getTableDataMov() {
+    var data = [];
+    var table = document.getElementById("tabela-produtos");
+    var rows = table.querySelectorAll("tbody tr");
+    var columnTitles = ["Operador", "Data", "Transacao", "Tipo", "Codigo", "Descricao", "Quantidade"];
+    data.push(columnTitles);
+
+    rows.forEach(function (row) {
+        var rowData = [];
+        rowData.push(row.cells[1].innerText); // Operador
+        rowData.push(row.cells[2].innerText); // Data
+        rowData.push(row.cells[3].innerText); // Transação
+        rowData.push(row.cells[4].innerText); // Tipo
+        rowData.push(row.cells[5].innerText); // Código
+        rowData.push(row.cells[6].innerText); // Descrição
+        rowData.push(row.cells[7].innerText); // Quantidade
+        data.push(rowData);
+    });
+    
+    return data;
+}
+</script>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
