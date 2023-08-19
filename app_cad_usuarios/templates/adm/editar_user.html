@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    {% block conteudo %}
+    {% load widget_tweaks %}
+    <link href="{% static '../static/css/criar_user.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Criar Novo Usuário</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h2>Alterar Tipo Usuário</h2>
+        
+        <form action="/cadastrar-usuario/" method="POST">
+            <div class="input-group">
+                <label for="tipo" style="margin-right: 10px;">Tipo:</label>
+                <select id="tipo" name="tipo">
+                    <option value="admin">Administrador</option>
+                    <option value="geral">Vendedor</option>
+                </select>
+            </div>                
+            <div class="input-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome"  readonly>
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email"  readonly>
+            </div>
+            <div class="input-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password"  readonly>
+            </div>
+            <button type="submit">Confirmar alteração</button>
+            <a class="back-button" href="/gerenciar_user/">Voltar</a>
+        </form>
+    </div>
+</body>
+</html>
+
+{% endblock %}
