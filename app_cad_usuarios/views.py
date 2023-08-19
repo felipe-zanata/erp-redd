@@ -30,7 +30,7 @@ def login(request):
                 request.session['nome'] = data['nome']
                 request.session['avatar_url'] = data['avatar_url']
                 request.session['email'] = data['email']
-                return redirect('listagem_produtos')
+                return redirect('tela_produtos')
             else:
                 print("Senha incorreta")
                 return render(request, 'login/login_erro.html', {'error_message': 'Usuário ou senha incorretos'})
@@ -83,6 +83,19 @@ def produtos_filtro(request):
             
             except Exception as error:
                 return render(request, 'produto/prodcadastrados.html')
+        else:
+            return render(request, 'produto/prodcadastrados.html')
+    else:
+        return render(request, 'adm/sem_permissao.html')
+
+def tela_produtos(request):
+    tipo_acesso = request.session.get('tipo_acesso', None)
+    
+    if tipo_acesso == "admin" or tipo_acesso == "geral":
+        try:
+            return render(request, 'produto/prodcadastrados.html')
+        except Exception as error:
+            return render(request, 'produto/prodcadastrados.html')
         else:
             return render(request, 'produto/prodcadastrados.html')
     else:
@@ -200,13 +213,12 @@ def dar_baixa(request, item_id):
     # dados['item_id'] = item_id
     
     dados = {
-
         "item_id": item_id,
         "sku": request.GET.get('sku'),
         "descricao" : request.GET.get('desc'),
         'quantidade' : request.GET.get('qtde')
-
     }
+    
     return render(request, 'produto/dar_baixa.html',{'dados': dados})
 
 def exec_baixa(request):
