@@ -9,6 +9,7 @@ urlpatterns = [
     # facebook.com
     path('', views.login, name='login'),
     # path('inicio/', views.home, name='home'),
+    path('produtos_redd/', views.tela_produtos, name='tela_produtos'),
     path('produtos/', views.produtos_filtro, name='listagem_produtos'),
     path('cadastrar/', views.cadastrar, name='cadastrar'),
     path('login/', views.login, name='login'),

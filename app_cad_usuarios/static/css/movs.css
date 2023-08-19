@@ -105,3 +105,25 @@ h2 {
   background-color: #f66f00;
   color: white;
 }
+
+.botao-exportar {
+  text-align: center;
+  align-content: center;
+  background-color: #f28d35;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-inline: 5px;
+  height: auto;
+  width: 150px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+/* Cor do exportar e importar */
+.botao-exportar:hover {
+  background-color: #f66f00;
+  color: white;
+}

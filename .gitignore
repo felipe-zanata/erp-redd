@@ -24,6 +24,7 @@ O Blackbox AI Chat está em versão beta e o Blackbox não se responsabiliza pel
 *.registro
 *.Panela
 *.pyc
+__pycache__
 __pycache__/
 local_settings.py
 db.sqlite3
@@ -312,3 +313,8 @@ pyrightconfig.json
 .ionide
 
 # Fim de https://www.toptal.com/developers/gitignore/api/django,python,firebase,visualstudiocode
+
+app_cad_usuarios/__pycache__/
+app_cad_usuarios/crud/__pycache__/
+erp_projeto/__pycache__/
+
