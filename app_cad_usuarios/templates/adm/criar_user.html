@@ -15,31 +15,34 @@
         <h2>Criar Novo Usuário</h2>
         <form action="/criar_user/" method="post" onsubmit="return verificaSenha()">
             {% csrf_token %}
-            <div class="input-group">
+            <div class="distanciamento-inputs">
                 <label for="tipo" style="margin-right: 10px;">Tipo:</label>
                 <select id="tipo" name="tipo">
                     <option value="admin">Administrador</option>
                     <option value="geral">Vendedor</option>
                 </select>
             </div>                
-            <div class="input-group">
+            <div class="distanciamento-inputs">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required>
             </div>
-            <div class="input-group">
+            <div class="distanciamento-inputs">
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" required>
             </div>
-            <div class="input-group">
+            <div class="distanciamento-inputs">
                 <label for="password">Senha:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <div class="input-group">
+            <div class="distanciamento-inputs">
                 <label for="confirm-password">Confirmar Senha:</label>
                 <input type="password" id="confirm-password" name="confirm_password" required>
             </div>
-            <button type="submit">Registrar novo usuário</button>
-            <a class="back-button" href="/adm/">Voltar</a>
+            <!-- <div id="mensagem-retorno" style="display: none;"></div>
+                <button type="submit" id="botao-registrar">Registrar usuário</button> -->
+                <button type="submit">Registrar novo usuário</button>
+                <a class="botao-voltar" href="/adm/">Voltar</a>
+
         </form>
     </div>
 </body>
@@ -58,4 +61,21 @@
         
     }
 </script>
+
+<!-- <script>
+    document.getElementById("botao-registrar").addEventListener("click", function(event) {
+      event.preventDefault(); // Evita que o formulário seja enviado
+  
+      // Simula o processo de cadastro (substitua isso pelo código real de cadastro)
+      // Aqui estamos apenas esperando 2 segundos antes de exibir a mensagem de retorno
+      setTimeout(function() {
+        var mensagemElement = document.getElementById("mensagem-retorno");
+        mensagemElement.innerHTML = "Novo usuário cadastrado com sucesso!";
+        mensagemElement.style.display = "block";
+      }, 2000); // 2 segundos
+  
+      // Você também pode adicionar aqui o código para enviar o formulário de cadastro para o servidor
+      // ou fazer a chamada AJAX para realizar o cadastro real do usuário
+    });
+  </script> -->
 {% endblock %}

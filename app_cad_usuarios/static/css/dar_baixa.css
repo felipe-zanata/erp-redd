@@ -23,7 +23,7 @@ input[type="text"], select, input[type="number"] {
     margin-bottom: 10px;
 }
 
-/* Botao registrar mov */
+/* Botao registrar baixa */
 button {
     padding: 5px 7px;
     background-color: #f28d35;
@@ -33,12 +33,12 @@ button {
     cursor: pointer;
 }
 
-/* Botao registrar mov */
 button:hover {
     background-color: #f66f00;
 }
 
-.no-style {
+/* Botão voltar para estoque */
+.botao-voltar {
     background-color: #f28d35;
     color: white;
     border-radius: 5px;
@@ -48,11 +48,11 @@ button:hover {
     cursor: pointer;
   }
 
-/* Degrade botão novo user */
-.no-style:hover {
+.botao-voltar:hover {
     background-color: #f66f00;
 }
 
+/* Dar cor ao botão ao passar por cima do voltar para nao ficar azul */
 a {
     color: #ffffff; /* Altere a cor conforme necessário */
 }
