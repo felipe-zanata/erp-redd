@@ -70,7 +70,6 @@ def cadastrar(request):
     
 def produtos_filtro(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
-    print("PAssei")
     if tipo_acesso == "admin" or tipo_acesso == "geral":
         if request.method == 'GET':
             try:
@@ -145,11 +144,34 @@ def gerenciar(request):
     else:
         return render(request, 'adm/sem_permissao.html')
     
-def editar_user(request):
-    tipo_acesso = request.session.get('tipo_acesso', None)
-    
-    if tipo_acesso == "admin":
-        return render(request, 'adm/editar_user.html')
+def editar_user(request, user_id, tipo_id):
+
+    dados = {
+        "user_id": user_id,
+        "tipo_acesso": tipo_id,
+        "nome": request.GET.get('nome'),
+        "email" : request.GET.get('email'),
+        'senha' : request.GET.get('senha')
+    }
+
+    return render(request, 'adm/editar_user.html',{'dados': dados})
+
+def executar_editar_user(request):
+    if request.method == 'POST':
+        user_id = request.POST.get("id_user")
+        nome = request.POST.get("nome")
+        email = request.POST.get("email").lower().strip()
+        senha = request.POST.get('senha')
+        acesso = request.POST.get('tipo')
+        dados = {
+            'nome' : nome,
+            'email' : email,
+            'senha' : senha,
+            'avatar_url': 'http//teste',
+        }
+        update_user = AuthUsuarios()
+        update_user.editar_usuario(tipo_usuario=acesso, id_do_usuario=user_id, novos_dados=dados)
+        return redirect('gerenciar_user')   
     else:
         return render(request, 'adm/sem_permissao.html')
 
@@ -161,12 +183,10 @@ def gerenciar_user(request):
             try:
                 auth = AuthUsuarios()
                 dados = auth.select_dados()
-                # print(dados)
                 return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
             except Exception as error:
                 return render(request, 'adm/gerenciar_user.html')
         else:
-            print("post")
             return render(request, 'adm/gerenciar_user.html')
     else:
         return render(request, 'adm/sem_permissao.html')
@@ -174,8 +194,6 @@ def gerenciar_user(request):
 
 def deletar_user(request, user_id, tipo_id):
     tipo_acesso = request.session.get('tipo_acesso', None)
-    
-    
     
     if tipo_acesso == "admin": 
         auth = AuthUsuarios()

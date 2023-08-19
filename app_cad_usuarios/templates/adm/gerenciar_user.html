@@ -42,12 +42,13 @@
                         </span>
                     </td>
                     <td>
-                        <a href="{% url 'editar_user' %}">
+                        <a href="{% url 'editar_user' user_id=chave tipo_id=valor.tipo_acesso %}?nome={{ valor.nome }}&email={{ valor.email }}&senha={{ valor.senha }}">
+               
                             <button type="button"><i class="fas fa-edit"></i></button>
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'deletar_user' user_id=chave tipo_id=valor.tipo_acesso%}" class="delete-link">
+                        <a href="{% url 'deletar_user' user_id=chave tipo_id=valor.tipo_acesso %}" class="delete-link">
                             <button><i class="fas fa-trash-alt"></i></button>
                         </a>
                     </td>

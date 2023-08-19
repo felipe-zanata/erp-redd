@@ -87,6 +87,7 @@ class AuthUsuarios:
     
     def editar_usuario(self, tipo_usuario: str, id_do_usuario: str, novos_dados: dict):
         """Edita os dados de um usuário na base de dados do Firebase"""
+        
         try:
             colecao = self.__firebase.collection('usuarios')\
                                     .document(tipo_usuario)\
@@ -123,7 +124,7 @@ if __name__ == '__main__':
     }
     auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
 
-#     # #Testar auth
-#     # # usr = auth.select_dados(nome_usuario='luiz.eduardo', tipo_acesso='geral')
+    #Testar auth
+    # usr = auth.select_dados(nome_usuario='luiz.eduardo', tipo_acesso='geral')
     # usr = auth.select_dados()#nome_usuario="luiz.eduardo", 
     # print(usr)

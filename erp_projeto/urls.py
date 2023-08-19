@@ -25,6 +25,7 @@ urlpatterns = [
     path('carregar_dados_excel/', views.carregar_dados_excel, name='carregar_dados_excel'),
     path('login_incorreto/', views.login, name='login_erro'),
     path('logout/', views.logout, name='logout'),
-    path('editar_user/', views.editar_user, name='editar_user'),
+    path('editar_user/<str:user_id>/<str:tipo_id>/', views.editar_user, name='editar_user'),
+    path('exec_editar_user/', views.executar_editar_user, name='exe_editar_user'),
     # path('admin/', admin.site.urls),
 ]   

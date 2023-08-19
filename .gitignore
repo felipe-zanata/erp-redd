@@ -19,7 +19,6 @@ atualizar
 O Blackbox AI Chat está em versão beta e o Blackbox não se responsabiliza pelo conteúdo gerado. Ao usar o Blackbox, você reconhece que concorda com os Termos e a Política de Privacidade do Blackbox
 # Criado por https://www.toptal.com/developers/gitignore/api/django,python,firebase,visualstudiocode
 # Edite em https://www.toptal.com/developers/gitignore?templates=django,python,firebase,visualstudiocode
-
 ### Django ###
 *.registro
 *.Panela
