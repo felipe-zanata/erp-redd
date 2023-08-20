@@ -16,7 +16,7 @@ urlpatterns = [
     path('criar_user/', views.criar_user, name='criar_usuario'),
     path('gerenciar_user/', views.gerenciar_user, name='gerenciar_user'),
     path('gerenciar_user/<str:user_id>/', views.gerenciar_user, name='gerenciar_user'),
-    path('deletar_user/<str:user_id>/', views.deletar_user, name='deletar_user'),
+    path('deletar_user/<str:user_id>/<str:tipo_id>/', views.deletar_user, name='deletar_user'),
     path('adm/', views.gerenciar, name='gerenciar'),
     path('movimentacao/', views.movimentacao, name='movimentacao'),
     path('dar_baixa/<str:item_id>/', views.dar_baixa, name='baixa'),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('carregar_dados_excel/', views.carregar_dados_excel, name='carregar_dados_excel'),
     path('login_incorreto/', views.login, name='login_erro'),
     path('logout/', views.logout, name='logout'),
-    path('editar_user/', views.editar_user, name='editar_user'),
+    path('editar_user/<str:user_id>/<str:tipo_id>/', views.editar_user, name='editar_user'),
+    path('exec_editar_user/', views.executar_editar_user, name='exe_editar_user'),
     # path('admin/', admin.site.urls),
 ]   

@@ -1,9 +1,9 @@
 {% extends 'base/base.html' %}
+{% block conteudo %}
 <!DOCTYPE html>
 <html>
 <head>
     {% load static %}
-    {% block conteudo %}
     {% load widget_tweaks %}
     <link href="{% static '../static/css/criar_user.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -14,25 +14,34 @@
     <div class="container">
         <h2>Alterar Tipo Usuário</h2>
         
-        <form action="/cadastrar-usuario/" method="POST">
+        <form action="/exec_editar_user/" method="POST">
+            {% csrf_token %}
             <div class="tipo-conta">
                 <label for="tipo" style="margin-right: 10px; margin-bottom: 5px;">Tipo:</label>
+                <!-- <select id="tipo" name="tipo">
+                    <option value="admin" {% if dados.tipo_acesso == 'admin' %}selected{% endif %} >Administrador</option>
+                    <option value="geral" {% if dados.tipo_acesso == 'geral' %}selected{% endif %} >Vendedor</option>
+                </select> -->
                 <select id="tipo" name="tipo">
-                    <option value="admin">Administrador</option>
-                    <option value="geral">Vendedor</option>
+                    <option value="admin" {% if dados.tipo_acesso != 'admin' %}disabled{% endif %}{% if dados.tipo_acesso == 'admin' %}selected{% endif %}>Administrador</option>
+                    <option value="geral" {% if dados.tipo_acesso != 'geral' %}disabled{% endif %}{% if dados.tipo_acesso == 'geral' %}selected{% endif %}>Vendedor</option>
                 </select>
-            </div>                
+            </div>
+            <div class="input-group" style="display: none;">
+                <label for="nome">Nome:</label>
+                <input type="text" id="id_user" name="id_user"  value="{{ dados.user_id }}">
+            </div>             
             <div class="input-group">
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome"  readonly>
+                <input type="text" id="nome" name="nome"  value="{{ dados.nome }}">
             </div>
             <div class="input-group">
                 <label for="email">Email:</label>
-                <input type="text" id="email" name="email"  readonly>
+                <input type="text" id="email" name="email" value="{{ dados.email }}">
             </div>
             <div class="input-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password"  readonly>
+                <label for="senha">Senha:</label>
+                <input type="text" id="senha" name="senha"  value="{{ dados.senha }}">
             </div>
             <button type="submit">Confirmar alteração</button>
             <a class="botao-voltar" href="/gerenciar_user/">Voltar</a>
