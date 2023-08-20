@@ -57,14 +57,12 @@ def cadastrar(request):
                 projeto = Estoque()
                 projeto.insert_novo_produto(dados)
 
-                return redirect('listagem_produtos')
+                return render(request, 'produto/cadastro.html')
 
             except json.JSONDecodeError as e:
                 return JsonResponse({"error": "Invalid JSON data"}, status=400)
-
         else:
-            produtos = {'formulario': 'usuario_form'}
-            return render(request, 'produto/cadastro.html', context=produtos)
+            return render(request, 'produto/cadastro.html')
     else:
         return render(request, 'adm/sem_permissao.html')
     
