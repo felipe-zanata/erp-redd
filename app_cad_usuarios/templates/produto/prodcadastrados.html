@@ -11,10 +11,11 @@
 {% load static %}
 <link href="{% static '../static/css/prodcadastrados.css' %}" rel="stylesheet">
 
+
 </head>
 <body>
-   <br>
-   <div class="container-fluid content">
+  <br>
+  <div class="container-fluid content">
         <h1>Filtrar Produtos</h1>
         <div class="filter-form">
           <form id="filtro-form">
@@ -34,9 +35,11 @@
       <!-- <label for="file-input" class="export-button">Importar Excel
         <input type="file" id="file-input" class="import-input" accept=".xlsx, .xls, .csv">
       </label> -->
-      <button class="botao-atualizar" id="atualizar-button">Atualizar</button>
-      <button class="botao-exportar">Exportar Excel</button>
-    </div>
+
+      <!-- <button class="botao-atualizar" id="atualizar-button">Atualizar</button> -->
+      <a class="botao-atualizar" href="{% url 'listagem_produtos' %}" >Atualizar</a>
+      <button id="exportButton" class="botao-exportar">Exportar csv</button>
+    </div>  
     <div class="table-container" style="height: 500px; overflow-y: auto; ">
       <table>
         <thead>
@@ -58,7 +61,7 @@
           <tr>
             <td style="display: none;">{{ codigo }}</td>
             <td>{{ produto_info.sku }}</td>
-            <td>{{ produto_info.descricao }}</td>
+            <td>{{ produto_info.descricao }}</td> 
             <td>{{ produto_info.quantidade }}</td>
             <td>{{ produto_info.obs }}</td>
             <!-- <td>{{ produto_info.url }}</td> -->
@@ -83,6 +86,56 @@
   </div>
 </body>
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  var exportButton = document.evaluate('/html/body/div[2]/div[1]/button[2]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+
+  if (exportButton) {
+    exportButton.addEventListener("click", function () {
+      var csvData = Papa.unparse(getTableData());
+
+      var blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+      var link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Produtos_estoque.csv";
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  } else {
+    console.error("Elemento não encontrado. Verifique o ID do elemento e o carregamento do script.");
+  }
+});
+
+function getTableData() {
+  var data = [];
+  var table = document.evaluate('/html/body/div[2]/div[2]/table', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  var rows = table.querySelectorAll("tbody tr");
+
+  var columnTitles = ["Codigo", "Tipo", "Quantidade", "Observacao"];
+  data.push(columnTitles);
+
+  rows.forEach(function (row) {
+    var rowData = [];
+    var columnsToInclude = [1, 2, 3, 4]; // index das colunas 
+    
+    columnsToInclude.forEach(function (colIndex) {
+      var cell = row.querySelector(`td:nth-child(${colIndex + 1})`);
+      rowData.push(cell.innerText);
+    });
+    
+    data.push(rowData);
+  });
+
+  return data;
+}
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -118,7 +171,7 @@
   });
   </script>
 
-<script>
+<!-- <script>
   document.addEventListener("DOMContentLoaded", function() {
       const atualizarButton = document.getElementById("atualizar-button");
       
@@ -141,6 +194,6 @@
       });
   });
   </script>
-  
+   -->
 
 {% endblock %}

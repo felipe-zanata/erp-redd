@@ -76,3 +76,22 @@ a {
 a:hover {
     color: #ffffff; /* Altere a cor conforme necessário */
 }
+
+.custom-button {
+    width: auto;
+    height: auto;
+    color: #ff7803;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.custom-button:hover {
+    width: auto;
+    height: auto;
+    background: #f0f0f0;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}

@@ -30,7 +30,7 @@ def login(request):
                 request.session['nome'] = data['nome']
                 request.session['avatar_url'] = data['avatar_url']
                 request.session['email'] = data['email']
-                return redirect('listagem_produtos')
+                return redirect('tela_produtos')
             else:
                 print("Senha incorreta")
                 return render(request, 'login/login_erro.html', {'error_message': 'Usuário ou senha incorretos'})
@@ -57,20 +57,17 @@ def cadastrar(request):
                 projeto = Estoque()
                 projeto.insert_novo_produto(dados)
 
-                return redirect('listagem_produtos')
+                return render(request, 'produto/cadastro.html')
 
             except json.JSONDecodeError as e:
                 return JsonResponse({"error": "Invalid JSON data"}, status=400)
-
         else:
-            produtos = {'formulario': 'usuario_form'}
-            return render(request, 'produto/cadastro.html', context=produtos)
+            return render(request, 'produto/cadastro.html')
     else:
         return render(request, 'adm/sem_permissao.html')
     
 def produtos_filtro(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
-    
     if tipo_acesso == "admin" or tipo_acesso == "geral":
         if request.method == 'GET':
             try:
@@ -83,6 +80,19 @@ def produtos_filtro(request):
             
             except Exception as error:
                 return render(request, 'produto/prodcadastrados.html')
+        else:
+            return render(request, 'produto/prodcadastrados.html')
+    else:
+        return render(request, 'adm/sem_permissao.html')
+
+def tela_produtos(request):
+    tipo_acesso = request.session.get('tipo_acesso', None)
+    
+    if tipo_acesso == "admin" or tipo_acesso == "geral":
+        try:
+            return render(request, 'produto/prodcadastrados.html')
+        except Exception as error:
+            return render(request, 'produto/prodcadastrados.html')
         else:
             return render(request, 'produto/prodcadastrados.html')
     else:
@@ -132,11 +142,34 @@ def gerenciar(request):
     else:
         return render(request, 'adm/sem_permissao.html')
     
-def editar_user(request):
-    tipo_acesso = request.session.get('tipo_acesso', None)
-    
-    if tipo_acesso == "admin":
-        return render(request, 'adm/editar_user.html')
+def editar_user(request, user_id, tipo_id):
+
+    dados = {
+        "user_id": user_id,
+        "tipo_acesso": tipo_id,
+        "nome": request.GET.get('nome'),
+        "email" : request.GET.get('email'),
+        'senha' : request.GET.get('senha')
+    }
+
+    return render(request, 'adm/editar_user.html',{'dados': dados})
+
+def executar_editar_user(request):
+    if request.method == 'POST':
+        user_id = request.POST.get("id_user")
+        nome = request.POST.get("nome")
+        email = request.POST.get("email").lower().strip()
+        senha = request.POST.get('senha')
+        acesso = request.POST.get('tipo')
+        dados = {
+            'nome' : nome,
+            'email' : email,
+            'senha' : senha,
+            'avatar_url': 'http//teste',
+        }
+        update_user = AuthUsuarios()
+        update_user.editar_usuario(tipo_usuario=acesso, id_do_usuario=user_id, novos_dados=dados)
+        return redirect('gerenciar_user')   
     else:
         return render(request, 'adm/sem_permissao.html')
 
@@ -148,34 +181,28 @@ def gerenciar_user(request):
             try:
                 auth = AuthUsuarios()
                 dados = auth.select_dados()
-                # print(dados)
                 return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
             except Exception as error:
                 return render(request, 'adm/gerenciar_user.html')
         else:
-            print("post")
             return render(request, 'adm/gerenciar_user.html')
     else:
         return render(request, 'adm/sem_permissao.html')
 
 
-def deletar_user(request):
+def deletar_user(request, user_id, tipo_id):
     tipo_acesso = request.session.get('tipo_acesso', None)
     
-    if tipo_acesso == "admin":    
-        if request.method == 'GET':
-            try:
-                auth = AuthUsuarios()
-                dados = auth.select_dados()
-                # print(dados)
-                return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
-            except Exception as error:
-                return render(request, 'adm/gerenciar_user.html')
-        else:
-            print("post")
+    if tipo_acesso == "admin": 
+        auth = AuthUsuarios()
+        auth.deletar_usuario(tipo_id, user_id)
+
+        try:
+            dados = auth.select_dados()
+            return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
+        except Exception as error:
             return render(request, 'adm/gerenciar_user.html')
-    else:
-        return render(request, 'adm/sem_permissao.html')
+
 
 def movimentacao(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
@@ -200,13 +227,12 @@ def dar_baixa(request, item_id):
     # dados['item_id'] = item_id
     
     dados = {
-
         "item_id": item_id,
         "sku": request.GET.get('sku'),
         "descricao" : request.GET.get('desc'),
         'quantidade' : request.GET.get('qtde')
-
     }
+    
     return render(request, 'produto/dar_baixa.html',{'dados': dados})
 
 def exec_baixa(request):
