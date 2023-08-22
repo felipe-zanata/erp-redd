@@ -65,7 +65,8 @@
           </tr>
           {% endfor %}
           {% else %}
-            <p>Colunas não localizadas: {{ mensage }}</p>
+          <p id="mensagem" style="display: none;">Colunas não localizadas: {{ mensage }}</p>
+
           {% endif %}
       </table>
       </div>
@@ -102,6 +103,15 @@
     }
   });
 </script>
+
+<script>
+  // Verifique se há uma mensagem de colunas ausentes
+  var mensagemElement = document.getElementById("mensagem");
+  if (mensagemElement.innerHTML !== "Colunas não localizadas: ") {
+      mensagemElement.style.display = "block"; // Ou use "inline" ou "inline-block" conforme necessário
+  }
+</script>
+
 <script>
   document.getElementById("salvarFirebase").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the default form submission behavior

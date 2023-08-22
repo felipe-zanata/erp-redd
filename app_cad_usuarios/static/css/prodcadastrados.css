@@ -146,6 +146,7 @@ tbody{
   width: 150px;
   cursor: pointer;
   transition: background-color 0.5s;
+  text-decoration: none;
 }
 
 /* Cor do exportar e importar */
