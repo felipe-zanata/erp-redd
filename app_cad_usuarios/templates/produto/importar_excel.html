@@ -125,15 +125,20 @@
     var tableRows = document.querySelectorAll("table tbody tr");
     var products = [];
 
-    tableRows.forEach(function(row) {
-      var produto = {
-        sku: row.cells[0].textContent,
-        descricao: row.cells[1].textContent,
-        quantidade: parseFloat(row.cells[2].textContent),
-        hiperlink: row.cells[3].textContent,
-        obs: row.cells[4].textContent
-      };
-      products.push(produto);
+    tableRows.forEach(function(row, index) {
+      if (index !== 0) {
+        var quantidadeText = row.cells[2].textContent.trim();
+        var quantidade = !isNaN(parseFloat(quantidadeText)) ? parseFloat(quantidadeText) : 0;
+
+        var produto = {
+          sku: row.cells[0].textContent,
+          descricao: row.cells[1].textContent,
+          quantidade: quantidade,
+          hiperlink: row.cells[3].textContent,
+          obs: row.cells[4].textContent
+        };
+        products.push(produto);
+      }
     });
 
     var data = JSON.stringify(products);

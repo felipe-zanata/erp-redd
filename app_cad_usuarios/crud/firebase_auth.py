@@ -117,10 +117,10 @@ if __name__ == '__main__':
 
     # inserir novo usuario
     novo_usuario = {
-        'nome': 'luiz',
-        'senha': '123',
+        'nome': 'Usuario1',
+        'senha': 'usr123',
         'avatar_url': 'http//teste',
-        'email': 'luiz.cassimiro@gmail.com'
+        'email': 'user1@gmail.com'
     }
     auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
 

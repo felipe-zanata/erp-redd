@@ -65,7 +65,7 @@
             <td>{{ produto_info.quantidade }}</td>
             <td>{{ produto_info.obs }}</td>
             <!-- <td>{{ produto_info.url }}</td> -->
-            <td><a href="{{ produto_info.url }}" target="_blank">{{ produto_info.url }}</a></td>
+            <td><a href="{{ produto_info.link }}" target="_blank">{{ produto_info.link }}</a></td>
             <!-- <td>
               <button class="edit-button"></button>
             </td>
@@ -93,13 +93,14 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-  var exportButton = document.evaluate('/html/body/div[2]/div[1]/button[2]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  var exportButton = document.getElementById("exportButton");
 
   if (exportButton) {
     exportButton.addEventListener("click", function () {
-      var csvData = Papa.unparse(getTableData());
+      var csvData = Papa.unparse(getTableData(), {delimiter: ";"});
 
-      var blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+      var csvDataWithBOM = "\uFEFF" + csvData;
+      var blob = new Blob([csvDataWithBOM], { type: "text/csv;charset=utf-8;" });
       var link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
       link.download = "Produtos_estoque.csv";
