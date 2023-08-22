@@ -9,8 +9,10 @@
 <link href="{% static '../static/css/login.css' %}" rel="stylesheet">
 
 </head>
+
+<div>
 <body>
-<div class="login-container">
+<div class="login-container" >
 <form action="{% url 'login' %}" method="post">
   {% csrf_token %}
   <img src="../static/redd.svg" alt="Logo">
@@ -23,4 +25,13 @@
 </form>
 </div>
 </body>
+<div style="align-content: center; text-align: center;">
+  <br>
+    <p style="color: rgb(165, 164, 164); font-size: large;" >&copy; 2023 PyCraft Studio.<br> Todos os direitos reservados.</p>
+    <p style="color: rgb(165, 164, 164);" >Suporte<br> Geovanne: (11) 95284-2140<br>Felipe: (11) 99202-2640<br>Luiz: (11) 94440-7930</p>
+  </div>
+</div>
 </html>
+
+
+
