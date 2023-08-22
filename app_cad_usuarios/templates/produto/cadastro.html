@@ -63,7 +63,7 @@
     var sku = document.getElementById("sku").value;
     var descricao = document.getElementById("descricao").value;
     var quantidade = document.getElementById("quantidade").value;
-    var preco = document.getElementById("preco").value;
+    var hiperlink = document.getElementById("hiperlink").value;
     var obs = document.getElementById("obs").value;
 
     // Cria um objeto com os dados do produto
@@ -71,7 +71,7 @@
       "sku": sku,
       "descricao": descricao,
       "quantidade": quantidade,
-      "preco": preco,
+      "hiperlink": hiperlink,
       "obs": obs
     };
 
@@ -97,7 +97,6 @@
     // Envia os dados para o servidor
     console.log(data)
     xhr.send(data);
-    print("Passou")
     exibirMensagem();
   }
 </script>

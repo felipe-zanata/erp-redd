@@ -95,8 +95,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }, {
                 delimiter: ";" // Define o separador como ponto e vírgula
             });
-
-            var blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+            
+            var csvDataWithBOM = "\uFEFF" + csvData;
+            var blob = new Blob([csvDataWithBOM], { type: "text/csv;charset=ISO-8859-15;" });
             var link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             link.download = "movientacao.csv";
@@ -136,44 +137,44 @@ function getTableDataMov() {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#filtro-form').on('input', function() {
-        event.preventDefault();  // Impede o envio do formulário
-
-        var filtroOperador = $('#Operador_filtro').val().toUpperCase();
-        var filtroData = $('#data_filtro').val().toUpperCase();
-        var filtroTransacao = $('#transacao_filtro').val().toUpperCase();
-        var filtroTipo = $('#tipo_produto').val().toUpperCase();
-        var filtroCodigo = $('#codigo_filtro').val().toUpperCase();
-        var filtroNome = $('#nome_filtro').val().toUpperCase();
-        var filtroQuantidade = $('#quantidade_filtro').val().toUpperCase();
-
-        // Percorre as linhas da tabela e mostra/esconde conforme os filtros
-        $('tbody tr').each(function() {
-            var linha = $(this);
-            var operador = linha.find('td:nth-child(2)').text().toUpperCase();
-            var data = linha.find('td:nth-child(3)').text().toUpperCase();
-            var transacao = linha.find('td:nth-child(4)').text().toUpperCase();
-            var tipo = linha.find('td:nth-child(5)').text().toUpperCase();
-            var codigo = linha.find('td:nth-child(6)').text().toUpperCase();
-            var nome = linha.find('td:nth-child(7)').text().toUpperCase();
-            var quantidade = linha.find('td:nth-child(8)').text().toUpperCase();
-            
-            if (operador.includes(filtroOperador) &&
-                data.includes(filtroData) &&
-                transacao.includes(filtroTransacao) &&
-                tipo.includes(filtroTipo) &&
-                codigo.includes(filtroCodigo) &&
-                nome.includes(filtroNome) &&
-                quantidade.includes(filtroQuantidade)) {
-                linha.show();
-            } else {
-                linha.hide();
-            }
+    $(document).ready(function() {
+        $('#filtro-form').on('input', function() {
+            event.preventDefault();  // Impede o envio do formulário
+    
+            var filtroOperador = $('#Operador_filtro').val().toUpperCase();
+            var filtroData = $('#data_filtro').val().toUpperCase();
+            var filtroTransacao = $('#transacao_filtro').val().toUpperCase();
+            var filtroTipo = $('#tipo_produto').val().toUpperCase();
+            var filtroCodigo = $('#codigo_filtro').val().toUpperCase();
+            var filtroNome = $('#nome_filtro').val().toUpperCase();
+            var filtroQuantidade = parseFloat($('#quantidade_filtro').val()); // Converte para número
+    
+            // Percorre as linhas da tabela e mostra/esconde conforme os filtros
+            $('tbody tr').each(function() {
+                var linha = $(this);
+                var operador = linha.find('td:nth-child(2)').text().toUpperCase();
+                var data = linha.find('td:nth-child(3)').text().toUpperCase();
+                var transacao = linha.find('td:nth-child(4)').text().toUpperCase();
+                var tipo = linha.find('td:nth-child(5)').text().toUpperCase();
+                var codigo = linha.find('td:nth-child(6)').text().toUpperCase();
+                var nome = linha.find('td:nth-child(7)').text().toUpperCase();
+                var quantidade = parseFloat(linha.find('td:nth-child(8)').text()); // Converte para número
+                
+                if (operador.includes(filtroOperador) &&
+                    data.includes(filtroData) &&
+                    transacao.includes(filtroTransacao) &&
+                    tipo.includes(filtroTipo) &&
+                    codigo.includes(filtroCodigo) &&
+                    nome.includes(filtroNome) &&
+                    (!filtroQuantidade || quantidade >= filtroQuantidade)) { // Verifica se a quantidade é maior ou igual ao filtro
+                    linha.show();
+                } else {
+                    linha.hide();
+                }
+            });
         });
     });
-});
 </script>
-
+    
 
 {% endblock %}

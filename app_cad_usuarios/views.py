@@ -74,10 +74,9 @@ def produtos_filtro(request):
                 # if 'dados_firebase' not in request.session:
                 est = Estoque()
                 dados = est.select_dados_produto()
-                    # request.session['dados_firebase'] = dados
+                request.session['dados_firebase'] = dados
                 return render(request, 'produto/prodcadastrados.html', {'produtos': dados})
                 # return render(request, 'produto/prodcadastrados.html', {'produtos': request.session['dados_firebase']})
-            
             except Exception as error:
                 return render(request, 'produto/prodcadastrados.html')
         else:
@@ -89,10 +88,12 @@ def tela_produtos(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
     
     if tipo_acesso == "admin" or tipo_acesso == "geral":
-        try:
-            return render(request, 'produto/prodcadastrados.html')
-        except Exception as error:
-            return render(request, 'produto/prodcadastrados.html')
+        if 'dados_firebase' in request.session:
+            dados = request.session['dados_firebase']
+            try:
+                return render(request, 'produto/prodcadastrados.html', context={'produtos': dados})
+            except Exception as error:
+                return render(request, 'produto/prodcadastrados.html')
         else:
             return render(request, 'produto/prodcadastrados.html')
     else:
