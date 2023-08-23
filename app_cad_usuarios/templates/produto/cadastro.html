@@ -30,8 +30,8 @@
             <input type="text" id="hiperlink" name="hiperlink" class='form-control centered-placeholder' style="width: 350px; height: 40px; margin-bottom: 15px;" placeholder="Hiperlink">
 
             <textarea id="obs" name="obs" class='form-control centered-placeholder' style="width: 350px; height: 70px; margin-bottom: 15px;" placeholder="Cor do produto"></textarea>
-            <div id="mensagem-registro" style="display: none; margin-top: 10px; color: green;">
-                Cadastro realizado com sucesso!
+            <div id="mensagem-registro" style="margin-top: 10px; color: green;">
+                {{ mensagem }}
             </div>
             <div class="text-center my-4">
                 <button type="submit" onclick="exibirMensagem()">Cadastrar</button>

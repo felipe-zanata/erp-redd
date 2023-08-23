@@ -34,7 +34,11 @@ class Estoque:
         colecao = self.__firebase.collection('estoque').add({})
 
     def insert_novo_produto(self, dados: dict):
-        self.__firebase.collection('estoque').add(dados)
+        try:
+            self.__firebase.collection('estoque').add(dados)
+            return "Produto registrado com sucesso"
+        except Exception as e:
+            return "Erro ao registrar o produto."
 
     def insert_novo_produto_massivo(self, json_data, request):
 

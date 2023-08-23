@@ -54,10 +54,10 @@ def cadastrar(request):
                     'link': request.POST.get('hiperlink'),
                     'obs': request.POST.get('obs')
                 }
-                projeto = Estoque()
-                projeto.insert_novo_produto(dados)
 
-                return render(request, 'produto/cadastro.html')
+                projeto = Estoque()
+                resposta = projeto.insert_novo_produto(dados)
+                return render(request, 'produto/cadastro.html', context={"mensagem": resposta})
 
             except json.JSONDecodeError as e:
                 return JsonResponse({"error": "Invalid JSON data"}, status=400)
@@ -68,7 +68,7 @@ def cadastrar(request):
     
 def produtos_filtro(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
-    if tipo_acesso == "admin" or tipo_acesso == "geral":
+    if tipo_acesso == "admin" or tipo_acesso == "geral"  or tipo_acesso == "vendedor":
         if request.method == 'GET':
             try:
                 # if 'dados_firebase' not in request.session:
@@ -87,7 +87,7 @@ def produtos_filtro(request):
 def tela_produtos(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
     
-    if tipo_acesso == "admin" or tipo_acesso == "geral":
+    if tipo_acesso == "admin" or tipo_acesso == "geral"  or tipo_acesso == "vendedor":
         if 'dados_firebase' in request.session:
             dados = request.session['dados_firebase']
             try:
@@ -98,7 +98,7 @@ def tela_produtos(request):
             return render(request, 'produto/prodcadastrados.html')
     else:
         return render(request, 'adm/sem_permissao.html')
-    
+
 def atualizar_dados(request):
     try:
         if 'dados_firebase' in request.session:
@@ -142,7 +142,7 @@ def gerenciar(request):
         return render(request, 'adm/gerenciar.html')
     else:
         return render(request, 'adm/sem_permissao.html')
-    
+
 def editar_user(request, user_id, tipo_id):
 
     dados = {
@@ -155,28 +155,10 @@ def editar_user(request, user_id, tipo_id):
 
     return render(request, 'adm/editar_user.html',{'dados': dados})
 
-def executar_editar_user(request):
-    if request.method == 'POST':
-        user_id = request.POST.get("id_user")
-        nome = request.POST.get("nome")
-        email = request.POST.get("email").lower().strip()
-        senha = request.POST.get('senha')
-        acesso = request.POST.get('tipo')
-        dados = {
-            'nome' : nome,
-            'email' : email,
-            'senha' : senha,
-            'avatar_url': 'http//teste',
-        }
-        update_user = AuthUsuarios()
-        update_user.editar_usuario(tipo_usuario=acesso, id_do_usuario=user_id, novos_dados=dados)
-        return redirect('gerenciar_user')   
-    else:
-        return render(request, 'adm/sem_permissao.html')
 
 def gerenciar_user(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
-    
+
     if tipo_acesso == "admin":      
         if request.method == 'GET':
             try:
@@ -190,13 +172,37 @@ def gerenciar_user(request):
     else:
         return render(request, 'adm/sem_permissao.html')
 
+def executar_editar_user(request):
+    if request.method == 'POST':
+        user_id = request.POST.get("id_user")
+        tipo_acesso = request.POST.get("tipo_acesso")
+        nome = request.POST.get("nome")
+        email = request.POST.get("email").lower().strip()
+        senha = request.POST.get('senha')
+        acesso = request.POST.get('tipo')
+        dados = {
+            'nome' : nome,
+            'email' : email,
+            'senha' : senha,
+            'avatar_url': 'http//teste',
+        }
+        update_user = AuthUsuarios()
+        if acesso == tipo_acesso:
+            update_user.editar_usuario(tipo_usuario=acesso, id_do_usuario=user_id, novos_dados=dados)
+        else:
+            update_user.deletar_usuario(tipo_usuario=tipo_acesso, id_do_usuario=user_id)
+            update_user.inserir_novo_usuario(dados=dados, tipo_usuario=acesso)
+        return redirect('gerenciar_user')   
+    else:
+        return render(request, 'adm/sem_permissao.html')
 
 def deletar_user(request, user_id, tipo_id):
     tipo_acesso = request.session.get('tipo_acesso', None)
-    
+
     if tipo_acesso == "admin": 
         auth = AuthUsuarios()
         auth.deletar_usuario(tipo_id, user_id)
+        print(tipo_id,user_id)
 
         try:
             dados = auth.select_dados()
@@ -204,10 +210,9 @@ def deletar_user(request, user_id, tipo_id):
         except Exception as error:
             return render(request, 'adm/gerenciar_user.html')
 
-
 def movimentacao(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
-    
+
     if tipo_acesso == "admin":
         if request.method == 'GET':
             try:
@@ -231,6 +236,7 @@ def dar_baixa(request, item_id):
         "item_id": item_id,
         "sku": request.GET.get('sku'),
         "descricao" : request.GET.get('desc'),
+        "obs" : request.GET.get('obs'),
         'quantidade' : request.GET.get('qtde')
     }
     
@@ -239,6 +245,7 @@ def dar_baixa(request, item_id):
 def exec_baixa(request):
     if request.method == 'POST':
         operador = request.POST.get('operador')
+        numero_do_pedido = request.POST.get('numero-do-pedido')
         id_registro = request.POST.get('id_registro')
         tipo = request.POST.get('tipo')
         qtidade_produto_baixa = int(request.POST.get('qtidade-produto-baixa'))
@@ -248,7 +255,7 @@ def exec_baixa(request):
                             sku=id_registro, 
                             tipo=tipo, 
                             qtde=qtidade_produto_baixa,
-                            referen=str(random.randint(8800, 8899)), 
+                            referen=numero_do_pedido,
                             nome_usuario=operador)
         
     return redirect('listagem_produtos')
@@ -265,7 +272,7 @@ def importar_excel(request):
                     excel_data = pd.read_excel(excel_file)
 
                     excel_data.fillna("--", inplace=True)
-                    list_col = ['Nome','Quantidade','Codigo','Hiperlink','Observacao']
+                    list_col = ['Nome','Quantidade','Codigo','Hiperlink','Cor']
                     
                     # verifica se todas as colunas estão no padrão
                     resultado = excel_data.columns.isin(list_col).all()
@@ -339,3 +346,4 @@ def logout(request):
     request.session.flush()  # Isso limpa todas as informações da sessão
     
     return redirect('login')  # Redirecione para a página de login após o logout
+
