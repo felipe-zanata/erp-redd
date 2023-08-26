@@ -4,7 +4,7 @@ import firebase_admin
 
 from firebase_admin import credentials, firestore
 import pytz
-from .firebase_mov import Movimentacao
+from firebase_mov import Movimentacao
 
 class Estoque:
     _instance = None
@@ -144,9 +144,22 @@ class Estoque:
                 break
         request.session['dados_firebase'] = dct_produto
 
+#     def excluir_item_por_sku(sku):
+#         collection_ref = firestore.client().collection('estoque')
+#         docs = collection_ref.stream()
+
+#         for doc in docs:
+#             doc.reference.delete()
+#             print(f"deletado: {sku}")
+#         print("terminou")
 
 
 # if __name__ == '__main__':
+#     estoque = Estoque()
+#     estoque.excluir_item_por_sku(sku="--")
+
+
+
     # import pandas as pd
     # # import random
     # estoque = Estoque()
