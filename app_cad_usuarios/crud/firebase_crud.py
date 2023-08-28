@@ -5,12 +5,13 @@ from firebase_admin import credentials, firestore
 
 class CadastroProduto:
 
-    def __init__(self,sku: int, descricao: str, qtde: int = 0, hiperlink: str = '', obs: str = '') -> None:
+    def __init__(self,sku: int, descricao: str, qtde: int = 0, hiperlink: str = '', obs: str = '', local: str = '') -> None:
         self.sku = sku
         self.descricao = descricao
         self.quantidade = qtde
         self.hiperlink = hiperlink
         self.obs = obs
+        self.local = local
 
 
 class ProjetoEstoqueDemo:
@@ -36,23 +37,24 @@ class ProjetoEstoqueDemo:
         except Exception as e:
             print("Erro ao configurar o Firebase", str(e))
 
-    def inserir_produto(self, sku, descricao, quantidade, hiperlink, obs):
+    def inserir_produto(self, sku, descricao, quantidade, hiperlink, obs, local):
         """cadastramento do novo produto na base"""
         try:
-            cadastro_produto = CadastroProduto(sku, descricao, quantidade, hiperlink, obs)
+            cadastro_produto = CadastroProduto(sku, descricao, quantidade, hiperlink, obs, local)
             colecao = self.__firebase.collection('estoque')
             colecao.add({
                 "sku" : cadastro_produto.sku,
                 "descricao" : cadastro_produto.descricao,
                 "quantidade": cadastro_produto.quantidade,
                 "url": cadastro_produto.hiperlink,
-                "obs": cadastro_produto.obs})
+                "obs": cadastro_produto.obs,
+                "local": cadastro_produto.local})
             print ("Novo registro adicionado com sucesso")
 
         except Exception as e:
             print("Erro ao cadastrar um produto no estoque", str(e))
     
-    def inserir_historico_mov(self, sku, descricao, quantidade, hiperlink, obs):
+    def inserir_historico_mov(self, sku, descricao, quantidade, hiperlink, obs, local):
         """grava no banco de dados o historico de entrada e saida do produto"""
         try:
             # cadastro_produto = CadastroProduto(sku, descricao, quantidade, hiperlink, obs)
@@ -111,7 +113,7 @@ class ProjetoEstoqueDemo:
 
 if __name__ == '__main__':
     estoque = ProjetoEstoqueDemo()
-
+    estoque.inserir_produto()
 
     # INSERT
     # sku_fake = random.randint(10000, 99999) 

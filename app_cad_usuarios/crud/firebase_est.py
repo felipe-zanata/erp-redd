@@ -51,7 +51,8 @@ class Estoque:
                 'descricao': item['descricao'],
                 'quantidade': item['quantidade'],
                 'link': item['hiperlink'],
-                'obs': item['obs']
+                'obs': item['obs'],
+                'local': item['local']
             }
             # var = int(item['quantidade'])
             # if var > 0:

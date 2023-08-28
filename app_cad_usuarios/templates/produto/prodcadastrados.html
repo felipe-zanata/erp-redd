@@ -74,7 +74,7 @@
             <td>{{ produto_info.quantidade }}</td>
             <!-- <td>{{ produto_info.url }}</td> -->
             <td><a href="{{ produto_info.link }}" target="_blank">{{ produto_info.link }}</a></td>
-            <td><a href="" target=""></a></td>
+            <td>{{ produto_info.local }}</td>
 
             {% if request.session.tipo_acesso != "vendedor" %}
             <td>
@@ -132,12 +132,12 @@ function getTableData() {
   var table = document.evaluate('/html/body/div[2]/div[2]/table', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   var rows = table.querySelectorAll("tbody tr");
 
-  var columnTitles = ["Codigo", "Nome", "Cor", "Quantidade", "Link"];
+  var columnTitles = ["Codigo", "Nome", "Cor", "Quantidade", "Link", "Local"];
   data.push(columnTitles);
 
   rows.forEach(function (row) {
     var rowData = [];
-    var columnsToInclude = [1, 2, 3, 4, 5]; // index das colunas 
+    var columnsToInclude = [1, 2, 3, 4, 5, 6]; // index das colunas 
     
     columnsToInclude.forEach(function (colIndex) {
       var cell = row.querySelector(`td:nth-child(${colIndex + 1})`);
