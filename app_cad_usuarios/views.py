@@ -272,7 +272,7 @@ def importar_excel(request):
                     excel_data = pd.read_excel(excel_file)
 
                     excel_data.fillna("--", inplace=True)
-                    list_col = ['Nome','Quantidade','Codigo','Hiperlink','Cor']
+                    list_col = ['Codigo', 'Nome', 'Cor','Quantidade','Hiperlink', 'Local']
                     
                     # verifica se todas as colunas estão no padrão
                     resultado = excel_data.columns.isin(list_col).all()

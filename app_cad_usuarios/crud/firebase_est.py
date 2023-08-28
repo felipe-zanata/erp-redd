@@ -4,7 +4,7 @@ import firebase_admin
 
 from firebase_admin import credentials, firestore
 import pytz
-from firebase_mov import Movimentacao
+from .firebase_mov import Movimentacao
 
 class Estoque:
     _instance = None

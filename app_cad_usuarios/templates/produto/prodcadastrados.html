@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+
 {% load static %}
 <link href="{% static '../static/css/prodcadastrados.css' %}" rel="stylesheet">
 
@@ -40,7 +41,9 @@
 
       <!-- <button class="botao-atualizar" id="atualizar-button">Atualizar</button> -->
       <a class="botao-atualizar" href="{% url 'listagem_produtos' %}" >Atualizar</a>
-      <button id="exportButton" class="botao-exportar">Exportar csv</button>
+      {% if request.session.tipo_acesso != "vendedor" and request.session.tipo_acesso != "geral" %}
+            <button id="exportButton" class="botao-exportar">Exportar csv</button>
+      {% endif %}
     </div>  
     <div class="table-container" style="height: 500px; overflow-y: auto; ">
       <table>
@@ -51,12 +54,13 @@
             <th>Nome</th>
             <th>Cor</th>
             <th>Quantidade</th>
-            <th>link</th>
-            <!-- <th>Editar</th>
-            <th>Excluir</th> -->
+            <th>Link</th>
+            <th>Local</th>
             {% if request.session.tipo_acesso != "vendedor" %}
             <th>Dar Baixa</th>
             {% endif %}
+            <!-- <th>Editar</th>
+            <th>Excluir</th> -->
           </tr>
         </thead>
         <!-- Loop para exibir os registros do banco de dados -->
@@ -70,12 +74,8 @@
             <td>{{ produto_info.quantidade }}</td>
             <!-- <td>{{ produto_info.url }}</td> -->
             <td><a href="{{ produto_info.link }}" target="_blank">{{ produto_info.link }}</a></td>
-            <!-- <td>
-              <button class="edit-button"></button>
-            </td>
-            <td>
-              <button class="delete-button" onclick="confirmDelete()"></button>
-            </td> -->
+            <td><a href="" target=""></a></td>
+
             {% if request.session.tipo_acesso != "vendedor" %}
             <td>
               <a class="botao-baixa" href="{% url 'baixa' item_id=codigo %}?sku={{ produto_info.sku }}&desc={{ produto_info.descricao }}&qtde={{ produto_info.quantidade }}&obs={{ produto_info.obs }}">
@@ -83,7 +83,14 @@
                 <i class="arrow-icon fas fa-arrow-down"></i>
               </a>
             </td>
-          {% endif %}
+            {% endif %}
+
+            {% comment %} <td>
+              <button class="fas fa-edit"></button>
+            </td>
+            <td>
+              <button class="fas fa-trash-alt" onclick="confirmDelete()"></button>
+            </td> {% endcomment %}
           </tr>
           {% endfor %}
         </tbody>
