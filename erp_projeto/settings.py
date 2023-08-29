@@ -16,7 +16,8 @@ SECRET_KEY = 'django-insecure-0t)7$6$l#(44tc88%e8gwwq##qp8f7j3sf#a%-x2#9$794i%lq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # Isso permite acesso de qualquer host em um ambiente de desenvolvimento
+
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'nome_da_sessao'

@@ -15,15 +15,19 @@
         <h2>Dar baixa</h2>
         <form action="/exec_baixa/" method="post" onsubmit="return validarQuantidade()">
             {% csrf_token %}
-            <input type="text" style="display: None;" value="{{ dados.item_id }}" id="id_registro" name="id_registro" readonly>
-            <input type="text" value="{{ request.session.nome }}" id="operador" name="operador" readonly>           
-            <label>Tipo de produto:</label>
-            <input type="text" value="{{ dados.sku }}" id="codigo-produto" name="codigo-produto" readonly></input>
-            <label>Descrição:</label>
-            <input type="text" value="{{ dados.descricao }}" id="nome-produto" name="nome-produto" readonly>
+            <input type="text" style="display: None; width: 200px;" value="{{ dados.item_id }}" id="id_registro" name="id_registro" readonly>
+            <label>Operador:</label>
+            <input type="text" style="background-color: rgba(214, 211, 211, 0.676);" value="{{ request.session.nome }}" id="operador" name="operador" readonly>           
+            <label>Código/cor do produto:</label>
+            <input type="text" style="background-color: rgba(214, 211, 211, 0.676);"  value="{{ dados.sku }} ({{ dados.obs }})" id="codigo-produto" name="codigo-produto" readonly></input>
+            <label>Nome do produto:</label>
+            <input type="text" style="background-color: rgba(214, 211, 211, 0.676);"  value="{{ dados.descricao }}" id="nome-produto" name="nome-produto" readonly>
             <label>Quantidade atual:</label>
-            <input type="text" value="{{ dados.quantidade }}" id="qtidade-produto" name="qtidade-produto" readonly>
+            <input type="text" style="background-color: rgba(214, 211, 211, 0.676);"  value="{{ dados.quantidade }}" id="qtidade-produto" name="qtidade-produto" readonly>
             
+            <label for="cod-do-pedido">Número do pedido</label>
+            <input type="text" id="numero-do-pedido" name="numero-do-pedido" required>
+
             <label for="tipo">Tipo:</label>
             <select id="tipo" name="tipo">
                 <option value="entrada">Entrada</option>
@@ -32,6 +36,7 @@
 
             <label for="qtidade-produto-baixa">Quantidade da baixa:</label>
             <input type="number" id="qtidade-produto-baixa" name="qtidade-produto-baixa" required>
+
             
             <button type="submit">Registrar Movimentação</button>
 

@@ -40,9 +40,10 @@
           <tr>
             <th>Código do Produto</th>
             <th>Nome do Produto</th>
+            <th>Cor</th>
             <th>Quantidade</th>
             <th>Hiperlink</th>
-            <th>Observação</th>
+            <th>Local</th>
           </tr>
           {% if excel_data %}
           
@@ -59,9 +60,10 @@
           <tr>
               <td>{{ row.Codigo }}</td>
               <td>{{ row.Nome }}</td>
+              <td>{{ row.Cor }}</td>
               <td>{{ row.Quantidade }}</td>
               <td>{{ row.Hiperlink }}</td>
-              <td>{{ row.Observacao }}</td>
+              <td>{{ row.Local }}</td>
           </tr>
           {% endfor %}
           {% else %}
@@ -133,9 +135,10 @@
         var produto = {
           sku: row.cells[0].textContent,
           descricao: row.cells[1].textContent,
+          obs: row.cells[2].textContent,
           quantidade: quantidade,
-          hiperlink: row.cells[3].textContent,
-          obs: row.cells[4].textContent
+          hiperlink: row.cells[4].textContent,
+          local: row.cells[5].textContent
         };
         products.push(produto);
       }

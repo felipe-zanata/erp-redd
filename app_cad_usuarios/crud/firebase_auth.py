@@ -10,6 +10,7 @@ class AuthUsuarios:
         self.__firebase = self.configura_credenciais()
         self.criar_colecao('admin')
         self.criar_colecao('geral')
+        self.criar_colecao('vendedor')
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -122,7 +123,7 @@ if __name__ == '__main__':
         'avatar_url': 'http//teste',
         'email': 'user1@gmail.com'
     }
-    auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='admin')
+    auth.inserir_novo_usuario(dados=novo_usuario, tipo_usuario='vendedor')
 
     #Testar auth
     # usr = auth.select_dados(nome_usuario='luiz.eduardo', tipo_acesso='geral')

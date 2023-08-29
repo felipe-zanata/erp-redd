@@ -39,10 +39,11 @@ class Movimentacao:
             self.__firebase.collection('movimentacao').document(ret['id']).update(dados)
 
     def select_movimentacao(self):
-        
         dados = self.__firebase.collection('movimentacao').get()
-        dct_mov: dict = {doc.id: doc.to_dict() for doc in dados}
-        return dct_mov
+        dct_mov = {doc.id: doc.to_dict() for doc in dados}
+
+        dados_ordenados = dict(sorted(dct_mov.items(), key=lambda item: item[1]['data'], reverse=True))
+        return dados_ordenados
 
     def delete_movimentacao(self, sku: str):
         dados = self.select_movimentacao(sku)

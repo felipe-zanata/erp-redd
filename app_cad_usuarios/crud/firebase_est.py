@@ -34,7 +34,11 @@ class Estoque:
         colecao = self.__firebase.collection('estoque').add({})
 
     def insert_novo_produto(self, dados: dict):
-        self.__firebase.collection('estoque').add(dados)
+        try:
+            self.__firebase.collection('estoque').add(dados)
+            return "Produto registrado com sucesso"
+        except Exception as e:
+            return "Erro ao registrar o produto."
 
     def insert_novo_produto_massivo(self, json_data, request):
 
@@ -47,7 +51,8 @@ class Estoque:
                 'descricao': item['descricao'],
                 'quantidade': item['quantidade'],
                 'link': item['hiperlink'],
-                'obs': item['obs']
+                'obs': item['obs'],
+                'local': item['local']
             }
             # var = int(item['quantidade'])
             # if var > 0:
@@ -140,9 +145,22 @@ class Estoque:
                 break
         request.session['dados_firebase'] = dct_produto
 
+#     def excluir_item_por_sku(sku):
+#         collection_ref = firestore.client().collection('estoque')
+#         docs = collection_ref.stream()
+
+#         for doc in docs:
+#             doc.reference.delete()
+#             print(f"deletado: {sku}")
+#         print("terminou")
 
 
 # if __name__ == '__main__':
+#     estoque = Estoque()
+#     estoque.excluir_item_por_sku(sku="--")
+
+
+
     # import pandas as pd
     # # import random
     # estoque = Estoque()

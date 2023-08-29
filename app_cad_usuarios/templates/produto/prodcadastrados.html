@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+
 {% load static %}
 <link href="{% static '../static/css/prodcadastrados.css' %}" rel="stylesheet">
 
@@ -21,7 +22,9 @@
           <form id="filtro-form">
             <div style="display: flex; align-items: center; justify-content: center;">
                 <input type="text" id="codigo_filtro" name="codigo_filtro" placeholder="Código do Produto">
-                <input type="text" id="nome_filtro" name="nome_filtro" placeholder="Tipo do Produto">
+                <input type="text" id="nome_filtro" name="nome_filtro" placeholder="Nome do Produto">
+                <input type="text" id="cor_filtro" name="cor_filtro" placeholder="Cor do Produto">
+                <input type="text" id="qtidade_filtro" name="qtidade_filtro" placeholder="Quantidade">
                 <!-- <input type="number" id="quantidade_filtro" name="quantidade_filtro" placeholder="Quantidade"> -->
             </div>
           </form>
@@ -38,7 +41,9 @@
 
       <!-- <button class="botao-atualizar" id="atualizar-button">Atualizar</button> -->
       <a class="botao-atualizar" href="{% url 'listagem_produtos' %}" >Atualizar</a>
-      <button id="exportButton" class="botao-exportar">Exportar csv</button>
+      {% if request.session.tipo_acesso != "vendedor" and request.session.tipo_acesso != "geral" %}
+            <button id="exportButton" class="botao-exportar">Exportar csv</button>
+      {% endif %}
     </div>  
     <div class="table-container" style="height: 500px; overflow-y: auto; ">
       <table>
@@ -46,13 +51,16 @@
           <tr>
             <th style="display: none;">_Código</th>
             <th>Código</th>
-            <th>Tipo</th>
+            <th>Nome</th>
+            <th>Cor</th>
             <th>Quantidade</th>
-            <th>Observação</th>
-            <th>link</th>
+            <th>Link</th>
+            <th>Local</th>
+            {% if request.session.tipo_acesso != "vendedor" %}
+            <th>Dar Baixa</th>
+            {% endif %}
             <!-- <th>Editar</th>
             <th>Excluir</th> -->
-            <th>Dar Baixa</th>
           </tr>
         </thead>
         <!-- Loop para exibir os registros do banco de dados -->
@@ -62,22 +70,27 @@
             <td style="display: none;">{{ codigo }}</td>
             <td>{{ produto_info.sku }}</td>
             <td>{{ produto_info.descricao }}</td> 
-            <td>{{ produto_info.quantidade }}</td>
             <td>{{ produto_info.obs }}</td>
+            <td>{{ produto_info.quantidade }}</td>
             <!-- <td>{{ produto_info.url }}</td> -->
             <td><a href="{{ produto_info.link }}" target="_blank">{{ produto_info.link }}</a></td>
-            <!-- <td>
-              <button class="edit-button"></button>
-            </td>
+            <td>{{ produto_info.local }}</td>
+
+            {% if request.session.tipo_acesso != "vendedor" %}
             <td>
-              <button class="delete-button" onclick="confirmDelete()"></button>
-            </td> -->
-            <td>
-              <a class="botao-baixa" href="{% url 'baixa' item_id=codigo %}?sku={{ produto_info.sku }}&desc={{ produto_info.descricao }}&qtde={{ produto_info.quantidade }}">
+              <a class="botao-baixa" href="{% url 'baixa' item_id=codigo %}?sku={{ produto_info.sku }}&desc={{ produto_info.descricao }}&qtde={{ produto_info.quantidade }}&obs={{ produto_info.obs }}">
                 <i class="arrow-icon fas fa-arrow-up"></i>
                 <i class="arrow-icon fas fa-arrow-down"></i>
               </a>
-          </td>
+            </td>
+            {% endif %}
+
+            {% comment %} <td>
+              <button class="fas fa-edit"></button>
+            </td>
+            <td>
+              <button class="fas fa-trash-alt" onclick="confirmDelete()"></button>
+            </td> {% endcomment %}
           </tr>
           {% endfor %}
         </tbody>
@@ -119,12 +132,12 @@ function getTableData() {
   var table = document.evaluate('/html/body/div[2]/div[2]/table', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   var rows = table.querySelectorAll("tbody tr");
 
-  var columnTitles = ["Codigo", "Tipo", "Quantidade", "Observacao"];
+  var columnTitles = ["Codigo", "Nome", "Cor", "Quantidade", "Link", "Local"];
   data.push(columnTitles);
 
   rows.forEach(function (row) {
     var rowData = [];
-    var columnsToInclude = [1, 2, 3, 4]; // index das colunas 
+    var columnsToInclude = [1, 2, 3, 4, 5, 6]; // index das colunas 
     
     columnsToInclude.forEach(function (colIndex) {
       var cell = row.querySelector(`td:nth-child(${colIndex + 1})`);
@@ -140,37 +153,38 @@ function getTableData() {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function() {
-      // Função para realizar o filtro
-      function realizarFiltro() {
-          var filtroCodigo = $('#codigo_filtro').val().toUpperCase();
-          var filtroNome = $('#nome_filtro').val().toUpperCase();
-          // var filtroQuantidade = parseFloat($('#quantidade_filtro').val()); // Converte para número
+    $(document).ready(function() {
+        function realizarFiltro() {
+            var filtroCodigo = $('#codigo_filtro').val().toUpperCase();
+            var filtroNome = $('#nome_filtro').val().toUpperCase();
+            var filtroCor = $('#cor_filtro').val().toUpperCase();
+            var filtroQuantidade = parseFloat($('#qtidade_filtro').val());
   
-          $('tbody tr').each(function() {
-              var linha = $(this);
-              var codigo = linha.find('td:nth-child(2)').text().toUpperCase();
-              var nome = linha.find('td:nth-child(3)').text().toUpperCase();
-              // var quantidade = parseFloat(linha.find('td:nth-child(4)').text());
-  
-              var codigoPassou = codigo.includes(filtroCodigo) || filtroCodigo === '';
-              var nomePassou = nome.includes(filtroNome) || filtroNome === '';
-              // var quantidadePassou = isNaN(filtroQuantidade) || quantidade >= filtroQuantidade;
-  
-              if (codigoPassou && nomePassou) {  // && quantidadePassou
-                  linha.show();
-              } else {
-                  linha.hide();
-              }
-          });
-      }
-  
-      // Evento input para acionar o filtro
-      $('#codigo_filtro, #nome_filtro').on('input', function() { // #quantidade_filtro
-          realizarFiltro();
-      });
-  });
-  </script>
+            $('tbody tr').each(function() {
+                var linha = $(this);
+                var codigo = linha.find('td:nth-child(2)').text().toUpperCase();
+                var nome = linha.find('td:nth-child(3)').text().toUpperCase();
+                var cor = linha.find('td:nth-child(4)').text().toUpperCase(); // Altere o índice de acordo com a coluna da cor
+                var quantidade = parseFloat(linha.find('td:nth-child(5)').text());
+
+                var codigoPassou = codigo.includes(filtroCodigo) || filtroCodigo === '';
+                var nomePassou = nome.includes(filtroNome) || filtroNome === '';
+                var corPassou = cor.includes(filtroCor) || filtroCor === '';
+                var quantidadePassou = isNaN(filtroQuantidade) || quantidade >= filtroQuantidade;
+
+                if (codigoPassou && nomePassou && corPassou && quantidadePassou) {
+                    linha.show();
+                } else {
+                    linha.hide();
+                }
+            });
+        }
+
+        $('#codigo_filtro, #nome_filtro, #cor_filtro, #qtidade_filtro').on('input', function() {
+            realizarFiltro();
+        });
+    });
+</script>
 
 <!-- <script>
   document.addEventListener("DOMContentLoaded", function() {

@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <h2>Alterar Tipo Usuário</h2>
-        
+
         <form action="/exec_editar_user/" method="POST">
             {% csrf_token %}
             <div class="tipo-conta">
@@ -23,14 +23,20 @@
                     <option value="geral" {% if dados.tipo_acesso == 'geral' %}selected{% endif %} >Vendedor</option>
                 </select> -->
                 <select id="tipo" name="tipo">
-                    <option value="admin" {% if dados.tipo_acesso != 'admin' %}disabled{% endif %}{% if dados.tipo_acesso == 'admin' %}selected{% endif %}>Administrador</option>
-                    <option value="geral" {% if dados.tipo_acesso != 'geral' %}disabled{% endif %}{% if dados.tipo_acesso == 'geral' %}selected{% endif %}>Vendedor</option>
+                    <!-- <option value="admin" {% if dados.tipo_acesso != 'admin' %}disabled{% endif %}{% if dados.tipo_acesso == 'admin' %}selected{% endif %}>Administrador</option>
+                    <option value="geral" {% if dados.tipo_acesso != 'geral' %}disabled{% endif %}{% if dados.tipo_acesso == 'geral' %}selected{% endif %}>Vendedor</option> -->
+                    <option value="admin">Administrador</option>
+                    <option value="geral">Geral</option>
+                    <option value="vendedor">Vendedor</option>
                 </select>
+            </div>
+            <div style="display: none;">
+                <input type="text" id="tipo_acesso" name="tipo_acesso"  value="{{ dados.tipo_acesso }}">
             </div>
             <div class="input-group" style="display: none;">
                 <label for="nome">Nome:</label>
                 <input type="text" id="id_user" name="id_user"  value="{{ dados.user_id }}">
-            </div>             
+            </div>
             <div class="input-group">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome"  value="{{ dados.nome }}">
