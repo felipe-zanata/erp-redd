@@ -210,6 +210,11 @@ def deletar_user(request, user_id, tipo_id):
             return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
         except Exception as error:
             return render(request, 'adm/gerenciar_user.html')
+        
+def deletar_produto(request, id: str):
+    est = Estoque()
+    dados = est.delete_dados_produto(id)
+    return produtos_filtro(request)
 
 def movimentacao(request):
     tipo_acesso = request.session.get('tipo_acesso', None)

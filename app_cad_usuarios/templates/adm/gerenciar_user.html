@@ -84,20 +84,20 @@
     $(document).ready(function() {
         $('.delete-link').on('click', function(e) {
             e.preventDefault();
-
+  
             var userName = $(this).closest('tr').find('td:eq(1)').text();
             var userType = $(this).closest('tr').find('td:eq(0)').text();
-
+  
             var confirmation = confirm("Tem certeza que deseja deletar?\n" + 
                                      "Usuário: " + userName + "\n" +
                                      "Tipo de acesso: " + userType);
-
+  
             if (confirmation) {
                 window.location.href = $(this).attr('href');
             }
         });
     });
-</script>
+  </script>
 
 
 

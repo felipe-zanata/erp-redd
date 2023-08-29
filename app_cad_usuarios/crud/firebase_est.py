@@ -89,10 +89,11 @@ class Estoque:
             lista_produtos: dict = {doc.id: doc.to_dict() for doc in dados}
             return lista_produtos
 
-    def delete_dados_produto(self, sku: str):
-        dados = self.select_dados_produto(sku)
-        if dados:
-            self.__firebase.collection('estoque').document(dados['id']).delete()
+    def delete_dados_produto(self, id: str):
+        try:
+            self.__firebase.collection('estoque').document(id).delete()
+        except Exception as e:
+            return "Erro ao registrar o produto."
 
     def data_fuso_horario(self):
         # Defina o fuso horário do Brasil (America/Sao_Paulo ou America/Rio_Branco, por exemplo)

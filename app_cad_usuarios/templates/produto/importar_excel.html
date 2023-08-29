@@ -67,7 +67,7 @@
           </tr>
           {% endfor %}
           {% else %}
-          <p id="mensagem" style="display: none;">Colunas não localizadas: {{ mensage }}</p>
+          <p id="mensagem" style="display: block; color: crimson;">Colunas não localizadas: {{ mensage }}</p>
 
           {% endif %}
       </table>
@@ -129,7 +129,7 @@
 
     tableRows.forEach(function(row, index) {
       if (index !== 0) {
-        var quantidadeText = row.cells[2].textContent.trim();
+        var quantidadeText = row.cells[3].textContent.trim();
         var quantidade = !isNaN(parseFloat(quantidadeText)) ? parseFloat(quantidadeText) : 0;
 
         var produto = {

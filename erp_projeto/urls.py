@@ -27,5 +27,6 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('editar_user/<str:user_id>/<str:tipo_id>/', views.editar_user, name='editar_user'),
     path('exec_editar_user/', views.executar_editar_user, name='exe_editar_user'),
+    path('deletar_produto/<str:id>/', views.deletar_produto, name='deletar_dados_produto'),
     # path('admin/', admin.site.urls),
 ]   
