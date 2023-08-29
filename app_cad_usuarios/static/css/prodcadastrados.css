@@ -54,6 +54,11 @@ table {
   border: 1px solid #BDBDBD;
 }
 
+thead {
+  position: sticky;
+  top: 0;
+}
+
 th {
   padding: 10px;
   text-align: center;

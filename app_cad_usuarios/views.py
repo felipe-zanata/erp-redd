@@ -52,7 +52,8 @@ def cadastrar(request):
                     'descricao': request.POST.get('descricao'),
                     'quantidade': request.POST.get('quantidade'),
                     'link': request.POST.get('hiperlink'),
-                    'obs': request.POST.get('obs')
+                    'obs': request.POST.get('obs'),
+                    'local': request.POST.get('local')
                 }
 
                 projeto = Estoque()
@@ -209,6 +210,11 @@ def deletar_user(request, user_id, tipo_id):
             return render(request, 'adm/gerenciar_user.html', context={'dados': dados})
         except Exception as error:
             return render(request, 'adm/gerenciar_user.html')
+        
+def deletar_produto(request, id: str):
+    est = Estoque()
+    dados = est.delete_dados_produto(id)
+    return produtos_filtro(request)
 
 def movimentacao(request):
     tipo_acesso = request.session.get('tipo_acesso', None)
@@ -237,7 +243,8 @@ def dar_baixa(request, item_id):
         "sku": request.GET.get('sku'),
         "descricao" : request.GET.get('desc'),
         "obs" : request.GET.get('obs'),
-        'quantidade' : request.GET.get('qtde')
+        'quantidade' : request.GET.get('qtde'),
+        'local': request.GET.get('local'),
     }
     
     return render(request, 'produto/dar_baixa.html',{'dados': dados})
@@ -249,6 +256,7 @@ def exec_baixa(request):
         id_registro = request.POST.get('id_registro')
         tipo = request.POST.get('tipo')
         qtidade_produto_baixa = int(request.POST.get('qtidade-produto-baixa'))
+        local_baixa = request.POST.get('local-produto')
         baixa = Estoque()
         baixa.baixa_produto(
                             request=request,
@@ -256,7 +264,8 @@ def exec_baixa(request):
                             tipo=tipo, 
                             qtde=qtidade_produto_baixa,
                             referen=numero_do_pedido,
-                            nome_usuario=operador)
+                            nome_usuario=operador,
+                            local=local_baixa)
         
     return redirect('listagem_produtos')
 

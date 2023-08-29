@@ -22,8 +22,16 @@
             <input type="text" style="background-color: rgba(214, 211, 211, 0.676);"  value="{{ dados.sku }} ({{ dados.obs }})" id="codigo-produto" name="codigo-produto" readonly></input>
             <label>Nome do produto:</label>
             <input type="text" style="background-color: rgba(214, 211, 211, 0.676);"  value="{{ dados.descricao }}" id="nome-produto" name="nome-produto" readonly>
-            <label>Quantidade atual:</label>
-            <input type="text" style="background-color: rgba(214, 211, 211, 0.676);"  value="{{ dados.quantidade }}" id="qtidade-produto" name="qtidade-produto" readonly>
+            <div style="display: flex; justify-content: space-between; flex: 1;">
+                <div>
+                    <label>Quantidade atual:</label>
+                    <input type="text" style="background-color: rgba(214, 211, 211, 0.676); width: 100%; padding-inline-end: 60px;"  value="{{ dados.quantidade }}" id="qtidade-produto" name="qtidade-produto" readonly>
+                </div>
+                <div>
+                    <label>Local atual:</label>
+                    <input type="text" style="background-color: rgba(214, 211, 211, 0.676); width: 100%; padding-inline-end: 60px;"  value="{{ dados.local }}" id="local-produto" name="local-produto" readonly>
+                </div>
+            </div>
             
             <label for="cod-do-pedido">Número do pedido</label>
             <input type="text" id="numero-do-pedido" name="numero-do-pedido" required>
