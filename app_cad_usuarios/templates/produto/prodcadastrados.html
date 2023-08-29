@@ -87,11 +87,13 @@
               </a>
             </td>
             {% endif %}
+            {% if request.session.tipo_acesso != "vendedor" and request.session.tipo_acesso != "geral" %}
             <td>
               <a href="{% url 'deletar_dados_produto' id=codigo %}" class="delete-link botao-baixa">
                 <i class="fas fa-trash-alt"></i>
               </a>
-            </td> 
+            </td>
+            {% endif %}
           </tr>
           {% endfor %}
         </tbody>
