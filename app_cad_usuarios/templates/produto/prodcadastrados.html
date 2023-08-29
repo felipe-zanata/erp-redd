@@ -78,7 +78,7 @@
 
             {% if request.session.tipo_acesso != "vendedor" %}
             <td>
-              <a class="botao-baixa" href="{% url 'baixa' item_id=codigo %}?sku={{ produto_info.sku }}&desc={{ produto_info.descricao }}&qtde={{ produto_info.quantidade }}&obs={{ produto_info.obs }}">
+              <a class="botao-baixa" href="{% url 'baixa' item_id=codigo %}?sku={{ produto_info.sku }}&desc={{ produto_info.descricao }}&qtde={{ produto_info.quantidade }}&obs={{ produto_info.obs }}&local={{ produto_info.local }}">
                 <i class="arrow-icon fas fa-arrow-up"></i>
                 <i class="arrow-icon fas fa-arrow-down"></i>
               </a>

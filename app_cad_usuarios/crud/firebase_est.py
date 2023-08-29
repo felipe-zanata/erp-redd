@@ -106,7 +106,7 @@ class Estoque:
 
         return data_hora_brasil.strftime('%d/%m/%y %H:%M')
     
-    def baixa_produto(self, request, sku: str, tipo: str, qtde: int, referen: str, nome_usuario: str):
+    def baixa_produto(self, request, sku: str, tipo: str, qtde: int, referen: str, nome_usuario: str, local: str):
 
         produto = self.select_dados_produto(sku_id=sku)
         nova_qtde: int = 0
@@ -128,8 +128,9 @@ class Estoque:
                 'referencia': referen,
                 'tipo': tipo.upper(),
                 'sku':  produto['sku'],
-                'descricao': produto['descricao'],
-                'quantidade': qtde
+                'descricao': str(produto['descricao']) +" (" + str(produto['obs']) +")",
+                'quantidade': qtde,
+                'local': local
             }
             est.insert_movimentacao(dados)
             # self.atualiza_produto(request, produto['id'], nova_qtde)
