@@ -33,8 +33,9 @@
                 </div>
             </div>
             
-            <label for="cod-do-pedido">Número do pedido</label>
-            <input type="text" id="numero-do-pedido" name="numero-do-pedido" required>
+            <label for="numero-do-pedido">Número do pedido</label>
+            <input type="number" id="numero-do-pedido" name="numero-do-pedido" required oninput="validarNumeros(this)">
+            
 
             <label for="tipo">Tipo:</label>
             <select id="tipo" name="tipo">
@@ -43,7 +44,8 @@
             </select>
 
             <label for="qtidade-produto-baixa">Quantidade da baixa:</label>
-            <input type="number" min="1" id="qtidade-produto-baixa" name="qtidade-produto-baixa" required>
+
+            <input type="number" min="1" id="qtidade-produto-baixa" name="qtidade-produto-baixa" required oninput="validarNumeros(this)">
 
             
             <button type="submit">Registrar Movimentação</button>
@@ -53,6 +55,7 @@
     </div>
 </body>
 </html>
+
 
 <script>
     function validarQuantidade() {
@@ -76,5 +79,10 @@
             }
         }
     }
+
+        function validarNumeros(input) {
+        // Remove qualquer caractere que não seja um dígito numérico
+        input.value = input.value.replace(/\D/g, '');
+        }
     </script>
 {% endblock %}
