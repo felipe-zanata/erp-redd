@@ -44,7 +44,8 @@
             </select>
 
             <label for="qtidade-produto-baixa">Quantidade da baixa:</label>
-            <input type="number" id="qtidade-produto-baixa" name="qtidade-produto-baixa" required oninput="validarNumeros(this)">
+
+            <input type="number" min="1" id="qtidade-produto-baixa" name="qtidade-produto-baixa" required oninput="validarNumeros(this)">
 
             
             <button type="submit">Registrar Movimentação</button>
