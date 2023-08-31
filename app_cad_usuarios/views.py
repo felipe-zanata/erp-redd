@@ -280,12 +280,23 @@ def importar_excel(request):
                 if excel_file.name.endswith('.xlsx'):
                     excel_data = pd.read_excel(excel_file)
 
-                    excel_data.fillna("--", inplace=True)
-                    list_col = ['Codigo', 'Nome', 'Cor','Quantidade','Hiperlink', 'Local']
+                    # Função para substituir números negativos por 0
+                    def replace_negatives_with_zero(x):
+                        if isinstance(x, (int, float)) and x < 0:
+                            return 0
+                        return x
+
+                    # Aplicando a função à coluna 'Quantidade'
+                    excel_data['Quantidade'] = excel_data['Quantidade'].apply(replace_negatives_with_zero)
+
+                    excel_data.fillna(" ", inplace=True)
+                    list_col = ['Codigo', 'Nome', 'Cor', 'Quantidade', 'Hiperlink', 'Local']
                     
                     # verifica se todas as colunas estão no padrão
                     resultado = excel_data.columns.isin(list_col).all()
                     if resultado:                    
+                        # Remover 'href' se 'Hiperlink' estiver vazio
+                        excel_data['Hiperlink'] = excel_data.apply(lambda row: row['Hiperlink'] if row['Hiperlink'] else None, axis=1)
 
                         context = {
                             'excel_data': excel_data.to_dict(orient='records'),
@@ -295,9 +306,8 @@ def importar_excel(request):
                         list_ausent = set(list_col) - set(excel_data.columns)
                         context = {
                             'excel_data': None,
-                            'mensage': ", ".join(map(str,list_ausent)) 
+                            'mensage': ", ".join(map(str, list_ausent)) 
                         }
-
 
                     return render(request, 'produto/importar_excel.html', context)
         else:
@@ -307,6 +317,7 @@ def importar_excel(request):
         return render(request, 'produto/importar_excel.html', context)
     else:
         return render(request, 'adm/sem_permissao.html')
+
 
 
 def carregar_dados_excel(request):
