@@ -82,7 +82,7 @@
             <td>{{ produto_info.obs }}</td>
             <td>{{ produto_info.quantidade }}</td>
             <!-- <td>{{ produto_info.url }}</td> -->
-            <td><a href="{{ produto_info.link }}" target="_blank" id="link-produto" onclick="verificarLink(); return false;">{{ produto_info.link }}</a></td>
+            <td><a href="{{ produto_info.link }}" target="_blank" id="link-produto" onclick="verificarLink(); return true;">{{ produto_info.link }}</a></td>
             <td>{{ produto_info.local }}</td>
 
             {% if request.session.tipo_acesso != "vendedor" %}
