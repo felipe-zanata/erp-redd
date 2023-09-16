@@ -82,7 +82,7 @@
             <td>{{ produto_info.obs }}</td>
             <td>{{ produto_info.quantidade }}</td>
             <!-- <td>{{ produto_info.url }}</td> -->
-            <td><a href="{{ produto_info.link }}" target="_blank">{{ produto_info.link }}</a></td>
+            <td><a href="{{ produto_info.link }}" target="_blank" id="link-produto" onclick="verificarLink(); return false;">{{ produto_info.link }}</a></td>
             <td>{{ produto_info.local }}</td>
 
             {% if request.session.tipo_acesso != "vendedor" %}
@@ -226,5 +226,23 @@ function getTableData() {
         });
     });
 </script>
+
+<script>
+  function verificarLink() {
+      var link = document.getElementById('link-produto').href;
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', link, true);
+
+      xhr.onload = function () {
+          if (xhr.status === 404) {
+              alert('O produto não foi encontrado.');
+          }
+      };
+
+      xhr.send();
+  }
+</script>
+
 
 {% endblock %}
