@@ -148,11 +148,10 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
   var exportButton = document.getElementById("exportButton");
-
   if (exportButton) {
     exportButton.addEventListener("click", function () {
-      var csvData = Papa.unparse(getTableData(), {delimiter: ";"});
-
+      var csvData = Papa.unparse(
+        getTableData(), {delimiter: ";"});
       var csvDataWithBOM = "\uFEFF" + csvData;
       var blob = new Blob([csvDataWithBOM], { type: "text/csv;charset=utf-8;" });
       var link = document.createElement("a");
@@ -170,7 +169,7 @@
 
 function getTableData() {
   var data = [];
-  var table = document.evaluate('/html/body/div[2]/div[2]/table', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  var table = document.evaluate('//*[@id="tabela"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   var rows = table.querySelectorAll("tbody tr");
 
   var columnTitles = ["Codigo", "Nome", "Cor", "Quantidade", "Link", "Local"];
@@ -187,6 +186,8 @@ function getTableData() {
     
     data.push(rowData);
   });
+
+  console.log(data)
 
   return data;
 }
